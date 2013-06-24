@@ -1,0 +1,20 @@
+{
+  "name": "kreczko-arc_ce",
+  "author": "kreczko",
+  "description": "Puppet module for installation and configuration for an ARC CE",
+  "license": "Apache",
+  "project_page": "https://github.com/HEP-Puppet",
+  "source": "https://github.com/HEP-Puppet/puppet-arc_ce",
+  "summary": "Puppet module for installation and configuration for an ARC CE",
+  "version": "0.0.1",
+  "checksums": {
+    "Modulefile": "3c8843572aeb01f767de29bf00a74057",
+    "README.md": "fcb4bc01894d1c6c3021a61b4e31b239",
+    "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
+    "manifests/init.pp": "385cc2a8cf26afded823e8b537332f5d",
+    "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
+    "spec/spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
+    "tests/init.pp": "b67ceb6b158f0ca78ce22db30c952bc5"
+  },
+  "dependencies": []
+}
