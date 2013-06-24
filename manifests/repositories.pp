@@ -11,24 +11,24 @@ class arc_ce::repositories (
     yumrepo { 'nordugrid':
       name     => "NorduGrid - \$basearch - base",
       baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/base",
-      enabled  => true,
-      gpgcheck => true,
+      enabled  => 1,
+      gpgcheck => 1,
       gpgkey   => "http://download.nordugrid.org/RPM-GPG-KEY-nordugrid",
     }
 
     yumrepo { 'nordugrid-updates':
       name     => "NorduGrid - \$basearch - updates",
       baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/updates",
-      enabled  => true,
-      gpgcheck => true,
+      enabled  => 1,
+      gpgcheck => 1,
       gpgkey   => "http://download.nordugrid.org/RPM-GPG-KEY-nordugrid",
     }
 
     yumrepo { 'nordugrid-testing':
       name     => "NorduGrid - \$basearch - testing",
       baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/testing",
-      enabled  => true,
-      gpgcheck => true,
+      enabled  => 1,
+      gpgcheck => 1,
       gpgkey   => "http://download.nordugrid.org/RPM-GPG-KEY-nordugrid",
     }
   }
@@ -37,16 +37,16 @@ class arc_ce::repositories (
     yumrepo { 'EMI':
       name     => "EMI - \$basearch - base",
       baseurl  => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/sl6/\$basearch/base/repoview",
-      enabled  => true,
-      gpgcheck => true,
+      enabled  => 1,
+      gpgcheck => 1,
       gpgkey   => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/RPM-GPG-KEY-emi"
     }
 
     yumrepo { 'EMI-updates':
       name     => "EMI - \$basearch - updates",
       baseurl  => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/sl6/\$basearch/updates/repoview",
-      enabled  => true,
-      gpgcheck => true,
+      enabled  => 1,
+      gpgcheck => 1,
       gpgkey   => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/RPM-GPG-KEY-emi"
     }
   }

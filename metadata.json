@@ -14,7 +14,7 @@
     "manifests/init.pp": "385cc2a8cf26afded823e8b537332f5d",
     "manifests/install.pp": "c122cd768622648c112db6cf3d5f8e10",
     "manifests/params.pp": "c20cab2391ead937f797a64ed4176d08",
-    "manifests/repositories.pp": "ff81369575eaf0e97d297ba2af099545",
+    "manifests/repositories.pp": "12583fbe8dc010638fdc676368ccd513",
     "manifests/services.pp": "76bbd2a82ba40ef1c55892b4be8bc41c",
     "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec/spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
