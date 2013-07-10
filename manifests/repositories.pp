@@ -17,7 +17,7 @@ class arc_ce::repositories (
     }
 
     yumrepo { 'nordugrid-updates':
-      descr     => "NorduGrid - \$basearch - updates",
+      descr    => "NorduGrid - \$basearch - updates",
       baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/updates",
       enabled  => 1,
       gpgcheck => 1,
@@ -25,7 +25,7 @@ class arc_ce::repositories (
     }
 
     yumrepo { 'nordugrid-testing':
-      descr     => "NorduGrid - \$basearch - testing",
+      descr    => "NorduGrid - \$basearch - testing",
       baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/testing",
       enabled  => 1,
       gpgcheck => 1,
@@ -49,6 +49,14 @@ class arc_ce::repositories (
       gpgcheck => 1,
       gpgkey   => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/RPM-GPG-KEY-emi"
     }
+  }
+
+  yumrepo { 'EGI-trustanchors':
+    baseurl  => "http://repository.egi.eu/sw/production/cas/1/current/",
+    gpgcheck => 1,
+    gpgkey   => 'http://repository.egi.eu/sw/production/cas/1/GPG-KEY-EUGridPMA-RPM-3',
+    enabled  => 1,
+    priority => 80,
   }
 
 }
