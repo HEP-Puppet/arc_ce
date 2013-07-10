@@ -33,7 +33,27 @@ class arc_ce::services {
     hasrestart => true,
     hasstatus  => true,
   }
-  
+
   # the services should start in a certain order
-  Service['gridftpd'] -> Service['a-rex'] -> Service['nordugrid-arc-slapd']  -> Service['nordugrid-arc-bdii']  -> Service['nordugrid-arc-inforeg'] 
+  Service['gridftpd'] -> Service['a-rex'] -> Service['nordugrid-arc-slapd'] -> Service['nordugrid-arc-bdii'] -> Service['nordugrid-arc-inforeg'
+    ]
+
+  $pkgname = fetch-crl
+  if $::osfamily == 'RedHat' and $::operatingsystemversion =~ /^5\..*/ {
+    $pkgname = fetch-crl3
+  }
+
+  service { "${pkgname}-boot":
+    ensure     => false,
+    enable     => false,
+    hasrestart => true,
+    hasstatus  => true,
+  }
+
+  service { "${pkgname}-cron":
+    ensure     => true,
+    enable     => true,
+    hasrestart => true,
+    hasstatus  => true,
+  }
 }
