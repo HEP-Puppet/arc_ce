@@ -1,15 +1,15 @@
 class arc_ce::repositories (
-  $nordugrid_repo_version = $arc_ce::params::nordugrid_repo_version,
-  $use_nordugrid          = $arc_ce::params::use_nordugrid_repo,
-  $use_emi                = $arc_ce::params::use_emi_repo,
-  $emi_repo_version       = $arc_ce::params::emi_repo_version) inherits arc_ce::params {
+  $nordugrid_repo_version = "13.02",
+  $use_nordugrid          = false,
+  $use_emi                = false,
+  $emi_repo_version       = 3) {
   if !$use_emi and !$use_nordugrid {
     notify { "No repository for ARC CE defined": }
   }
 
   if $use_nordugrid {
     yumrepo { 'nordugrid':
-      name     => "NorduGrid - \$basearch - base",
+      descr    => "NorduGrid - \$basearch - base",
       baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/base",
       enabled  => 1,
       gpgcheck => 1,
@@ -17,7 +17,7 @@ class arc_ce::repositories (
     }
 
     yumrepo { 'nordugrid-updates':
-      name     => "NorduGrid - \$basearch - updates",
+      descr     => "NorduGrid - \$basearch - updates",
       baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/updates",
       enabled  => 1,
       gpgcheck => 1,
@@ -25,7 +25,7 @@ class arc_ce::repositories (
     }
 
     yumrepo { 'nordugrid-testing':
-      name     => "NorduGrid - \$basearch - testing",
+      descr     => "NorduGrid - \$basearch - testing",
       baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/testing",
       enabled  => 1,
       gpgcheck => 1,
@@ -34,16 +34,16 @@ class arc_ce::repositories (
   }
 
   if $use_emi {
-    yumrepo { 'EMI':
-      name     => "EMI - \$basearch - base",
+    yumrepo { "emi${emi_repo_version}-base":
+      descr    => "EMI - \$basearch - base",
       baseurl  => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/sl6/\$basearch/base/repoview",
       enabled  => 1,
       gpgcheck => 1,
       gpgkey   => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/RPM-GPG-KEY-emi"
     }
 
-    yumrepo { 'EMI-updates':
-      name     => "EMI - \$basearch - updates",
+    yumrepo { "emi${emi_repo_version}-updates":
+      descr    => "EMI - \$basearch - updates",
       baseurl  => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/sl6/\$basearch/updates/repoview",
       enabled  => 1,
       gpgcheck => 1,
