@@ -36,7 +36,7 @@ class arc_ce::repositories (
   if $use_emi {
     yumrepo { "emi${emi_repo_version}-base":
       descr    => "EMI - \$basearch - base",
-      baseurl  => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/sl6/\$basearch/base/repoview",
+      baseurl  => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/sl6/\$basearch/base",
       enabled  => 1,
       gpgcheck => 1,
       gpgkey   => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/RPM-GPG-KEY-emi"
@@ -44,7 +44,7 @@ class arc_ce::repositories (
 
     yumrepo { "emi${emi_repo_version}-updates":
       descr    => "EMI - \$basearch - updates",
-      baseurl  => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/sl6/\$basearch/updates/repoview",
+      baseurl  => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/sl6/\$basearch/updates",
       enabled  => 1,
       gpgcheck => 1,
       gpgkey   => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/RPM-GPG-KEY-emi"
