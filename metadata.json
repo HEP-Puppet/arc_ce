@@ -19,7 +19,7 @@
     "manifests/params.pp": "c20cab2391ead937f797a64ed4176d08",
     "manifests/repositories.pp": "b298ae1258d9a3fb1892e89020d10a32",
     "manifests/services.pp": "5b888bd2cb2d4a0ee7913b633444ac5b",
-    "manifests/users.pp": "5f5bb02e2c41642b227bb106d97f33c4",
+    "manifests/users.pp": "4d8966a8dd0e8fe653e017b74626f370",
     "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec/spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
     "tests/init.pp": "b67ceb6b158f0ca78ce22db30c952bc5"
