@@ -52,6 +52,7 @@ class arc_ce::repositories (
   }
 
   yumrepo { 'EGI-trustanchors':
+    descr    => "EGI-trustanchors",
     baseurl  => "http://repository.egi.eu/sw/production/cas/1/current/",
     gpgcheck => 1,
     gpgkey   => 'http://repository.egi.eu/sw/production/cas/1/GPG-KEY-EUGridPMA-RPM-3',
