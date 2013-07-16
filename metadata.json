@@ -12,7 +12,7 @@
     "README.md": "efb1af6785ec6eb41a981339250001d7",
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files/arc.conf.reference": "28035d1089a768e91c3770297925d450",
-    "manifests/config.pp": "c93a8ce8c64e736e11d83b248b472dff",
+    "manifests/config.pp": "e4c8ce72f84977ff6fee4941e298d7f0",
     "manifests/init.pp": "c233fe277b8d41cf17e9101fe3e72064",
     "manifests/install.pp": "c77a883de71f975a6c4eaa6012793a87",
     "manifests/params.pp": "c20cab2391ead937f797a64ed4176d08",

@@ -8,7 +8,7 @@ class arc_ce::config (
   $cache_dir         = "/tmp/cache",) {
   file { '/etc/arc.conf':
     ensure  => present,
-    content => template("${module_name}/sender.cfg.erb"),
+    content => template("${module_name}/arc.cfg.erb"),
     require => Package['nordugrid-arc-compute-element'],
   }
 }
