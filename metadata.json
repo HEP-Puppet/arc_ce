@@ -21,7 +21,7 @@
     "manifests/users.pp": "4d8966a8dd0e8fe653e017b74626f370",
     "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec/spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
-    "templates/arc.cfg.erb": "5f4d92bd2238d8aa6654312e1b332284",
+    "templates/arc.cfg.erb": "7dddd9aec088e3f4ab2d81a3d9e8efe8",
     "tests/init.pp": "b67ceb6b158f0ca78ce22db30c952bc5"
   },
   "dependencies": []
