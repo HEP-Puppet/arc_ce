@@ -4,7 +4,12 @@
   "summary": "Puppet module for installation and configuration for an ARC CE",
   "author": "kreczko",
   "description": "Puppet module for installation and configuration for an ARC CE",
-  "dependencies": [],
+  "dependencies": [
+    {
+      "name": "puppetlabs/firewall",
+      "version_requirement": "\u003e\u003d0.3.1"
+    }
+  ],
   "types": [],
   "checksums": {},
   "source": "git@github.com:HEP-Puppet/puppet-arc_ce.git",
