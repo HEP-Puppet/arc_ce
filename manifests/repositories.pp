@@ -9,7 +9,7 @@ class arc_ce::repositories (
 
   if $use_nordugrid {
     yumrepo { 'nordugrid':
-      descr    => 'NorduGrid - \$basearch - base',
+      descr    => 'NorduGrid - $basearch - base',
       baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/base",
       enabled  => 1,
       gpgcheck => 1,
@@ -17,7 +17,7 @@ class arc_ce::repositories (
     }
 
     yumrepo { 'nordugrid-updates':
-      descr    => 'NorduGrid - \$basearch - updates',
+      descr    => 'NorduGrid - $basearch - updates',
       baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/updates",
       enabled  => 1,
       gpgcheck => 1,
@@ -25,7 +25,7 @@ class arc_ce::repositories (
     }
 
     yumrepo { 'nordugrid-testing':
-      descr    => 'NorduGrid - \$basearch - testing',
+      descr    => 'NorduGrid - $basearch - testing',
       baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/testing",
       enabled  => 1,
       gpgcheck => 1,
@@ -35,7 +35,7 @@ class arc_ce::repositories (
 
   if $use_emi {
     yumrepo { "emi${emi_repo_version}-base":
-      descr    => 'EMI - \$basearch - base',
+      descr    => 'EMI - $basearch - base',
       baseurl  => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/sl6/\$basearch/base",
       enabled  => 1,
       gpgcheck => 1,
@@ -43,7 +43,7 @@ class arc_ce::repositories (
     }
 
     yumrepo { "emi${emi_repo_version}-updates":
-      descr    => 'EMI - \$basearch - updates',
+      descr    => 'EMI - $basearch - updates',
       baseurl  => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/sl6/\$basearch/updates",
       enabled  => 1,
       gpgcheck => 1,
