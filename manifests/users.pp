@@ -10,7 +10,7 @@ class arc_ce::users {
     ensure     => present,
       comment    => 'grid user for tests',
       password   => '!!',
-      shell      => "/bin/bash",
+      shell      => '/bin/bash',
       gid        => 13370,
       home       => '/home/griduser1',
       managehome => true,
