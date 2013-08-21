@@ -5,7 +5,8 @@ class arc_ce::config (
   $lrms              = 'fork',
   $session_dir       = '/tmp/grid',
   $control_dir       = '/tmp/jobstatus',
-  $cache_dir         = '/tmp/cache',) {
+  $cache_dir         = '/tmp/cache',
+  $domain_name       = 'ARC-TESTDOMAIN') {
   file { '/etc/arc.conf':
     ensure  => present,
     content => template("${module_name}/arc.cfg.erb"),
