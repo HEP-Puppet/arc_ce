@@ -1,0 +1,1 @@
+- [ ] include BDII configuration from cernops module
