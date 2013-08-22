@@ -3,9 +3,8 @@ class arc_ce::config (
   $resource_location = 'Lund, Sweden',
   $mail              = 'gridmaster@hep.lu.se',
   $lrms              = 'fork',
-  $session_dir       = '/tmp/grid',
-  $control_dir       = '/tmp/jobstatus',
-  $cache_dir         = '/tmp/cache',
+  $log_directory     = '/var/log/arc',
+  $run_directory     = '/var/run/arc',
   $domain_name       = 'ARC-TESTDOMAIN') {
   file { '/etc/arc.conf':
     ensure  => present,
