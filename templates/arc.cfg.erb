@@ -9,11 +9,17 @@ x509_user_cert="/etc/grid-security/hostcert.pem"
 x509_cert_dir="/etc/grid-security/certificates"
 gridmap="/etc/grid-security/grid-mapfile"
 lrms="<%= lrms %>"
+<%if @lrms == "condor" then -%>
+condor_bin_path=/usr/bin
+<% elsif @lrms == "sge" then -%>
+sge_bin_path="/opt/n1ge6/bin/lx24-x86"
+sge_root="/opt/n1ge6"
+<% end -%>
 
 [grid-manager]
 user="root"
-controldir="<%= log_directory %>/jobstatus"
-sessiondir="<%= log_directory %>/grid"
+controldir="/var/spool/nordugrid/jobstatus"
+sessiondir="/scratch/grid"
 debug="3"
 logfile="<%= log_directory %>/grid/grid-manager.log"
 pidfile="<%= run_directory %>/grid/grid-manager.pid"
@@ -44,6 +50,12 @@ providerlog="<%= log_directory %>/infosys/infoprovider.log"
 provider_loglevel="2"
 ## infosys_glue2 - Enables GLUE2 schema
 infosys_glue2_ldap="enable"
+## infosys_glue12 - Enables GLUE 1.2/1.3
+infosys_glue12="enable"
+
+bdii_debug_level="INFO"
+bdii_run_dir="/var/run/arc/bdii"
+
 
 [infosys/admindomain]
 name="<%= domain_name %>"
@@ -56,6 +68,7 @@ architecture="adotf"
 nodeaccess="inbound"
 nodeaccess="outbound"
 
+<%if @lrms == "fork" -%>
 [queue/fork]
 name="fork"
 fork_job_limit="cpunumber"
@@ -64,3 +77,4 @@ scheduling_policy="FIFO"
 comment="This queue is nothing more than a fork host"
 nodecpu="adotf"
 architecture="adotf"
+<% end -%>
