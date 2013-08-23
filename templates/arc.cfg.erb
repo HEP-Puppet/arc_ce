@@ -13,7 +13,8 @@ lrms="<%= lrms %>"
 condor_bin_path=/usr/bin
 <% elsif @lrms == "sge" then -%>
 sge_bin_path="/opt/n1ge6/bin/lx24-x86"
-sge_root="/opt/n1ge6"<% end -%>
+sge_root="/opt/n1ge6"
+<% end -%>
 
 [grid-manager]
 user="root"
@@ -47,10 +48,11 @@ slapd_loglevel="0"
 registrationlog="<%= log_directory %>/infosys/inforegistration.log"
 providerlog="<%= log_directory %>/infosys/infoprovider.log"
 provider_loglevel="2"
-<%if @enable_glue2 == "true" then -%>
+<%if @enable_glue2 == true then -%>
 ## infosys_glue2 - Enables GLUE2 schema
-infosys_glue2_ldap="enable"<% end -%>
-<%if @enable_glue1 == "true" then -%>
+infosys_glue2_ldap="enable"
+<% end -%>
+<%if @enable_glue1 == true then -%>
 ## infosys_glue12 - Enables GLUE 1.2/1.3
 infosys_glue12="enable"
 <% end -%>
@@ -58,7 +60,7 @@ infosys_glue12="enable"
 bdii_debug_level="INFO"
 bdii_run_dir="/var/run/arc/bdii"
 
-<%if @enable_glue1 == "true" then -%>
+<%if @enable_glue1 == true then -%>
 ##TODO: add them to config parameters
 [infosys/glue12]
 resource_location="Bristol, UK"
@@ -72,7 +74,8 @@ provide_glue_site_info="true"
 
 [infosys/site/sitename]
 unique_id="UKI-SOUTHGRID-BRIS-HEP"
-url="ldap://localhost:2135/mds-vo-name=resource,o=grid"<% end -%>
+url="ldap://localhost:2135/mds-vo-name=resource,o=grid"
+<% end -%>
 
 [infosys/admindomain]
 name="<%= domain_name %>"
@@ -93,4 +96,5 @@ homogeneity="True"
 scheduling_policy="FIFO"
 comment="This queue is nothing more than a fork host"
 nodecpu="adotf"
-architecture="adotf"<% end -%>
+architecture="adotf"
+<% end -%>
