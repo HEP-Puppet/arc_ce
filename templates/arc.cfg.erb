@@ -13,8 +13,7 @@ lrms="<%= lrms %>"
 condor_bin_path=/usr/bin
 <% elsif @lrms == "sge" then -%>
 sge_bin_path="/opt/n1ge6/bin/lx24-x86"
-sge_root="/opt/n1ge6"
-<% end -%>
+sge_root="/opt/n1ge6"<% end -%>
 
 [grid-manager]
 user="root"
@@ -48,21 +47,33 @@ slapd_loglevel="0"
 registrationlog="<%= log_directory %>/infosys/inforegistration.log"
 providerlog="<%= log_directory %>/infosys/infoprovider.log"
 provider_loglevel="2"
+<%if @enable_glue2 == "true" then -%>
 ## infosys_glue2 - Enables GLUE2 schema
-infosys_glue2_ldap="enable"
+infosys_glue2_ldap="enable"<% end -%>
+<%if @enable_glue1 == "true" then -%>
 ## infosys_glue12 - Enables GLUE 1.2/1.3
-infosys_glue12="enable"
-
+infosys_glue12="enable"<% end -%>
 bdii_debug_level="INFO"
 bdii_run_dir="/var/run/arc/bdii"
 
+<%if @enable_glue1 == "true" then -%>
+##TODO: add them to config parameters
+[infosys/glue12]
+resource_location="Bristol, UK"
+resource_latitude=51.4585
+resource_longitude=-02.6021
+cpu_scaling_reference_si00=2400
+processor_other_description="Cores=4,Benchmark=7.46-HEP-SPEC06"
+glue_site_web="http://www.bris.ac.uk/physics/research/particle/"
+glue_site_unique_id="UKI-SOUTHGRID-BRIS-HEP"
+provide_glue_site_info="true"<% end -%>
 
 [infosys/admindomain]
 name="<%= domain_name %>"
 
 [cluster]
-cluster_alias="MINIMAL Computing Element"
-comment="This is a minimal out-of-box CE setup"
+cluster_alias="<%= cluster_alias %>"
+comment="<%= cluster_comment %>"
 homogeneity="True"
 architecture="adotf"
 nodeaccess="inbound"
@@ -76,5 +87,4 @@ homogeneity="True"
 scheduling_policy="FIFO"
 comment="This queue is nothing more than a fork host"
 nodecpu="adotf"
-architecture="adotf"
-<% end -%>
+architecture="adotf"<% end -%>
