@@ -6,7 +6,12 @@ pidfile="<%= run_directory %>/grid/gridftpd.pid"
 port="2811"
 allowunknown="yes"
 
+#unixmap="* mapfile /etc/grid-security/grid-mapfile"
+#unixmap="* lcmaps liblcmaps.so /usr/lib64 /usr/etc/lcmaps/lcmaps.db voms"
+#unixmap="nobody:nobody all"
+
 [gridftpd/jobs]
+#groupcfg="users"
 path="/jobs"
 plugin="jobplugin.so"
 allownew="yes"
