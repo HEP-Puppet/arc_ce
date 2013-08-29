@@ -11,7 +11,7 @@ define arc_ce::queue (
     'ScientificSL',
     '6.4',
     'Carbon'],
-  $nodecpu             = 'AMD Opteron(tm) Processor 4386 @ 3.1GHz',
+  $node_cpu             = 'AMD Opteron(tm) Processor 4386 @ 3.1GHz',
   $condor_requirements = '(Opsys == \'linux\') && (OpSysAndVer == \'SL6\')') {
   concat::fragment { "arc_cfg_queue_${title}":
     target  => '/etc/arc.conf',
