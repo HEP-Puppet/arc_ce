@@ -41,22 +41,28 @@ class arc_ce::config (
     order   => 02,
   }
   
+  concat::fragment { 'arc.conf_group':
+    target  => '/etc/arc.conf',
+    content => template("${module_name}/group.erb"),
+    order   => 03,
+  }
+  
   concat::fragment { 'arc.conf_gridftpd':
     target  => '/etc/arc.conf',
     content => template("${module_name}/gridftpd.erb"),
-    order   => 03,
+    order   => 04,
   }
   
   concat::fragment { 'arc.conf_infosys':
     target  => '/etc/arc.conf',
     content => template("${module_name}/infosys.erb"),
-    order   => 04,
+    order   => 05,
   }
   
   concat::fragment { 'arc.conf_cluster':
     target  => '/etc/arc.conf',
     content => template("${module_name}/cluster.erb"),
-    order   => 05,
+    order   => 06,
   }
 
   create_resources('arc_ce::queue', $queues, $queue_defaults)
