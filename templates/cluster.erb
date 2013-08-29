@@ -1,0 +1,16 @@
+[cluster]
+cluster_alias="<%= cluster_alias %>"
+comment="<%= cluster_comment %>"
+cluster_location="Chilton, Oxfordshire, UK"
+cluster_owner="Bristol HEP"
+clustersupport="lcg-site-admin@bristol.ac.uk
+<% if @lrms == 'condor' -%>
+lrmsconfig="HTCondor <%= @condor_version -%>"
+<% end -%>
+homogeneity="True"
+architecture="adotf"
+nodeaccess="outbound"
+<% @authorized_vos.each do |val| -%>
+authorizedvo="<%= val %>"
+<% end -%>
+
