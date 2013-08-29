@@ -1,0 +1,14 @@
+[queue/<%= @queue_name -%>]
+name="<%= @queue_name -%>"
+homogeneity="<%= @homogeneity -%>"
+comment="<%= @comment -%>"
+defaultmemory="<%= @default_memory -%>"
+nodememory="<%= @node_memory -%>"
+MainMemorySize=<%= @main_memory_size -%>
+timelimit="<%= @time_limit -%>"
+OSFamily="<%= @os_family -%>"
+<% @opsys.each do |val| -%>
+opsys="<%= val %>"
+<% end -%>
+nodecpu="<%= @node_cpu -%>"
+condor_requirements="<%= @condor_requirements -%>"
