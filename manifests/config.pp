@@ -27,6 +27,8 @@ class arc_ce::config (
     'LHCb',
     'vo.landslides.mossaic.org',
     'vo.southgrid.ac.uk']) {
+  file { $session_dir: ensure => directory, }
+  
   concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'], }
   
   concat::fragment { 'arc.conf_common':
