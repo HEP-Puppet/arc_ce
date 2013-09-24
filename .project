@@ -3,6 +3,8 @@
 	<name>arc_ce</name>
 	<comment></comment>
 	<projects>
+		<project>puppet-concat</project>
+		<project>puppetlabs-firewall</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

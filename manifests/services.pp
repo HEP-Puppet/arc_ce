@@ -1,33 +1,33 @@
 class arc_ce::services {
-  service { "gridftpd":
+  service { 'gridftpd':
     ensure     => running,
     enable     => true,
     hasrestart => true,
     hasstatus  => true,
   }
 
-  service { "a-rex":
+  service { 'a-rex':
     ensure     => running,
     enable     => true,
     hasrestart => true,
     hasstatus  => true,
   }
 
-  service { "nordugrid-arc-slapd":
+  service { 'nordugrid-arc-slapd':
     ensure     => running,
     enable     => true,
     hasrestart => true,
     hasstatus  => true,
   }
 
-  service { "nordugrid-arc-bdii":
+  service { 'nordugrid-arc-bdii':
     ensure     => running,
     enable     => true,
     hasrestart => true,
     hasstatus  => true,
   }
 
-  service { "nordugrid-arc-inforeg":
+  service { 'nordugrid-arc-inforeg':
     ensure     => running,
     enable     => true,
     hasrestart => true,

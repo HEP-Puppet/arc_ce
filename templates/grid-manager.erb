@@ -1,0 +1,38 @@
+[grid-manager]
+user="root"
+controldir="/var/spool/arc/jobstatus"
+<% @session_dir.each do |val| -%>
+sessiondir="<%= val %>"
+<% end -%>
+debug="3"
+logfile="<%= log_directory %>/grid/grid-manager.log"
+pidfile="<%= run_directory %>/grid/grid-manager.pid"
+mail="<%= mail %>"
+joblog="<%= log_directory %>/grid/gm-jobs.log"
+shared_filesystem="no"
+max_job_control_requests=-1
+max_infosys_requests=-1
+wakeupperiod="180"
+defaultttl="345600 432000"
+runtimedir="/etc/arc/runtime"
+<% if @apel_testing == true -%>
+jobreport="APEL:http://test-msg02.afroditi.hellasgrid.gr:6163"
+jobreport_options="urbatch:50,archiving:/var/run/arc/urs,topic:/queue/global.accounting.cputest.CENTRAL,gocdb_name:<%= domain_name %>,use_ssl:false,Network:TEST-NWOB,benchmark_type:HEPSPEC,benchmark_value:<%= hepspec_per_core %>,benchmark_description:HS06"
+<% else -%>
+jobreport="APEL:http://msg.cro-ngi.hr:6162"
+jobreport_options="urbatch:50,archiving:/var/run/arc/urs,topic:/queue/global.accounting.cpu.CENTRAL,gocdb_name:<%= domain_name %>,use_ssl:false,Network:PROD,benchmark_type:HEPSPEC,benchmark_value:<%= hepspec_per_core %>,benchmark_description:HS06"
+<%end -%>
+jobreport_credentials="/etc/grid-security/hostkey.pem /etc/grid-security/hostcert.pem /etc/grid-security/certificates"
+jobreport_publisher="jura"
+<% if @use_argus == true -%>
+#arguspep_endpoint="https://<%= @argus_server %>:8154/authz"
+#arguspep_profile="cream"
+#arguspep_usermap="no"
+arguspdp_endpoint="https://<%= @argus_server %>:8152/authz"
+arguspdp_profile="cream"
+arex_mount_point="https://<%= fqdn %>:60000/arex"
+<% end -%>
+
+#[group/users]
+#lcas="liblcas.so /usr/lib64 /usr/etc/lcas/lcas.db"
+
