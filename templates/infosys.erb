@@ -7,10 +7,9 @@ slapd_loglevel="0"
 threads="32"
 timelimit="3600"
 infoproviders_timeout="1200"
-registrationlog="<%= log_directory %>/infosys/inforegistration.log"
-providerlog="<%= log_directory %>/infosys/infoprovider.log"
+registrationlog="<%= log_directory %>/inforegistration.log"
+providerlog="<%= log_directory %>/infoprovider.log"
 provider_loglevel="3"
-bdii_debug_level="ERROR"
 bdii_delete_delay=0
 <%if @enable_glue2 == true then -%>
 ## infosys_glue2 - Enables GLUE2 schema
