@@ -6,4 +6,7 @@ class arc_ce::install (
       Yumrepo[$from_repository],
       Yumrepo['EGI-trustanchors']],
   }
+
+  include arc_ce::lcmaps::install
+  include arc_ce::lcas::install
 }

@@ -28,11 +28,11 @@ jobreport_publisher="jura"
 #arguspep_endpoint="https://<%= @argus_server %>:8154/authz"
 #arguspep_profile="cream"
 #arguspep_usermap="no"
-arguspdp_endpoint="https://<%= @argus_server %>:8152/authz"
-arguspdp_profile="cream"
-arex_mount_point="https://<%= fqdn %>:60000/arex"
+#arguspdp_endpoint="https://<%= @argus_server %>:8152/authz"
+#arguspdp_profile="cream"
+#arex_mount_point="https://<%= fqdn %>:60000/arex"
 <% end -%>
 
-#[group/users]
-#lcas="liblcas.so /usr/lib64 /usr/etc/lcas/lcas.db"
+[group/users]
+lcas="liblcas.so /usr/lib64 /usr/etc/lcas/lcas.db"
 
