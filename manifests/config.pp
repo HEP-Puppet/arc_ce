@@ -21,14 +21,14 @@ class arc_ce::config (
   $apel_testing      = true,
   $hepspec_per_core  = '11.17',
   $authorized_vos    = [
-    'ALICE',
-    'ATLAS',
-    'CMS',
+    'alice',
+    'atlas',
+    'cms',
     'ops',
     'dteam',
     'gridpp',
     'ilc',
-    'LHCb',
+    'lhcb',
     'vo.landslides.mossaic.org',
     'vo.southgrid.ac.uk']) {
   file { $session_dir: ensure => directory, }
