@@ -77,4 +77,14 @@ class arc_ce::config (
   class { 'arc_ce::lcmaps::config': argus_server => $argus_server }
 
   class { 'arc_ce::lcas::config': }
+
+  # for GLITE, just an empty file
+  file { '/etc/arc/runtime/ENV': ensure => directory, } -> file { '/etc/arc/runtime/ENV/GLITE'
+  : ensure => present }
+
+  # apply manual fixes:
+  file { '/usr/share/arc/submit-condor-job':
+    ensure => present,
+    source => "puppet:///modules/${module_name}/fixes/submit-condor-job",
+  }
 }
