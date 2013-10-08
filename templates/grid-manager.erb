@@ -25,13 +25,15 @@ jobreport_options="urbatch:50,archiving:/var/run/arc/urs,topic:/queue/global.acc
 jobreport_credentials="/etc/grid-security/hostkey.pem /etc/grid-security/hostcert.pem /etc/grid-security/certificates"
 jobreport_publisher="jura"
 <% if @use_argus == true -%>
+# not in use at the moment, instead via lcas
 #arguspep_endpoint="https://<%= @argus_server %>:8154/authz"
 #arguspep_profile="cream"
 #arguspep_usermap="no"
 #arguspdp_endpoint="https://<%= @argus_server %>:8152/authz"
 #arguspdp_profile="cream"
-#arex_mount_point="https://<%= fqdn %>:60000/arex"
 <% end -%>
+#web service
+arex_mount_point="https://<%= fqdn %>:60000/arex"
 
 [group/users]
 lcas="liblcas.so /usr/lib64 /usr/etc/lcas/lcas.db"
