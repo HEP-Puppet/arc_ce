@@ -77,8 +77,11 @@ class arc_ce::config (
   }
 
   class { 'arc_ce::config::infosys':
+    cores_per_worker   => $cores_per_worker,
+    domain_name        => $domain_name,
     enable_glue1       => $enable_glue1,
     enable_glue2       => $enable_glue2,
+    glue_site_web      => $glue_site_web,
     hepspec_per_core   => $hepspec_per_core,
     log_directory      => $log_directory,
     resource_latitude  => $resource_latitude,
