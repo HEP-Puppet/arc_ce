@@ -1,16 +1,37 @@
 [cluster]
 cluster_alias="<%= cluster_alias %>"
 comment="<%= cluster_comment %>"
-cluster_location="Chilton, Oxfordshire, UK"
-cluster_owner="Bristol HEP"
-clustersupport="lcg-site-admin@bristol.ac.uk"
+cluster_location="<%= cluster_location %>"
+cluster_owner="<%= @cluster_owner %>"
+clustersupport="<%= @cluster_support %>"
 <% if @lrms == 'condor' -%>
 lrmsconfig="HTCondor <%= @condor_version -%>"
 <% end -%>
+<% if @cluster_is_homogenious == true -%>
 homogeneity="True"
+<% else -%>
+homogeneity="False"
+<% end -%>
 architecture="adotf"
+<% if @cluster_nodes_private == true -%>
+nodeaccess="inbound"
+<% else -%>
 nodeaccess="outbound"
+<% end -%>
 <% @authorized_vos.each do |val| -%>
 authorizedvo="<%= val %>"
 <% end -%>
+<% if @cluster_is_homogenious == true -%>
+#For homogenious clusters
+opsys="<%= cluster_description['OSName'] %>"
+opsys="<%= cluster_description['OSVersion'] %>"
+#cluster description for infosys
+OSFamily="<%= cluster_description['OSFamily'] %>"
+OSName="<%= cluster_description['OSName'] %>"
+OSVersion="<%= cluster_description['OSVersion'] %>"
+CPUVendor="<%= cluster_description['CPUVendor'] %>"
+CPUClockSpeed="<%= cluster_description['CPUClockSpeed'] %>"
+CPUModel="<%= cluster_description['CPUModel'] %>"
+<% end -%>
+cpudistribution="<%= cluster_cpudistribution.join(',') %>"
 
