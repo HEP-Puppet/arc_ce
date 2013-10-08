@@ -33,7 +33,9 @@ class arc_ce::firewall {
 
   firewall { '204 For GridFTP data channels':
     action => accept,
-    proto  => tcp,
+    proto  => [
+      tcp,
+      udp],
     state  => NEW,
     dport  => '9000-9300',
   }
