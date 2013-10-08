@@ -1,41 +1,6 @@
 class arc_ce::config (
-  $cluster_alias           = 'MINIMAL Computing Element',
-  $cluster_comment         = 'This is a minimal out-of-box CE setup',
-  $cluster_description     = {
-    'OSFamily'      => 'linux',
-    'OSName'        => 'ScientificSL',
-    'OSVersion'     => '6.4',
-    'CPUVendor'     => 'AMD',
-    'CPUClockSpeed' => '3100',
-    'CPUModuel'     => 'AMD Opteron(tm) Processor 4386',
-  }
-  ,
-  $cluster_nodes_private   = true,
-  $cluster_is_homogenious  = true,
-  $cluster_cpudistribution = ['16cpu:12'],
-  $cores_per_worker        = 16,
-  $glue_site_web           = 'http://www.bristol.ac.uk/physics/research/particle/',
-  $resource_location       = 'Bristol, UK',
-  $resource_latitude       = '51.4585',
-  $resource_longitude      = '-02.6021',
-  $mail                    = 'gridmaster@hep.lu.se',
-  $lrms                    = 'fork',
-  $enable_glue1            = false,
-  $enable_glue2            = true,
-  $log_directory           = '/var/log/arc',
-  $run_directory           = '/var/run/arc',
-  $domain_name             = 'GOCDB-SITENAME',
-  $session_dir             = ['/var/spool/arc/grid00'],
-  $queue_defaults          = {
-  }
-  ,
-  $queues                  = {
-  }
-  ,
-  $use_argus               = false,
-  $argus_server            = 'argus.example.com',
   $apel_testing            = true,
-  $hepspec_per_core        = '11.17',
+  $argus_server            = 'argus.example.com',
   $authorized_vos          = [
     'alice',
     'atlas',
@@ -46,7 +11,42 @@ class arc_ce::config (
     'ilc',
     'lhcb',
     'vo.landslides.mossaic.org',
-    'vo.southgrid.ac.uk']) {
+    'vo.southgrid.ac.uk'],
+  $cluster_alias           = 'MINIMAL Computing Element',
+  $cluster_comment         = 'This is a minimal out-of-box CE setup',
+  $cluster_cpudistribution = ['16cpu:12'],
+  $cluster_description     = {
+    'OSFamily'      => 'linux',
+    'OSName'        => 'ScientificSL',
+    'OSVersion'     => '6.4',
+    'CPUVendor'     => 'AMD',
+    'CPUClockSpeed' => '3100',
+    'CPUModuel'     => 'AMD Opteron(tm) Processor 4386',
+  }
+  ,
+  $cluster_is_homogenious  = true,
+  $cluster_nodes_private   = true,
+  $cores_per_worker        = 16,
+  $domain_name             = 'GOCDB-SITENAME',
+  $enable_glue1            = false,
+  $enable_glue2            = true,
+  $glue_site_web           = 'http://www.bristol.ac.uk/physics/research/particle/',
+  $hepspec_per_core        = '11.17',
+  $log_directory           = '/var/log/arc',
+  $lrms                    = 'fork',
+  $mail                    = 'gridmaster@hep.lu.se',
+  $queue_defaults          = {
+  }
+  ,
+  $queues                  = {
+  }
+  ,
+  $resource_location       = 'Bristol, UK',
+  $resource_latitude       = '51.4585',
+  $resource_longitude      = '-02.6021',
+  $run_directory           = '/var/run/arc',
+  $session_dir             = ['/var/spool/arc/grid00'],
+  $use_argus               = false,) {
   file { $session_dir: ensure => directory, }
 
   concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'], 
