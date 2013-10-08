@@ -26,6 +26,7 @@ class arc_ce::config (
   ,
   $cluster_is_homogenious  = true,
   $cluster_nodes_private   = true,
+  $cluster_owner           = 'Bristol HEP',
   $cores_per_worker        = 16,
   $domain_name             = 'GOCDB-SITENAME',
   $enable_glue1            = false,
@@ -97,7 +98,9 @@ class arc_ce::config (
     cluster_is_homogenious  => $cluster_is_homogenious,
     cluster_location        => $resource_location,
     cluster_nodes_private   => $cluster_nodes_private,
+    cluster_owner           => $cluster_owner,
     cluster_support         => $mail,
+    lrms                    => $lrms,
   }
 
   create_resources('arc_ce::queue', $queues, $queue_defaults)
