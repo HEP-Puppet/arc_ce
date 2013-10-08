@@ -115,7 +115,9 @@ class arc_ce::config (
 
   # apply manual fixes:
   file { '/usr/share/arc/submit-condor-job':
+    backup => '.bak',
     ensure => present,
     source => "puppet:///modules/${module_name}/fixes/submit-condor-job",
+    mode   => 0755,
   }
 }
