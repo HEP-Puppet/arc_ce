@@ -1,6 +1,10 @@
 [gridftpd]
 user="root"
+<%if @debug == true then -%>
+debug="5"
+<% else -%>
 debug="3"
+<%end -%>
 logfile="<%= log_directory %>/gridftpd.log"
 pidfile="<%= run_directory %>/gridftpd.pid"
 port="2811"
@@ -9,6 +13,9 @@ allowunknown="yes"
 unixmap="* mapfile /etc/grid-security/local-grid-mapfile"
 unixmap="* lcmaps liblcmaps.so /usr/lib64 /usr/etc/lcmaps/lcmaps.db voms"
 unixmap="nobody:nobody all"
+<% if @gridftp_max_connections -%>
+maxconnections = <%= @gridftp_max_connections -%>
+<% end -%>
 
 [gridftpd/jobs]
 groupcfg="users"
