@@ -7,10 +7,9 @@ slapd_loglevel="0"
 threads="32"
 timelimit="3600"
 infoproviders_timeout="1200"
-registrationlog="<%= log_directory %>/infosys/inforegistration.log"
-providerlog="<%= log_directory %>/infosys/infoprovider.log"
+registrationlog="<%= log_directory %>/inforegistration.log"
+providerlog="<%= log_directory %>/infoprovider.log"
 provider_loglevel="3"
-bdii_debug_level="ERROR"
 bdii_delete_delay=0
 <%if @enable_glue2 == true then -%>
 ## infosys_glue2 - Enables GLUE2 schema
@@ -20,6 +19,7 @@ infosys_glue2_ldap="enable"
 ## infosys_glue12 - Enables GLUE 1.2/1.3
 infosys_glue12="enable"
 <% end -%>
+infosys_nordugrid=enable
 
 bdii_debug_level="INFO"
 bdii_run_dir="/var/run/arc/bdii"
@@ -28,11 +28,11 @@ bdii_run_dir="/var/run/arc/bdii"
 ##TODO: add them to config parameters
 [infosys/glue12]
 resource_location="<%= resource_location %>"
-resource_latitude=51.4585
-resource_longitude=-02.6021
+resource_latitude=<%= resource_latitude %>
+resource_longitude=<%= resource_longitude %>
 cpu_scaling_reference_si00="3100"
-processor_other_description="Cores=16,Benchmark=<%= hepspec_per_core %>-HEP-SPEC06"
-glue_site_web="http://www.bris.ac.uk/physics/research/particle/"
+processor_other_description="Cores=<%= @cores_per_worker %>,Benchmark=<%= hepspec_per_core %>-HEP-SPEC06"
+glue_site_web="<%= glue_site_web %>"
 glue_site_unique_id="<%= domain_name %>"
 provide_glue_site_info="false"
 
