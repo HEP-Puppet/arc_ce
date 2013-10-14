@@ -23,6 +23,8 @@ authorizedvo="<%= val %>"
 <% end -%>
 <% if @cluster_is_homogenious == true -%>
 #For homogenious clusters
+nodecpu="<%= cluster_description['CPUModel'] %> @ <%= cluster_description['CPUClockSpeed'] %> MHz"
+nodememory="<%= @cluster_description['NodeMemory'] -%>"
 opsys="<%= cluster_description['OSName'] %>"
 opsys="<%= cluster_description['OSVersion'] %>"
 #cluster description for infosys
@@ -32,6 +34,9 @@ OSVersion="<%= cluster_description['OSVersion'] %>"
 CPUVendor="<%= cluster_description['CPUVendor'] %>"
 CPUClockSpeed="<%= cluster_description['CPUClockSpeed'] %>"
 CPUModel="<%= cluster_description['CPUModel'] %>"
+#benchmark results
+<% @benchmark_results.each do |val| -%>
+benchmark="<%= val %>"
+<% end -%>
 <% end -%>
 cpudistribution=<%= cluster_cpudistribution.join(',') %>
-

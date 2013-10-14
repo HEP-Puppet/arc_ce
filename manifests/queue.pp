@@ -1,4 +1,5 @@
 define arc_ce::queue (
+  $benchmark_results   = ['SPECINT2000 222', 'SPECFP2000 333', 'HEPSPEC2006 444'],
   $queue_name          = $title,
   $homogeneity         = 'True',
   $comment             = 'Default queue',
@@ -7,11 +8,15 @@ define arc_ce::queue (
   $main_memory_size    = 32768,
   $time_limit          = '1800',
   $os_family           = 'linux',
-  $opsys               = [
-    'ScientificSL',
-    '6.4',
-    'Carbon'],
-  $node_cpu             = 'AMD Opteron(tm) Processor 4386 @ 3.1GHz',
+  $cluster_description = {
+    'OSFamily'      => 'linux',
+    'OSName'        => 'ScientificSL',
+    'OSVersion'     => '6.4',
+    'CPUVendor'     => 'AMD',
+    'CPUClockSpeed' => '3100',
+    'CPUModuel'     => 'AMD Opteron(tm) Processor 4386',
+  }
+  ,
   $condor_requirements = '(Opsys == \'linux\') && (OpSysAndVer == \'SL6\')') {
   concat::fragment { "arc_cfg_queue_${title}":
     target  => '/etc/arc.conf',
