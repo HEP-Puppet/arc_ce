@@ -12,6 +12,7 @@ class arc_ce::config (
     'lhcb',
     'vo.landslides.mossaic.org',
     'vo.southgrid.ac.uk'],
+  $benchmark_results       = ['SPECINT2000 222', 'SPECFP2000 333', 'HEPSPEC2006 444'],
   $cluster_alias           = 'MINIMAL Computing Element',
   $cluster_comment         = 'This is a minimal out-of-box CE setup',
   $cluster_cpudistribution = ['16cpu:12'],
@@ -21,7 +22,8 @@ class arc_ce::config (
     'OSVersion'     => '6.4',
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
-    'CPUModuel'     => 'AMD Opteron(tm) Processor 4386',
+    'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
+    'NodeMemory'    => 1024,
   }
   ,
   $cluster_is_homogenious  = true,
@@ -50,8 +52,7 @@ class arc_ce::config (
   $use_argus               = false,) {
   file { $session_dir: ensure => directory, }
 
-  concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'], 
-  }
+  concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'], }
 
   concat::fragment { 'arc.conf_common':
     target  => '/etc/arc.conf',
@@ -91,6 +92,7 @@ class arc_ce::config (
   }
 
   class { 'arc_ce::config::cluster':
+    benchmark_results       => $benchmark_results,
     cluster_alias           => $cluster_alias,
     cluster_comment         => $cluster_comment,
     cluster_cpudistribution => $cluster_cpudistribution,
@@ -110,8 +112,7 @@ class arc_ce::config (
   class { 'arc_ce::lcas::config': }
 
   # for GLITE, just an empty file
-  file { '/etc/arc/runtime/ENV': ensure => directory, } -> file { '/etc/arc/runtime/ENV/GLITE'
-  : ensure => present }
+  file { '/etc/arc/runtime/ENV': ensure => directory, } -> file { '/etc/arc/runtime/ENV/GLITE': ensure => present }
 
   # apply manual fixes:
   file { '/usr/share/arc/submit-condor-job':

@@ -3,13 +3,27 @@ name="<%= @queue_name -%>"
 homogeneity="<%= @homogeneity -%>"
 comment="<%= @comment -%>"
 defaultmemory="<%= @default_memory -%>"
-nodememory="<%= @node_memory -%>"
 MainMemorySize=<%= @main_memory_size %>
 timelimit="<%= @time_limit -%>"
-OSFamily="<%= @os_family -%>"
-<% @opsys.each do |val| -%>
-opsys="<%= val %>"
-<% end -%>
-nodecpu="<%= @node_cpu -%>"
+
 condor_requirements="<%= @condor_requirements -%>"
+
+<% if @cluster_is_homogenious == false -%>
+#For inhomogenious clusters
+nodecpu="<%= cluster_description['CPUModel'] %> @ <%= cluster_description['CPUClockSpeed'] %> MHz"
+nodememory="<%= @cluster_description['NodeMemory'] -%>"
+opsys="<%= cluster_description['OSName'] %>"
+opsys="<%= cluster_description['OSVersion'] %>"
+#cluster description for infosys
+OSFamily="<%= cluster_description['OSFamily'] %>"
+OSName="<%= cluster_description['OSName'] %>"
+OSVersion="<%= cluster_description['OSVersion'] %>"
+CPUVendor="<%= cluster_description['CPUVendor'] %>"
+CPUClockSpeed="<%= cluster_description['CPUClockSpeed'] %>"
+CPUModel="<%= cluster_description['CPUModel'] %>"
+#benchmark results
+<% @benchmark_results.each do |val| -%>
+benchmark="<%= val %>"
+<% end -%>
+<% end -%>
 
