@@ -8,7 +8,7 @@ class arc_ce::config::cluster (
     'OSVersion'     => '6.4',
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
-    'CPUModuel'     => 'AMD Opteron(tm) Processor 4386',
+    'CPUModel'     => 'AMD Opteron(tm) Processor 4386',
   }
   ,
   $cluster_is_homogenious  = true,
