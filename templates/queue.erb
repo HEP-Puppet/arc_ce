@@ -8,6 +8,8 @@ timelimit="<%= @time_limit -%>"
 
 condor_requirements="<%= @condor_requirements -%>"
 
+architecture="adotf"
+
 #For inhomogenious clusters
 nodecpu="<%= cluster_description['CPUModel'] %> @ <%= cluster_description['CPUClockSpeed'] %> MHz"
 nodememory="<%= @cluster_description['NodeMemory'] -%>"
@@ -24,3 +26,4 @@ CPUModel="<%= cluster_description['CPUModel'] %>"
 <% @benchmark_results.each do |val| -%>
 benchmark="<%= val %>"
 <% end -%>
+
