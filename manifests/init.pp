@@ -85,23 +85,41 @@ class arc_ce (
   }
 
   class { 'arc_ce::config':
-    cluster_alias     => $cluster_alias,
-    cluster_comment   => $cluster_comment,
-    resource_location => $resource_location,
-    mail              => $mail,
-    lrms              => $lrms,
-    enable_glue1      => $enable_glue1,
-    enable_glue2      => $enable_glue2,
-    log_directory     => $log_directory,
-    run_directory     => $run_directory,
-    domain_name       => $domain_name,
-    require           => Class['arc_ce::install'],
+    apel_testing            => $apel_testing,
+    argus_server            => $argus_server,
+    authorized_vos          => $authorized_vos,
+    benchmark_results       => $benchmark_results,
+    cluster_alias           => $cluster_alias,
+    cluster_comment         => $cluster_comment,
+    cluster_cpudistribution => $cluster_cpudistribution,
+    cluster_description     => $cluster_description,
+    cluster_is_homogenious  => $cluster_is_homogenious,
+    cluster_nodes_private   => $cluster_nodes_private,
+    cluster_owner           => $cluster_owner,
+    cores_per_worker        => $cores_per_worker,
+    domain_name             => $domain_name,
+    enable_glue1            => $enable_glue1,
+    enable_glue2            => $enable_glue2,
+    glue_site_web           => $glue_site_web,
+    hepspec_per_core        => $hepspec_per_core,
+    log_directory           => $log_directory,
+    lrms                    => $lrms,
+    mail                    => $mail,
+    queue_defaults          => $queue_defaults,
+    resource_latitude       => $resource_latitude,
+    resource_location       => $resource_location,
+    resource_longitude      => $resource_longitude,
+    run_directory           => $run_directory,
+    session_dir             => $session_dir,
+    use_argus               => $use_argus,
+    require                 => Class['arc_ce::install'],
   }
 
   class { 'arc_ce::firewall':
   }
 
   class { 'arc_ce::services':
+    require => Class['arc_ce::config'],
   }
 
 }
