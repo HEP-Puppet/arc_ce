@@ -80,7 +80,6 @@ class arc_ce (
   }
 
   class { 'arc_ce::install':
-    from_repository => $install_from_repository,
     require         => Class['arc_ce::repositories'],
   }
 
