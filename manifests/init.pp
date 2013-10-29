@@ -80,7 +80,7 @@ class arc_ce (
   }
 
   class { 'arc_ce::install':
-    require         => Class['arc_ce::repositories'],
+    require => Class['arc_ce::repositories'],
   }
 
   class { 'arc_ce::config':
@@ -105,6 +105,7 @@ class arc_ce (
     lrms                    => $lrms,
     mail                    => $mail,
     queue_defaults          => $queue_defaults,
+    queues                  => $queues,
     resource_latitude       => $resource_latitude,
     resource_location       => $resource_location,
     resource_longitude      => $resource_longitude,
