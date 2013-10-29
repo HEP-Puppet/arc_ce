@@ -11,6 +11,7 @@ class arc_ce::config::cluster (
     'CPUClockSpeed' => '3100',
     'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
     'NodeMemory'    => 1024,
+    'totalcpus'     => 42,
   }
   ,
   $cluster_is_homogenious  = true,

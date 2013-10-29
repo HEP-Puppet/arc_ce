@@ -1,3 +1,8 @@
+####################################################################
+## Please consult the ARC Information System manual for detailed information
+## on queue attributes:
+##   http://www.nordugrid.org/documents/arc_infosys.pdf
+####################################################################
 [infosys]
 user="root"
 overwrite_config="yes"
@@ -5,7 +10,7 @@ port="2135"
 debug="0"
 slapd_loglevel="0"
 threads="32"
-timelimit="3600"
+timelimit="1800"
 infoproviders_timeout="1200"
 registrationlog="<%= log_directory %>/inforegistration.log"
 providerlog="<%= log_directory %>/infoprovider.log"

@@ -12,16 +12,61 @@
 #
 class arc_ce (
   $install_from_repository = 'nordugrid',
+  $apel_testing            = true,
+  $argus_server            = 'argus.example.com',
+  $authorized_vos          = [
+    'alice',
+    'atlas',
+    'cms',
+    'ops',
+    'dteam',
+    'gridpp',
+    'ilc',
+    'lhcb',
+    'vo.landslides.mossaic.org',
+    'vo.southgrid.ac.uk'],
+  $benchmark_results       = [
+    'SPECINT2000 222',
+    'SPECFP2000 333',
+    'HEPSPEC2006 444'],
   $cluster_alias           = 'MINIMAL Computing Element',
   $cluster_comment         = 'This is a minimal out-of-box CE setup',
-  $resource_location       = 'Lund, Sweden',
-  $mail                    = 'gridmaster@hep.lu.se',
-  $lrms                    = 'fork',
+  $cluster_cpudistribution = ['16cpu:12'],
+  $cluster_description     = {
+    'OSFamily'      => 'linux',
+    'OSName'        => 'ScientificSL',
+    'OSVersion'     => '6.4',
+    'CPUVendor'     => 'AMD',
+    'CPUClockSpeed' => '3100',
+    'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
+    'NodeMemory'    => 1024,
+    'totalcpus'     => 42,
+  }
+  ,
+  $cluster_is_homogenious  = true,
+  $cluster_nodes_private   = true,
+  $cluster_owner           = 'Bristol HEP',
+  $cores_per_worker        = 16,
+  $domain_name             = 'GOCDB-SITENAME',
   $enable_glue1            = false,
   $enable_glue2            = true,
+  $glue_site_web           = 'http://www.bristol.ac.uk/physics/research/particle/',
+  $hepspec_per_core        = '11.17',
   $log_directory           = '/var/log/arc',
+  $lrms                    = 'fork',
+  $mail                    = 'gridmaster@hep.lu.se',
+  $queue_defaults          = {
+  }
+  ,
+  $queues                  = {
+  }
+  ,
+  $resource_location       = 'Bristol, UK',
+  $resource_latitude       = '51.4585',
+  $resource_longitude      = '-02.6021',
   $run_directory           = '/var/run/arc',
-  $domain_name             = 'ARC-TESTDOMAIN') {
+  $session_dir             = ['/var/spool/arc/grid00'],
+  $use_argus               = false,) {
   if $install_from_repository == 'nordugrid' {
     class { 'arc_ce::repositories':
       use_nordugrid          => true,
@@ -36,6 +81,7 @@ class arc_ce (
 
   class { 'arc_ce::install':
     from_repository => $install_from_repository,
+    require         => Class['arc_ce::repositories'],
   }
 
   class { 'arc_ce::config':
@@ -49,6 +95,7 @@ class arc_ce (
     log_directory     => $log_directory,
     run_directory     => $run_directory,
     domain_name       => $domain_name,
+    require           => Class['arc_ce::install'],
   }
 
   class { 'arc_ce::firewall':
