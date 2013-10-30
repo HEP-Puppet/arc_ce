@@ -37,7 +37,7 @@ class arc_ce::firewall {
       tcp,
       udp],
     state  => NEW,
-    dport  => '50000-50300',
+    dport  => '50000-52000',
   }
 
   firewall { '205 For the LDAP service interface':
