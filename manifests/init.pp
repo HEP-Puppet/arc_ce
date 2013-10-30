@@ -51,6 +51,7 @@ class arc_ce (
   $enable_glue1            = false,
   $enable_glue2            = true,
   $glue_site_web           = 'http://www.bristol.ac.uk/physics/research/particle/',
+  $globus_port_range       = [50000, 52000],
   $hepspec_per_core        = '11.17',
   $log_directory           = '/var/log/arc',
   $lrms                    = 'fork',
@@ -99,6 +100,7 @@ class arc_ce (
     domain_name             => $domain_name,
     enable_glue1            => $enable_glue1,
     enable_glue2            => $enable_glue2,
+    globus_port_range       => $globus_port_range,
     glue_site_web           => $glue_site_web,
     hepspec_per_core        => $hepspec_per_core,
     log_directory           => $log_directory,
@@ -116,6 +118,7 @@ class arc_ce (
   }
 
   class { 'arc_ce::firewall':
+    globus_port_range => $globus_port_range,
   }
 
   class { 'arc_ce::services':
