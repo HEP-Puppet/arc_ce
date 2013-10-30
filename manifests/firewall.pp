@@ -31,7 +31,7 @@ class arc_ce::firewall ($globus_port_range = [50000, 52000]) {
     action => accept,
     proto  => [tcp, udp],
     state  => NEW,
-    dport  => "$globus_port_range[0]-$globus_port_range[1]",
+    dport  => join($globus_port_range, '-'),
   }
 
   firewall { '205 For the LDAP service interface':
