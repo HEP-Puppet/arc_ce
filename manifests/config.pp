@@ -16,6 +16,7 @@ class arc_ce::config (
     'SPECINT2000 222',
     'SPECFP2000 333',
     'HEPSPEC2006 444'],
+  $cache_dir               = ['/var/cache/arc'],
   $cluster_alias           = 'MINIMAL Computing Element',
   $cluster_comment         = 'This is a minimal out-of-box CE setup',
   $cluster_cpudistribution = ['16cpu:12'],
@@ -58,6 +59,8 @@ class arc_ce::config (
   $session_dir             = ['/var/spool/arc/grid00'],
   $use_argus               = false,) {
   file { $session_dir: ensure => directory, }
+
+  file { $cache_dir: ensure => directory, }
 
   concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'], 
   }
