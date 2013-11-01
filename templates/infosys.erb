@@ -51,7 +51,7 @@ name="<%= domain_name %>"
 
 #cluster registration block
 [infosys/cluster/registration/<%= cluster_registration_name %>]
-targethostname="<%= fqdn %>"
+targethostname="<%= cluster_registration_target %>"
 targetport="2135"
 targetsuffix="Mds-Vo-Name=<%= cluster_registration_country %>,o=grid"
 regperiod="120"
