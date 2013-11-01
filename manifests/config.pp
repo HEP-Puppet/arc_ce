@@ -35,15 +35,13 @@ class arc_ce::config (
   $cluster_is_homogenious       = true,
   $cluster_nodes_private        = true,
   $cluster_owner       = 'Bristol HEP',
-  $cluster_registration_name    = 'clustertoukbristol',
   $cluster_registration_country = 'UK',
+  $cluster_registration_name    = 'clustertoukbristol',
   $cores_per_worker    = 16,
   $domain_name         = 'GOCDB-SITENAME',
   $enable_glue1        = false,
   $enable_glue2        = true,
-  $globus_port_range   = [
-    50000,
-    52000],
+  $globus_port_range   = [50000, 52000],
   $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
   $hepspec_per_core    = '11.17',
   $log_directory       = '/var/log/arc',
@@ -93,16 +91,18 @@ class arc_ce::config (
   }
 
   class { 'arc_ce::config::infosys':
-    cores_per_worker   => $cores_per_worker,
-    domain_name        => $domain_name,
-    enable_glue1       => $enable_glue1,
-    enable_glue2       => $enable_glue2,
-    glue_site_web      => $glue_site_web,
-    hepspec_per_core   => $hepspec_per_core,
-    log_directory      => $log_directory,
-    resource_latitude  => $resource_latitude,
-    resource_location  => $resource_location,
-    resource_longitude => $resource_longitude,
+    cluster_registration_country => $cluster_registration_country,
+    cluster_registration_name    => $cluster_registration_name,
+    cores_per_worker             => $cores_per_worker,
+    domain_name                  => $domain_name,
+    enable_glue1                 => $enable_glue1,
+    enable_glue2                 => $enable_glue2,
+    glue_site_web                => $glue_site_web,
+    hepspec_per_core             => $hepspec_per_core,
+    log_directory                => $log_directory,
+    resource_latitude            => $resource_latitude,
+    resource_location            => $resource_location,
+    resource_longitude           => $resource_longitude,
   }
 
   class { 'arc_ce::config::cluster':
