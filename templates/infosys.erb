@@ -50,9 +50,9 @@ url="ldap://localhost:2135/mds-vo-name=resource,o=grid"
 name="<%= domain_name %>"
 
 #cluster registration block
-[infosys/cluster/registration/clustertoukglasgow]
-targethostname="svr019.gla.scotgrid.ac.uk"
+[infosys/cluster/registration/<%= cluster_registration_name %>]
+targethostname="<%= fqdn %>"
 targetport="2135"
-targetsuffix="Mds-Vo-Name=UK,o=grid"
+targetsuffix="Mds-Vo-Name=<%= cluster_registration_country %>,o=grid"
 regperiod="120"
 
