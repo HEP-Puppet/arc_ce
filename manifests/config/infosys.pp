@@ -1,6 +1,7 @@
 class arc_ce::config::infosys (
   $cluster_registration_country = 'UK',
-  $cluster_registration_name    = 'clustertoukbristol',
+  $cluster_registration_name    = 'clustertoukglasgow',
+  $cluster_registration_target  = 'svr019.gla.scotgrid.ac.uk',
   $cores_per_worker             = 16,
   $domain_name                  = 'GOCDB-SITENAME',
   $enable_glue1                 = false,
