@@ -12,9 +12,10 @@ define arc_ce::queue (
     'OSFamily'      => 'linux',
     'OSName'        => 'ScientificSL',
     'OSVersion'     => '6.4',
+    'OSVersionName' => 'Carbon',
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
-    'CPUModuel'     => 'AMD Opteron(tm) Processor 4386',
+    'CPUModel'     => 'AMD Opteron(tm) Processor 4386',
   }
   ,
   $condor_requirements = '(Opsys == \'linux\') && (OpSysAndVer == \'SL6\')') {

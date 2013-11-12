@@ -27,6 +27,7 @@ nodecpu="<%= cluster_description['CPUModel'] %> @ <%= cluster_description['CPUCl
 nodememory="<%= @cluster_description['NodeMemory'] -%>"
 opsys="<%= cluster_description['OSName'] %>"
 opsys="<%= cluster_description['OSVersion'] %>"
+opsys="<%= cluster_description['OSVersionName'] %>"
 #cluster description for infosys
 OSFamily="<%= cluster_description['OSFamily'] %>"
 OSName="<%= cluster_description['OSName'] %>"
@@ -38,7 +39,7 @@ CPUModel="<%= cluster_description['CPUModel'] %>"
 <% @benchmark_results.each do |val| -%>
 benchmark="<%= val %>"
 <% end -%>
-<% end -%>
 cpudistribution=<%= cluster_cpudistribution.join(',') %>
 totalcpus="<%= cluster_description['totalcpus'] %>"
+<% end -%>
 

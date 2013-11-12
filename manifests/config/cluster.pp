@@ -7,6 +7,7 @@ class arc_ce::config::cluster (
     'OSFamily'      => 'linux',
     'OSName'        => 'ScientificSL',
     'OSVersion'     => '6.4',
+    'OSVersionName' => 'Carbon',
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
     'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
