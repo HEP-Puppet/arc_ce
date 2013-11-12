@@ -39,6 +39,7 @@ class arc_ce::config (
   $cluster_registration_name    = 'clustertoukglasgow',
   $cluster_registration_target  = 'svr019.gla.scotgrid.ac.uk',
   $cores_per_worker    = 16,
+  $debug               = true,
   $domain_name         = 'GOCDB-SITENAME',
   $enable_glue1        = false,
   $enable_glue2        = true,
