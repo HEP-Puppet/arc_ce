@@ -31,5 +31,6 @@ CPUModel="<%= cluster_description['CPUModel'] %>"
 benchmark="<%= val %>"
 <% end -%>
 
+cpudistribution=<%= cluster_cpudistribution.join(',') %>
 totalcpus="<%= cluster_description['totalcpus'] %>"
 
