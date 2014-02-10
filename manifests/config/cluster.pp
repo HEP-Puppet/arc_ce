@@ -1,4 +1,5 @@
 class arc_ce::config::cluster (
+  $benchmark_results       = ['SPECINT2000 222', 'SPECFP2000 333', 'HEPSPEC2006 444'],
   $cluster_alias           = 'MINIMAL Computing Element',
   $cluster_comment         = 'This is a minimal out-of-box CE setup',
   $cluster_cpudistribution = ['16cpu:12'],
@@ -6,9 +7,12 @@ class arc_ce::config::cluster (
     'OSFamily'      => 'linux',
     'OSName'        => 'ScientificSL',
     'OSVersion'     => '6.4',
+    'OSVersionName' => 'Carbon',
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
-    'CPUModuel'     => 'AMD Opteron(tm) Processor 4386',
+    'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
+    'NodeMemory'    => 1024,
+    'totalcpus'     => 42,
   }
   ,
   $cluster_is_homogenious  = true,
