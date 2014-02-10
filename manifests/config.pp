@@ -135,10 +135,11 @@ class arc_ce::config (
   : ensure => present }
 
   # apply manual fixes:
-  file { '/usr/share/arc/submit-condor-job':
-    backup => '.bak',
-    ensure => present,
-    source => "puppet:///modules/${module_name}/fixes/submit-condor-job",
-    mode   => 0755,
-  }
+  # this is only necessary for ARC version < 4.0
+  #  file { '/usr/share/arc/submit-condor-job':
+  #    backup => '.bak',
+  #    ensure => present,
+  #    source => "puppet:///modules/${module_name}/fixes/submit-condor-job",
+  #    mode   => 0755,
+  #  }
 }
