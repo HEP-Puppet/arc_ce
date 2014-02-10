@@ -1,7 +1,8 @@
 class arc_ce::config (
-  $apel_testing            = true,
-  $argus_server            = 'argus.example.com',
-  $authorized_vos          = [
+  $apel_testing        = true,
+  $arex_port           = 60000,
+  $argus_server        = 'argus.example.com',
+  $authorized_vos      = [
     'alice',
     'atlas',
     'cms',
@@ -12,43 +13,59 @@ class arc_ce::config (
     'lhcb',
     'vo.landslides.mossaic.org',
     'vo.southgrid.ac.uk'],
-  $cluster_alias           = 'MINIMAL Computing Element',
-  $cluster_comment         = 'This is a minimal out-of-box CE setup',
-  $cluster_cpudistribution = ['16cpu:12'],
-  $cluster_description     = {
+  $benchmark_results   = [
+    'SPECINT2000 222',
+    'SPECFP2000 333',
+    'HEPSPEC2006 444'],
+  $cache_dir           = ['/var/cache/arc'],
+  $cluster_alias       = 'MINIMAL Computing Element',
+  $cluster_comment     = 'This is a minimal out-of-box CE setup',
+  $cluster_cpudistribution      = ['16cpu:12'],
+  $cluster_description = {
     'OSFamily'      => 'linux',
     'OSName'        => 'ScientificSL',
     'OSVersion'     => '6.4',
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
-    'CPUModuel'     => 'AMD Opteron(tm) Processor 4386',
+    'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
+    'NodeMemory'    => 1024,
+    'totalcpus'     => 42,
   }
   ,
-  $cluster_is_homogenious  = true,
-  $cluster_nodes_private   = true,
-  $cluster_owner           = 'Bristol HEP',
-  $cores_per_worker        = 16,
-  $domain_name             = 'GOCDB-SITENAME',
-  $enable_glue1            = false,
-  $enable_glue2            = true,
-  $glue_site_web           = 'http://www.bristol.ac.uk/physics/research/particle/',
-  $hepspec_per_core        = '11.17',
-  $log_directory           = '/var/log/arc',
-  $lrms                    = 'fork',
-  $mail                    = 'gridmaster@hep.lu.se',
-  $queue_defaults          = {
+  $cluster_is_homogenious       = true,
+  $cluster_nodes_private        = true,
+  $cluster_owner       = 'Bristol HEP',
+  $cluster_registration_country = 'UK',
+  $cluster_registration_name    = 'clustertoukglasgow',
+  $cluster_registration_target  = 'svr019.gla.scotgrid.ac.uk',
+  $cores_per_worker    = 16,
+  $debug               = true,
+  $domain_name         = 'GOCDB-SITENAME',
+  $enable_glue1        = false,
+  $enable_glue2        = true,
+  $globus_port_range   = [
+    50000,
+    52000],
+  $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
+  $hepspec_per_core    = '11.17',
+  $log_directory       = '/var/log/arc',
+  $lrms                = 'fork',
+  $mail                = 'gridmaster@hep.lu.se',
+  $queue_defaults      = {
   }
   ,
-  $queues                  = {
+  $queues              = {
   }
   ,
-  $resource_location       = 'Bristol, UK',
-  $resource_latitude       = '51.4585',
-  $resource_longitude      = '-02.6021',
-  $run_directory           = '/var/run/arc',
-  $session_dir             = ['/var/spool/arc/grid00'],
-  $use_argus               = false,) {
+  $resource_location   = 'Bristol, UK',
+  $resource_latitude   = '51.4585',
+  $resource_longitude  = '-02.6021',
+  $run_directory       = '/var/run/arc',
+  $session_dir         = ['/var/spool/arc/grid00'],
+  $use_argus           = false,) {
   file { $session_dir: ensure => directory, }
+
+  file { $cache_dir: ensure => directory, }
 
   concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'], 
   }
@@ -78,19 +95,23 @@ class arc_ce::config (
   }
 
   class { 'arc_ce::config::infosys':
-    cores_per_worker   => $cores_per_worker,
-    domain_name        => $domain_name,
-    enable_glue1       => $enable_glue1,
-    enable_glue2       => $enable_glue2,
-    glue_site_web      => $glue_site_web,
-    hepspec_per_core   => $hepspec_per_core,
-    log_directory      => $log_directory,
-    resource_latitude  => $resource_latitude,
-    resource_location  => $resource_location,
-    resource_longitude => $resource_longitude,
+    cluster_registration_country => $cluster_registration_country,
+    cluster_registration_name    => $cluster_registration_name,
+    cluster_registration_target  => $cluster_registration_target,
+    cores_per_worker             => $cores_per_worker,
+    domain_name                  => $domain_name,
+    enable_glue1                 => $enable_glue1,
+    enable_glue2                 => $enable_glue2,
+    glue_site_web                => $glue_site_web,
+    hepspec_per_core             => $hepspec_per_core,
+    log_directory                => $log_directory,
+    resource_latitude            => $resource_latitude,
+    resource_location            => $resource_location,
+    resource_longitude           => $resource_longitude,
   }
 
   class { 'arc_ce::config::cluster':
+    benchmark_results       => $benchmark_results,
     cluster_alias           => $cluster_alias,
     cluster_comment         => $cluster_comment,
     cluster_cpudistribution => $cluster_cpudistribution,
@@ -114,10 +135,11 @@ class arc_ce::config (
   : ensure => present }
 
   # apply manual fixes:
-  file { '/usr/share/arc/submit-condor-job':
-    backup => '.bak',
-    ensure => present,
-    source => "puppet:///modules/${module_name}/fixes/submit-condor-job",
-    mode   => 0755,
-  }
+  # this is only necessary for ARC version < 4.0
+  #  file { '/usr/share/arc/submit-condor-job':
+  #    backup => '.bak',
+  #    ensure => present,
+  #    source => "puppet:///modules/${module_name}/fixes/submit-condor-job",
+  #    mode   => 0755,
+  #  }
 }

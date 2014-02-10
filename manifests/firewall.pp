@@ -1,11 +1,9 @@
-class arc_ce::firewall {
+class arc_ce::firewall ($globus_port_range = [50000, 52000]) {
   firewall { '200 For the web service interface':
     action => accept,
     proto  => tcp,
     state  => NEW,
-    port   => [
-      80,
-      443],
+    port   => [80, 443],
   }
 
   firewall { '201 For the bdii service interface':
@@ -26,18 +24,14 @@ class arc_ce::firewall {
     action => accept,
     proto  => tcp,
     state  => NEW,
-    port   => [
-      2811,
-      2119],
+    port   => [2811, 2119],
   }
 
   firewall { '204 For GridFTP data channels':
     action => accept,
-    proto  => [
-      tcp,
-      udp],
+    proto  => [tcp, udp],
     state  => NEW,
-    dport  => '9000-9300',
+    dport  => join($globus_port_range, '-'),
   }
 
   firewall { '205 For the LDAP service interface':
