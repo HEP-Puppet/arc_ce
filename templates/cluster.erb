@@ -1,9 +1,9 @@
 [cluster]
 cluster_alias="<%= cluster_alias %>"
 comment="<%= cluster_comment %>"
-cluster_location="<%= cluster_location %>"
+cluster_location="<%= resource_location %>"
 cluster_owner="<%= @cluster_owner %>"
-clustersupport="<%= @cluster_support %>"
+clustersupport="<%= @mail %>"
 <% if @lrms == 'condor' -%>
 lrmsconfig="HTCondor <%= @condor_version -%>"
 <% end -%>

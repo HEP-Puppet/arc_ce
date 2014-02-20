@@ -24,19 +24,13 @@ jobreport="APEL:http://test-msg02.afroditi.hellasgrid.gr:6163"
 jobreport_options="urbatch:50,archiving:/var/run/arc/urs,topic:/queue/global.accounting.cputest.CENTRAL,gocdb_name:<%= domain_name %>,use_ssl:false,Network:TEST-NWOB,benchmark_type:HEPSPEC,benchmark_value:<%= hepspec_per_core %>,benchmark_description:HS06"
 <% else -%>
 jobreport="APEL:http://msg.cro-ngi.hr:6163"
-jobreport_options="urbatch:50,archiving:/var/run/arc/urs,topic:/queue/global.accounting.cpu.CENTRAL,gocdb_name:<%= domain_name %>,use_ssl:false,Network:PROD,benchmark_type:HEPSPEC,benchmark_value:<%= hepspec_per_core %>,benchmark_description:HS06"
+jobreport_options="urbatch:50,archiving:/var/run/arc/urs,topic:/queue/global.accounting.cpu.central,gocdb_name:<%= domain_name %>,use_ssl:false,Network:PROD,benchmark_type:HEPSPEC,benchmark_value:<%= hepspec_per_core %>,benchmark_description:HS06"
 <%end -%>
 jobreport_credentials="/etc/grid-security/hostkey.pem /etc/grid-security/hostcert.pem /etc/grid-security/certificates"
 jobreport_publisher="jura"
-<% if @use_argus == true -%>
-# not in use at the moment, instead via lcas
-#arguspep_endpoint="https://<%= @argus_server %>:8154/authz"
-#arguspep_profile="cream"
-#arguspep_usermap="no"
-#arguspdp_endpoint="https://<%= @argus_server %>:8152/authz"
-#arguspdp_profile="cream"
-<% end -%>
-#web service
+# web service
 #arex_mount_point="https://<%= fqdn %>:<%= arex_port %>/arex"
 #enable_emies_interface=yes
 
+# sets a default run time environment (RTE)
+authplugin="PREPARING timeout=60,onfailure=pass,onsuccess=pass /usr/local/bin/default_rte_plugin.py %S %C %I ENV/GLITE"

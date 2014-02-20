@@ -1,5 +1,5 @@
 class arc_ce::repositories (
-  $nordugrid_repo_version = '13.02',
+  $nordugrid_repo_version = '13.11',
   $use_nordugrid          = false,
   $use_emi                = false,
   $emi_repo_version       = 3) {

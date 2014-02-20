@@ -1,0 +1,30 @@
+####################################################
+# Fixes to make LHCb jobs work 
+####################################################
+export USER=`whoami`
+if [ "x$1" = "x0" ]; then
+  env_idx=0
+  env_var="joboption_env_$env_idx"
+  while [ -n "${!env_var}" ]; do
+     env_idx=$((env_idx+1))
+     env_var="joboption_env_$env_idx"
+  done
+  eval joboption_env_$env_idx="NORDUGRID_ARC_QUEUE=$joboption_queue"
+fi
+export NORDUGRID_CE=true
+####################################################
+# grid environment
+####################################################
+# 0 : During LRMS script creation (on the front-end)
+# 1 : Before running executable (on worker node)
+# 2 : After running executable (on worker node)
+
+case $1 in
+  0) :
+     ;;
+  1) . /etc/profile.d/grid-env.sh
+     . /etc/profile.d/grid-vo-env.sh
+     ;;
+  2) :
+     ;;
+esac

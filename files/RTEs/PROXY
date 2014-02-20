@@ -1,0 +1,18 @@
+#!/bin/bash
+# 0 : During LRMS script creation (on the front-end)
+# 1 : Before running executable (on worker node)
+# 2 : After running executable (on worker node)
+x509_cert_dir="/etc/grid-security/certificates"
+
+case $1 in
+  0) mkdir -pv $joboption_directory/arc/certificates/
+     cp -rv $x509_cert_dir/ $joboption_directory/arc
+     cat ${joboption_controldir}/job.${joboption_gridid}.proxy >$joboption_directory/user.proxy
+     ;;
+  1) export X509_USER_PROXY=`pwd`/user.proxy
+     export X509_USER_CERT=`pwd`/user.proxy
+     export X509_CERT_DIR=$x509_cert_dir
+     ;;
+  2) :
+     ;;
+esac
