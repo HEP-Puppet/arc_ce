@@ -13,6 +13,7 @@
 class arc_ce (
   $install_from_repository      = 'nordugrid',
   $apel_testing        = true,
+  $apply_fixes         = false,
   $arex_port           = 60000,
   $argus_server        = 'argus.example.com',
   $authorized_vos      = [
@@ -74,6 +75,7 @@ class arc_ce (
   $resource_longitude  = '-02.6021',
   $run_directory       = '/var/run/arc',
   $session_dir         = ['/var/spool/arc/grid00'],
+  $setup_RTEs          = true,
   $use_argus           = false,) {
   if $install_from_repository == 'nordugrid' {
     class { 'arc_ce::repositories':
@@ -93,6 +95,7 @@ class arc_ce (
 
   class { 'arc_ce::config':
     apel_testing        => $apel_testing,
+    apply_fixes         => $apply_fixes,
     arex_port           => $arex_port,
     argus_server        => $argus_server,
     authorized_vos      => $authorized_vos,
@@ -126,6 +129,7 @@ class arc_ce (
     resource_longitude  => $resource_longitude,
     run_directory       => $run_directory,
     session_dir         => $session_dir,
+    setup_RTEs          => $setup_RTEs,
     use_argus           => $use_argus,
     require             => Class['arc_ce::install'],
   }

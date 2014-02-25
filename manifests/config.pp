@@ -1,5 +1,8 @@
+# Class: arc_ce
+# Sets up the configuration file and file dependencies.
 class arc_ce::config (
   $apel_testing        = true,
+  $apply_fixes         = false,
   $arex_port           = 60000,
   $argus_server        = 'argus.example.com',
   $authorized_vos      = [
@@ -60,13 +63,14 @@ class arc_ce::config (
   $resource_latitude   = '51.4585',
   $resource_longitude  = '-02.6021',
   $run_directory       = '/var/run/arc',
+  $setup_RTEs          = true,
   $session_dir         = ['/var/spool/arc/grid00'],
   $use_argus           = false,) {
   file { $session_dir: ensure => directory, }
 
   file { $cache_dir: ensure => directory, }
 
-  concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'], 
+  concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'],
   }
 
   concat::fragment { 'arc.conf_common':
@@ -93,34 +97,16 @@ class arc_ce::config (
     order   => 04,
   }
 
-  class { 'arc_ce::config::infosys':
-    cluster_registration_country => $cluster_registration_country,
-    cluster_registration_name    => $cluster_registration_name,
-    cluster_registration_target  => $cluster_registration_target,
-    cores_per_worker             => $cores_per_worker,
-    domain_name                  => $domain_name,
-    enable_glue1                 => $enable_glue1,
-    enable_glue2                 => $enable_glue2,
-    glue_site_web                => $glue_site_web,
-    hepspec_per_core             => $hepspec_per_core,
-    log_directory                => $log_directory,
-    resource_latitude            => $resource_latitude,
-    resource_location            => $resource_location,
-    resource_longitude           => $resource_longitude,
+  concat::fragment { 'arc.conf_infosys':
+    target  => '/etc/arc.conf',
+    content => template("${module_name}/infosys.erb"),
+    order   => 05,
   }
 
-  class { 'arc_ce::config::cluster':
-    benchmark_results       => $benchmark_results,
-    cluster_alias           => $cluster_alias,
-    cluster_comment         => $cluster_comment,
-    cluster_cpudistribution => $cluster_cpudistribution,
-    cluster_description     => $cluster_description,
-    cluster_is_homogenious  => $cluster_is_homogenious,
-    cluster_location        => $resource_location,
-    cluster_nodes_private   => $cluster_nodes_private,
-    cluster_owner           => $cluster_owner,
-    cluster_support         => $mail,
-    lrms                    => $lrms,
+  concat::fragment { 'arc.conf_cluster':
+    target  => '/etc/arc.conf',
+    content => template("${module_name}/cluster.erb"),
+    order   => 06,
   }
 
   create_resources('arc_ce::queue', $queues, $queue_defaults)
@@ -129,16 +115,43 @@ class arc_ce::config (
 
   class { 'arc_ce::lcas::config': }
 
-  # for GLITE, just an empty file
-  file { '/etc/arc/runtime/ENV': ensure => directory, } -> file { '/etc/arc/runtime/ENV/GLITE'
-  : ensure => present }
+  # create folders for runtime environments
+  file { [
+    '/etc/arc/runtime/',
+    '/etc/arc/runtime/ENV']: ensure => directory, }
 
-  # apply manual fixes:
-  # this is only necessary for ARC version < 4.0
-  #  file { '/usr/share/arc/submit-condor-job':
-  #    backup => '.bak',
-  #    ensure => present,
-  #    source => "puppet:///modules/${module_name}/fixes/submit-condor-job",
-  #    mode   => 0755,
-  #  }
+  # plugin to set a default runtime environment
+  file { '/usr/local/bin/default_rte_plugin.py':
+    ensure => present,
+    source => "puppet:///modules/${module_name}/default_rte_plugin.py",
+  }
+
+  # set up runtime environments
+  if $setup_RTEs {
+    file { '/etc/arc/runtime/ENV/GLITE':
+      ensure  => present,
+      source  => "puppet:///modules/${module_name}/RTEs/GLITE",
+      require => File['/etc/arc/runtime/ENV'],
+    }
+
+    file { '/etc/arc/runtime/ENV/PROXY':
+      ensure  => present,
+      source  => "puppet:///modules/${module_name}/RTEs/PROXY",
+      require => File['/etc/arc/runtime/ENV'],
+    }
+  }
+
+  # apply manual fixes
+  # for details check fixes.md
+  if $apply_fixes {
+    file { '/usr/share/arc/submit-condor-job':
+      source => "puppet:///modules/${module_name}/fixes/submit-condor-job.ARC.4.0.0",
+      backup => true,
+    }
+
+    file { '/usr/share/arc/Condor.pm':
+      source => "puppet:///modules/${module_name}/fixes/Condor.pm.ARC.4.0.0",
+      backup => true,
+    }
+  }
 }
