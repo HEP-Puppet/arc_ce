@@ -56,6 +56,7 @@ class arc_ce (
   $domain_name         = 'GOCDB-SITENAME',
   $enable_glue1        = false,
   $enable_glue2        = true,
+  $enable_trustanchors = true,
   $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
   $globus_port_range   = [50000, 52000],
   $gridftp_max_connections      = 100,
@@ -81,11 +82,13 @@ class arc_ce (
     class { 'arc_ce::repositories':
       use_nordugrid          => true,
       nordugrid_repo_version => '13.11',
+      enable_trustanchors    => $enable_trustanchors
     }
   } else {
     class { 'arc_ce::repositories':
       use_emi          => true,
       emi_repo_version => 3,
+      enable_trustanchors    => $enable_trustanchors
     }
   }
 
