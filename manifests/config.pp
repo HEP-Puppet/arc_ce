@@ -124,6 +124,7 @@ class arc_ce::config (
   file { '/usr/local/bin/default_rte_plugin.py':
     ensure => present,
     source => "puppet:///modules/${module_name}/default_rte_plugin.py",
+    mode   => 755,
   }
 
   # set up runtime environments
