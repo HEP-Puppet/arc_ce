@@ -8,7 +8,7 @@ define arc_ce::queue (
   $comment                 = 'Default queue',
   $default_memory          = '2048',
   $node_memory             = '2048',
-  $main_memory_size        = 32768,
+  $main_memory_size        = '32768',
   $time_limit              = '1800',
   $os_family               = 'linux',
   $cluster_description     = {
@@ -21,7 +21,7 @@ define arc_ce::queue (
     'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
   }
   ,
-  $condor_requirements     = '(Opsys == \'linux\') && (OpSysAndVer == \'SL6\')',
+  $condor_requirements     = '(Opsys == "linux") && (OpSysAndVer == "SL6")',
   $cluster_cpudistribution = ['16cpu:12'],) {
   concat::fragment { "arc_cfg_queue_${title}":
     target  => '/etc/arc.conf',

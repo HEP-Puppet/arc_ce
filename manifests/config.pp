@@ -3,7 +3,7 @@
 class arc_ce::config (
   $apel_testing        = true,
   $apply_fixes         = false,
-  $arex_port           = 60000,
+  $arex_port           = '60000',
   $argus_server        = 'argus.example.com',
   $authorized_vos      = [
     'alice',
@@ -31,8 +31,8 @@ class arc_ce::config (
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
     'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
-    'NodeMemory'    => 1024,
-    'totalcpus'     => 42,
+    'NodeMemory'    => '1024',
+    'totalcpus'     => '42',
   }
   ,
   $cluster_is_homogenious       = true,
@@ -48,7 +48,7 @@ class arc_ce::config (
   $enable_glue2        = true,
   $globus_port_range   = [50000, 52000],
   $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
-  $gridftp_max_connections      = 100,
+  $gridftp_max_connections      = '100',
   $hepspec_per_core    = '11.17',
   $log_directory       = '/var/log/arc',
   $lrms                = 'fork',
@@ -117,6 +117,7 @@ class arc_ce::config (
 
   # create folders for runtime environments
   file { [
+    '/etc/arc/',
     '/etc/arc/runtime/',
     '/etc/arc/runtime/ENV']: ensure => directory, }
 

@@ -13,7 +13,7 @@
 class arc_ce (
   $apel_testing        = true,
   $apply_fixes         = false,
-  $arex_port           = 60000,
+  $arex_port           = '60000',
   $argus_server        = 'argus.example.com',
   $authorized_vos      = [
     'alice',
@@ -41,8 +41,8 @@ class arc_ce (
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
     'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
-    'NodeMemory'    => 1024,
-    'totalcpus'     => 42,
+    'NodeMemory'    => '1024',
+    'totalcpus'     => '42',
   }
   ,
   $cluster_is_homogenious       = true,
@@ -51,7 +51,7 @@ class arc_ce (
   $cluster_registration_country = 'UK',
   $cluster_registration_name    = 'clustertoukglasgow',
   $cluster_registration_target  = 'svr019.gla.scotgrid.ac.uk',
-  $cores_per_worker    = 16,
+  $cores_per_worker    = '16',
   $debug               = true,
   $domain_name         = 'GOCDB-SITENAME',
   $enable_glue1        = false,
@@ -59,7 +59,7 @@ class arc_ce (
   $enable_trustanchors = true,
   $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
   $globus_port_range   = [50000, 52000],
-  $gridftp_max_connections      = 100,
+  $gridftp_max_connections      = '100',
   $hepspec_per_core    = '11.17',
   $install_from_repository      = 'nordugrid',
   $log_directory       = '/var/log/arc',
@@ -87,7 +87,7 @@ class arc_ce (
   } else {
     class { 'arc_ce::repositories':
       use_emi          => true,
-      emi_repo_version => 3,
+      emi_repo_version => '3',
       enable_trustanchors    => $enable_trustanchors
     }
   }
@@ -138,9 +138,9 @@ class arc_ce (
     require             => Class['arc_ce::install'],
   }
 
-  class { 'arc_ce::firewall':
-    globus_port_range => $globus_port_range,
-  }
+#  class { 'arc_ce::firewall':
+#    globus_port_range => $globus_port_range,
+#  }
 
   class { 'arc_ce::services':
     require => Class['arc_ce::config'],
