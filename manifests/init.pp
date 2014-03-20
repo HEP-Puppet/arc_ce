@@ -38,6 +38,7 @@ class arc_ce (
     'OSFamily'      => 'linux',
     'OSName'        => 'ScientificSL',
     'OSVersion'     => '6.4',
+    'OSVersionName' => 'Carbon',
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
     'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
