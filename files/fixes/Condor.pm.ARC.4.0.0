@@ -472,7 +472,7 @@ sub queue_info ($$) {
     # nordugrid-queue-defaultcputime
     #for some reason this is 11 (we have 12 nodes with 16 cores each)
     $lrms_queue{maxrunning} = scalar condor_queue_get_nodes();
-    $lrms_queue{maxqueuable} = 2 * $lrms_queue{maxrunning};
+    $lrms_queue{maxqueuable} = 10 * $lrms_queue{maxrunning};
     $lrms_queue{maxuserrun} = $lrms_queue{maxrunning};
 
     $lrms_queue{maxwalltime} = '6480';
