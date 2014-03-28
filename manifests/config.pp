@@ -1,6 +1,7 @@
 # Class: arc_ce
 # Sets up the configuration file and file dependencies.
 class arc_ce::config (
+  $allow_new_jobs      = 'yes',
   $apel_testing        = true,
   $apply_fixes         = false,
   $arex_port           = '60000',

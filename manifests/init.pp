@@ -11,6 +11,8 @@
 # Sample Usage:
 #
 class arc_ce (
+  $install_from_repository      = 'nordugrid',
+  $allow_new_jobs      = 'yes',
   $apel_testing        = true,
   $apply_fixes         = false,
   $arex_port           = '60000',
@@ -99,6 +101,7 @@ class arc_ce (
   }
 
   class { 'arc_ce::config':
+    allow_new_jobs      => $allow_new_jobs,
     apel_testing        => $apel_testing,
     apply_fixes         => $apply_fixes,
     arex_port           => $arex_port,
