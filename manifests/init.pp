@@ -13,6 +13,7 @@
 class arc_ce (
   $install_from_repository      = 'nordugrid',
   $allow_new_jobs      = 'yes',
+  $enable_firewall      = true,
   $apel_testing        = true,
   $apply_fixes         = false,
   $arex_port           = '60000',
@@ -144,11 +145,11 @@ class arc_ce (
     use_argus           => $use_argus,
     require             => Class['arc_ce::install'],
   }
-
-#  class { 'arc_ce::firewall':
-#    globus_port_range => $globus_port_range,
-#  }
-
+   if $enable_firewall {
+  class { 'arc_ce::firewall':
+    globus_port_range => $globus_port_range,
+  }
+ }
   class { 'arc_ce::services':
     require => Class['arc_ce::config'],
   }
