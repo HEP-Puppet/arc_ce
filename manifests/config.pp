@@ -135,6 +135,7 @@ class arc_ce::config (
       ensure  => present,
       source  => "puppet:///modules/${module_name}/RTEs/ATLAS-SITE-LCG",
       require => File['/etc/arc/runtime/APPS/HEP'],
+      mode   => 755,
     }
 
   
