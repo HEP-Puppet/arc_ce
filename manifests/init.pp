@@ -13,8 +13,9 @@
 class arc_ce (
   $install_from_repository      = 'nordugrid',
   $allow_new_jobs      = 'yes',
-  $enable_firewall      = true,
+  $enable_firewall     = true,
   $apel_testing        = true,
+  $apel_urbatch        = '1000',
   $apply_fixes         = false,
   $arex_port           = '60000',
   $argus_server        = 'argus.example.com',
@@ -104,6 +105,7 @@ class arc_ce (
   class { 'arc_ce::config':
     allow_new_jobs      => $allow_new_jobs,
     apel_testing        => $apel_testing,
+    apel_urbatch        => $apel_urbatch,
     apply_fixes         => $apply_fixes,
     arex_port           => $arex_port,
     argus_server        => $argus_server,
