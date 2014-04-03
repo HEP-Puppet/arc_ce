@@ -11,7 +11,6 @@
 # Sample Usage:
 #
 class arc_ce (
-  $install_from_repository      = 'nordugrid',
   $apel_testing        = true,
   $apply_fixes         = false,
   $arex_port           = 60000,
@@ -61,6 +60,7 @@ class arc_ce (
   $globus_port_range   = [50000, 52000],
   $gridftp_max_connections      = 100,
   $hepspec_per_core    = '11.17',
+  $install_from_repository      = 'nordugrid',
   $log_directory       = '/var/log/arc',
   $lrms                = 'fork',
   $mail                = 'gridmaster@hep.lu.se',
@@ -80,7 +80,7 @@ class arc_ce (
   if $install_from_repository == 'nordugrid' {
     class { 'arc_ce::repositories':
       use_nordugrid          => true,
-      nordugrid_repo_version => '13.02',
+      nordugrid_repo_version => '13.11',
     }
   } else {
     class { 'arc_ce::repositories':
@@ -112,12 +112,13 @@ class arc_ce (
     cluster_registration_name    => $cluster_registration_name,
     cluster_registration_target  => $cluster_registration_target,
     cores_per_worker    => $cores_per_worker,
-    domain_name         => $domain_name,
     debug               => $debug,
+    domain_name         => $domain_name,
     enable_glue1        => $enable_glue1,
     enable_glue2        => $enable_glue2,
     globus_port_range   => $globus_port_range,
     glue_site_web       => $glue_site_web,
+    gridftp_max_connections      => $gridftp_max_connections,
     hepspec_per_core    => $hepspec_per_core,
     log_directory       => $log_directory,
     lrms                => $lrms,

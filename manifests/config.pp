@@ -63,8 +63,8 @@ class arc_ce::config (
   $resource_latitude   = '51.4585',
   $resource_longitude  = '-02.6021',
   $run_directory       = '/var/run/arc',
-  $setup_RTEs          = true,
   $session_dir         = ['/var/spool/arc/grid00'],
+  $setup_RTEs          = true,
   $use_argus           = false,) {
   file { $session_dir: ensure => directory, }
 
