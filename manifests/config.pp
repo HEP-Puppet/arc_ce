@@ -53,6 +53,20 @@ class arc_ce::config (
   $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
   $gridftp_max_connections      = '100',
   $hepspec_per_core    = '11.17',
+  $infosys_registration = {
+    'clustertouk1' => {
+      targethostname => 'index1.gridpp.rl.ac.uk',
+      targetport => '2135',
+      targetsuffix => 'Mds-Vo-Name=UK,o=grid',
+      regperiod => '120',},
+
+    'clustertouk2' => {
+       targethostname => 'index2.gridpp.rl.ac.uk',
+       targetport => '2135',
+       targetsuffix => 'Mds-Vo-Name=UK,o=grid',
+       regperiod => '120',}
+   },
+
   $log_directory       = '/var/log/arc',
   $lrms                = 'fork',
   $mail                = 'gridmaster@hep.lu.se',

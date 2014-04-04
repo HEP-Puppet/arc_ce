@@ -53,9 +53,6 @@ class arc_ce (
   $cluster_is_homogenious       = true,
   $cluster_nodes_private        = true,
   $cluster_owner       = 'Bristol HEP',
-  $cluster_registration_country = 'UK',
-  $cluster_registration_name    = 'clustertoukglasgow',
-  $cluster_registration_target  = 'svr019.gla.scotgrid.ac.uk',
   $cores_per_worker    = '16',
   $cpu_scaling_reference_si00 = '3100',
   $debug               = true,
@@ -68,6 +65,20 @@ class arc_ce (
   $gridftp_max_connections      = '100',
   $hepspec_per_core    = '11.17',
   $install_from_repository      = 'nordugrid',
+  $infosys_registration = {
+    'clustertouk1' => {
+      targethostname => 'index1.gridpp.rl.ac.uk',
+      targetport => '2135',
+      targetsuffix => 'Mds-Vo-Name=UK,o=grid',
+      regperiod => '120',},
+
+    'clustertouk2' => {
+       targethostname => 'index2.gridpp.rl.ac.uk',
+       targetport => '2135',
+       targetsuffix => 'Mds-Vo-Name=UK,o=grid',
+       regperiod => '120',}
+   },
+
   $log_directory       = '/var/log/arc',
   $lrms                = 'fork',
   $mail                = 'gridmaster@hep.lu.se',
@@ -119,9 +130,6 @@ class arc_ce (
     cluster_is_homogenious       => $cluster_is_homogenious,
     cluster_nodes_private        => $cluster_nodes_private,
     cluster_owner       => $cluster_owner,
-    cluster_registration_country => $cluster_registration_country,
-    cluster_registration_name    => $cluster_registration_name,
-    cluster_registration_target  => $cluster_registration_target,
     cores_per_worker    => $cores_per_worker,
     cpu_scaling_reference_si00 => $cpu_scaling_reference_si00,
     domain_name         => $domain_name,
@@ -133,6 +141,7 @@ class arc_ce (
     glue_site_web       => $glue_site_web,
     gridftp_max_connections      => $gridftp_max_connections,
     hepspec_per_core    => $hepspec_per_core,
+    infosys_registration => $infosys_registration,
     log_directory       => $log_directory,
     lrms                => $lrms,
     mail                => $mail,
