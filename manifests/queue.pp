@@ -19,6 +19,7 @@ define arc_ce::queue (
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
     'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
+    'totalcpu'      => '42',
   }
   ,
   $condor_requirements     = '(Opsys == "linux") && (OpSysAndVer == "SL6")',
