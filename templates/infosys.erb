@@ -52,11 +52,11 @@ name="<%= domain_name %>"
 #cluster registration block
 <% @infosys_registration.keys.sort.each do |key| -%>
 <% value = @infosys_registration[key] -%>
-[infosys/cluster/registration/<%= key %> ]
- targethostname=<%= value['targethostname'] %>
- targetport=<%= value['targetport'] %>
- targetsuffix=<%= value['targetsuffix'] %>
- regperiod=<%= value['regperiod'] %>
+[infosys/cluster/registration/<%= key %>]
+targethostname="<%= value['targethostname'] %>"
+targetport="<%= value['targetport'] %>"
+targetsuffix="<%= value['targetsuffix'] %>"
+regperiod="<%= value['regperiod'] %>"
 
 <% end %>
 
