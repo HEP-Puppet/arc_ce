@@ -2,7 +2,10 @@ class arc_ce::repositories (
   $nordugrid_repo_version = '13.11',
   $use_nordugrid          = false,
   $use_emi                = false,
-  $emi_repo_version       = 3) {
+  $emi_repo_version       = 3,
+  $enable_trustanchors    = true
+  
+ ) {
   if !$use_emi and !$use_nordugrid {
     notify { 'No repository for ARC CE defined': }
   }
@@ -10,7 +13,7 @@ class arc_ce::repositories (
   if $use_nordugrid {
     yumrepo { 'nordugrid':
       descr    => 'NorduGrid - $basearch - base',
-      baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/base",
+      baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/el6/\$basearch/base",
       enabled  => 1,
       gpgcheck => 1,
       gpgkey   => 'http://download.nordugrid.org/RPM-GPG-KEY-nordugrid',
@@ -18,7 +21,7 @@ class arc_ce::repositories (
 
     yumrepo { 'nordugrid-updates':
       descr    => 'NorduGrid - $basearch - updates',
-      baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/updates",
+      baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/el6/\$basearch/updates",
       enabled  => 1,
       gpgcheck => 1,
       gpgkey   => 'http://download.nordugrid.org/RPM-GPG-KEY-nordugrid',
@@ -26,7 +29,7 @@ class arc_ce::repositories (
 
     yumrepo { 'nordugrid-testing':
       descr    => 'NorduGrid - $basearch - testing',
-      baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/\$releasever/\$basearch/testing",
+      baseurl  => "http://download.nordugrid.org/repos/${nordugrid_repo_version}/centos/el6/\$basearch/testing",
       enabled  => 1,
       gpgcheck => 1,
       gpgkey   => 'http://download.nordugrid.org/RPM-GPG-KEY-nordugrid',
@@ -50,7 +53,7 @@ class arc_ce::repositories (
       gpgkey   => "http://emisoft.web.cern.ch/emisoft/dist/EMI/${emi_repo_version}/RPM-GPG-KEY-emi"
     }
   }
-
+  if $enable_trustanchors {
   yumrepo { 'EGI-trustanchors':
     descr    => 'EGI-trustanchors',
     baseurl  => 'http://repository.egi.eu/sw/production/cas/1/current/',
@@ -59,5 +62,5 @@ class arc_ce::repositories (
     enabled  => 1,
     priority => 80,
   }
-
+ }
 }

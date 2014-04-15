@@ -1,9 +1,11 @@
 # Class: arc_ce
 # Sets up the configuration file and file dependencies.
 class arc_ce::config (
+  $allow_new_jobs      = 'yes',
   $apel_testing        = true,
+  $apel_urbatch          = '1000',
   $apply_fixes         = false,
-  $arex_port           = 60000,
+  $arex_port           = '60000',
   $argus_server        = 'argus.example.com',
   $authorized_vos      = [
     'alice',
@@ -31,8 +33,8 @@ class arc_ce::config (
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
     'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
-    'NodeMemory'    => 1024,
-    'totalcpus'     => 42,
+    'NodeMemory'    => '1024',
+    'totalcpus'     => '42',
   }
   ,
   $cluster_is_homogenious       = true,
@@ -41,15 +43,30 @@ class arc_ce::config (
   $cluster_registration_country = 'UK',
   $cluster_registration_name    = 'clustertoukglasgow',
   $cluster_registration_target  = 'svr019.gla.scotgrid.ac.uk',
-  $cores_per_worker    = 16,
+  $cores_per_worker    = '16',
+  $cpu_scaling_reference_si00 = '3100',
   $debug               = true,
   $domain_name         = 'GOCDB-SITENAME',
   $enable_glue1        = false,
   $enable_glue2        = true,
   $globus_port_range   = [50000, 52000],
   $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
-  $gridftp_max_connections      = 100,
+  $gridftp_max_connections      = '100',
   $hepspec_per_core    = '11.17',
+  $infosys_registration = {
+    'clustertouk1' => {
+      targethostname => 'index1.gridpp.rl.ac.uk',
+      targetport => '2135',
+      targetsuffix => 'Mds-Vo-Name=UK,o=grid',
+      regperiod => '120',},
+
+    'clustertouk2' => {
+       targethostname => 'index2.gridpp.rl.ac.uk',
+       targetport => '2135',
+       targetsuffix => 'Mds-Vo-Name=UK,o=grid',
+       regperiod => '120',}
+   },
+
   $log_directory       = '/var/log/arc',
   $lrms                = 'fork',
   $mail                = 'gridmaster@hep.lu.se',
@@ -117,9 +134,27 @@ class arc_ce::config (
 
   # create folders for runtime environments
   file { [
+    '/etc/arc/',
     '/etc/arc/runtime/',
     '/etc/arc/runtime/ENV']: ensure => directory, }
+  
+ # Create empty ATLAS-SITE-LCG  for ATLAS prd jobs
 
+  file { [ '/etc/arc/runtime/APPS',
+           '/etc/arc/runtime/APPS/HEP',] :
+         ensure => directory,
+         require => File['/etc/arc/runtime'],
+       } 
+  
+  file { '/etc/arc/runtime/APPS/HEP/ATLAS-SITE-LCG':
+      ensure  => present,
+      source  => "puppet:///modules/${module_name}/RTEs/ATLAS-SITE-LCG",
+      require => File['/etc/arc/runtime/APPS/HEP'],
+      mode   => 755,
+    }
+
+  
+ 
   # plugin to set a default runtime environment
   file { '/usr/local/bin/default_rte_plugin.py':
     ensure => present,

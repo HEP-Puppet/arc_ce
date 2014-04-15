@@ -11,9 +11,13 @@
 # Sample Usage:
 #
 class arc_ce (
+  $install_from_repository      = 'nordugrid',
+  $allow_new_jobs      = 'yes',
+  $enable_firewall     = true,
   $apel_testing        = true,
+  $apel_urbatch        = '1000',
   $apply_fixes         = false,
-  $arex_port           = 60000,
+  $arex_port           = '60000',
   $argus_server        = 'argus.example.com',
   $authorized_vos      = [
     'alice',
@@ -38,29 +42,43 @@ class arc_ce (
     'OSFamily'      => 'linux',
     'OSName'        => 'ScientificSL',
     'OSVersion'     => '6.4',
+    'OSVersionName' => 'Carbon',
     'CPUVendor'     => 'AMD',
     'CPUClockSpeed' => '3100',
     'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
-    'NodeMemory'    => 1024,
-    'totalcpus'     => 42,
+    'NodeMemory'    => '1024',
+    'totalcpus'     => '42',
   }
   ,
   $cluster_is_homogenious       = true,
   $cluster_nodes_private        = true,
   $cluster_owner       = 'Bristol HEP',
-  $cluster_registration_country = 'UK',
-  $cluster_registration_name    = 'clustertoukglasgow',
-  $cluster_registration_target  = 'svr019.gla.scotgrid.ac.uk',
-  $cores_per_worker    = 16,
+  $cores_per_worker    = '16',
+  $cpu_scaling_reference_si00 = '3100',
   $debug               = true,
   $domain_name         = 'GOCDB-SITENAME',
   $enable_glue1        = false,
   $enable_glue2        = true,
+  $enable_trustanchors = true,
   $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
   $globus_port_range   = [50000, 52000],
-  $gridftp_max_connections      = 100,
+  $gridftp_max_connections      = '100',
   $hepspec_per_core    = '11.17',
   $install_from_repository      = 'nordugrid',
+  $infosys_registration = {
+    'clustertouk1' => {
+      targethostname => 'index1.gridpp.rl.ac.uk',
+      targetport => '2135',
+      targetsuffix => 'Mds-Vo-Name=UK,o=grid',
+      regperiod => '120',},
+
+    'clustertouk2' => {
+       targethostname => 'index2.gridpp.rl.ac.uk',
+       targetport => '2135',
+       targetsuffix => 'Mds-Vo-Name=UK,o=grid',
+       regperiod => '120',}
+   },
+
   $log_directory       = '/var/log/arc',
   $lrms                = 'fork',
   $mail                = 'gridmaster@hep.lu.se',
@@ -81,11 +99,13 @@ class arc_ce (
     class { 'arc_ce::repositories':
       use_nordugrid          => true,
       nordugrid_repo_version => '13.11',
+      enable_trustanchors    => $enable_trustanchors
     }
   } else {
     class { 'arc_ce::repositories':
       use_emi          => true,
-      emi_repo_version => 3,
+      emi_repo_version => '3',
+      enable_trustanchors    => $enable_trustanchors
     }
   }
 
@@ -94,7 +114,9 @@ class arc_ce (
   }
 
   class { 'arc_ce::config':
+    allow_new_jobs      => $allow_new_jobs,
     apel_testing        => $apel_testing,
+    apel_urbatch        => $apel_urbatch,
     apply_fixes         => $apply_fixes,
     arex_port           => $arex_port,
     argus_server        => $argus_server,
@@ -108,10 +130,9 @@ class arc_ce (
     cluster_is_homogenious       => $cluster_is_homogenious,
     cluster_nodes_private        => $cluster_nodes_private,
     cluster_owner       => $cluster_owner,
-    cluster_registration_country => $cluster_registration_country,
-    cluster_registration_name    => $cluster_registration_name,
-    cluster_registration_target  => $cluster_registration_target,
     cores_per_worker    => $cores_per_worker,
+    cpu_scaling_reference_si00 => $cpu_scaling_reference_si00,
+    domain_name         => $domain_name,
     debug               => $debug,
     domain_name         => $domain_name,
     enable_glue1        => $enable_glue1,
@@ -120,6 +141,7 @@ class arc_ce (
     glue_site_web       => $glue_site_web,
     gridftp_max_connections      => $gridftp_max_connections,
     hepspec_per_core    => $hepspec_per_core,
+    infosys_registration => $infosys_registration,
     log_directory       => $log_directory,
     lrms                => $lrms,
     mail                => $mail,
@@ -134,11 +156,11 @@ class arc_ce (
     use_argus           => $use_argus,
     require             => Class['arc_ce::install'],
   }
-
+   if $enable_firewall {
   class { 'arc_ce::firewall':
     globus_port_range => $globus_port_range,
   }
-
+ }
   class { 'arc_ce::services':
     require => Class['arc_ce::config'],
   }

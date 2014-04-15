@@ -35,7 +35,7 @@ bdii_run_dir="/var/run/arc/bdii"
 resource_location="<%= resource_location %>"
 resource_latitude=<%= resource_latitude %>
 resource_longitude=<%= resource_longitude %>
-cpu_scaling_reference_si00="3100"
+cpu_scaling_reference_si00=<%= cpu_scaling_reference_si00 %>
 processor_other_description="Cores=<%= @cores_per_worker %>,Benchmark=<%= hepspec_per_core %>-HEP-SPEC06"
 glue_site_web="<%= glue_site_web %>"
 glue_site_unique_id="<%= domain_name %>"
@@ -50,9 +50,13 @@ url="ldap://localhost:2135/mds-vo-name=resource,o=grid"
 name="<%= domain_name %>"
 
 #cluster registration block
-[infosys/cluster/registration/<%= cluster_registration_name %>]
-targethostname="<%= cluster_registration_target %>"
-targetport="2135"
-targetsuffix="Mds-Vo-Name=<%= cluster_registration_country %>,o=grid"
-regperiod="120"
+<% @infosys_registration.keys.sort.each do |key| -%>
+<% value = @infosys_registration[key] -%>
+[infosys/cluster/registration/<%= key %>]
+targethostname="<%= value['targethostname'] %>"
+targetport="<%= value['targetport'] %>"
+targetsuffix="<%= value['targetsuffix'] %>"
+regperiod="<%= value['regperiod'] %>"
+
+<% end %>
 
