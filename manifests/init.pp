@@ -132,7 +132,6 @@ class arc_ce (
     cluster_owner       => $cluster_owner,
     cores_per_worker    => $cores_per_worker,
     cpu_scaling_reference_si00 => $cpu_scaling_reference_si00,
-    domain_name         => $domain_name,
     debug               => $debug,
     domain_name         => $domain_name,
     enable_glue1        => $enable_glue1,
