@@ -19,12 +19,22 @@ max_infosys_requests=-1
 wakeupperiod="180"
 defaultttl="345600 432000"
 runtimedir="/etc/arc/runtime"
+<%if @benchmark_type == 'HEPSPEC' -%>
 <% if @apel_testing == true -%>
 jobreport="APEL:http://test-msg02.afroditi.hellasgrid.gr:6163"
 jobreport_options="urbatch:50,archiving:/var/run/arc/urs,topic:/queue/global.accounting.cputest.CENTRAL,gocdb_name:<%= domain_name %>,use_ssl:false,Network:TEST-NWOB,benchmark_type:HEPSPEC,benchmark_value:<%= hepspec_per_core %>,benchmark_description:HS06"
 <% else -%>
-jobreport="APEL:http://msg.cro-ngi.hr:6163"
+jobreport="APEL:https://mq.cro-ngi.hr:6163"
 jobreport_options="urbatch:<%= @apel_urbatch %>,archiving:/var/run/arc/urs,topic:/queue/global.accounting.cpu.central,gocdb_name:<%= domain_name %>,use_ssl:true,Network:PROD,benchmark_type:HEPSPEC,benchmark_value:<%= hepspec_per_core %>,benchmark_description:HS06"
+<%end -%>
+<%elsif @benchmark_type == 'Si2k' -%>
+<% if @apel_testing == true -%>
+jobreport="APEL:http://test-msg02.afroditi.hellasgrid.gr:6163"
+jobreport_options="urbatch:50,archiving:/var/run/arc/urs,topic:/queue/global.accounting.cputest.CENTRAL,gocdb_name:<%= domain_name %>,use_ssl:false,Network:TEST-NWOB,benchmark_type:Si2k,benchmark_value:<%= @cpu_scaling_reference_si00 %>,benchmark_description:Si2k"
+<% else -%>
+jobreport="APEL:https://mq.cro-ngi.hr:6163"
+jobreport_options="urbatch:<%= @apel_urbatch %>,archiving:/var/run/arc/urs,topic:/queue/global.accounting.cpu.central,gocdb_name:<%= domain_name %>,use_ssl:true,Network:PROD,benchmark_type:Si2k,benchmark_value:<%= @cpu_scaling_reference_si00 %>,benchmark_description:Si2k"
+<%end -%>
 <%end -%>
 jobreport_credentials="/etc/grid-security/hostkey.pem /etc/grid-security/hostcert.pem /etc/grid-security/certificates"
 jobreport_publisher="jura"
