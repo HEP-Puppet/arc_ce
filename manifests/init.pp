@@ -14,7 +14,6 @@ class arc_ce (
   $install_from_repository      = 'nordugrid',
   $manage_repository = true, #if set to no, no repository will be setup
   $allow_new_jobs      = 'yes',
-  $enable_firewall     = true,
   $apel_testing        = true,
   $apel_urbatch        = '1000',
   $apply_fixes         = false,
@@ -58,6 +57,7 @@ class arc_ce (
   $cpu_scaling_reference_si00 = '3100',
   $debug               = true,
   $domain_name         = 'GOCDB-SITENAME',
+  $enable_firewall     = true,
   $enable_glue1        = false,
   $enable_glue2        = true,
   $enable_trustanchors = true,
@@ -135,7 +135,6 @@ class arc_ce (
     cluster_owner       => $cluster_owner,
     cores_per_worker    => $cores_per_worker,
     cpu_scaling_reference_si00 => $cpu_scaling_reference_si00,
-    domain_name         => $domain_name,
     debug               => $debug,
     enable_glue1        => $enable_glue1,
     enable_glue2        => $enable_glue2,
