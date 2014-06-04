@@ -110,6 +110,7 @@ class arc_ce (
       }
     }
     Class['arc_ce::repositories'] ~> Class[Arc_ce::Install]
+    Class['arc_ce::repositories'] ~> Package[nordugrid-arc-compute-element]
   }
 
   class { 'arc_ce::install':  }
