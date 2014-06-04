@@ -135,7 +135,6 @@ class arc_ce (
     cpu_scaling_reference_si00 => $cpu_scaling_reference_si00,
     domain_name         => $domain_name,
     debug               => $debug,
-    domain_name         => $domain_name,
     enable_glue1        => $enable_glue1,
     enable_glue2        => $enable_glue2,
     globus_port_range   => $globus_port_range,
