@@ -64,7 +64,6 @@ class arc_ce (
   $globus_port_range   = [50000, 52000],
   $gridftp_max_connections      = '100',
   $hepspec_per_core    = '11.17',
-  $install_from_repository      = 'nordugrid',
   $infosys_registration = {
     'clustertouk1' => {
       targethostname => 'index1.gridpp.rl.ac.uk',
