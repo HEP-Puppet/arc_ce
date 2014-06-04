@@ -12,6 +12,7 @@
 #
 class arc_ce (
   $install_from_repository      = 'nordugrid',
+  $manage_repository = true, #if set to no, no repository will be setup
   $allow_new_jobs      = 'yes',
   $enable_firewall     = true,
   $apel_testing        = true,
@@ -94,23 +95,24 @@ class arc_ce (
   $session_dir         = ['/var/spool/arc/grid00'],
   $setup_RTEs          = true,
   $use_argus           = false,) {
-  if $install_from_repository == 'nordugrid' {
-    class { 'arc_ce::repositories':
-      use_nordugrid          => true,
-      nordugrid_repo_version => '13.11',
-      enable_trustanchors    => $enable_trustanchors
+  if $manage_repository {
+    if $install_from_repository == 'nordugrid' {
+      class { 'arc_ce::repositories':
+        use_nordugrid          => true,
+        nordugrid_repo_version => '13.11',
+        enable_trustanchors    => $enable_trustanchors
+      }
+    } else {
+      class { 'arc_ce::repositories':
+        use_emi          => true,
+        emi_repo_version => '3',
+        enable_trustanchors    => $enable_trustanchors
+      }
     }
-  } else {
-    class { 'arc_ce::repositories':
-      use_emi          => true,
-      emi_repo_version => '3',
-      enable_trustanchors    => $enable_trustanchors
-    }
+    Class['arc_ce::repositories'] ~> Class[Arc_ce::Install]
   }
 
-  class { 'arc_ce::install':
-    require => Class['arc_ce::repositories'],
-  }
+  class { 'arc_ce::install':  }
 
   class { 'arc_ce::config':
     allow_new_jobs      => $allow_new_jobs,
