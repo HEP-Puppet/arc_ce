@@ -12,6 +12,7 @@
 #
 class arc_ce (
   $install_from_repository      = 'nordugrid',
+  $manage_repository = true, #if set to no, no repository will be setup
   $allow_new_jobs      = 'yes',
   $enable_firewall     = true,
   $apel_testing        = true,
@@ -64,7 +65,6 @@ class arc_ce (
   $globus_port_range   = [50000, 52000],
   $gridftp_max_connections      = '100',
   $hepspec_per_core    = '11.17',
-  $install_from_repository      = 'nordugrid',
   $infosys_registration = {
     'clustertouk1' => {
       targethostname => 'index1.gridpp.rl.ac.uk',
@@ -95,23 +95,26 @@ class arc_ce (
   $session_dir         = ['/var/spool/arc/grid00'],
   $setup_RTEs          = true,
   $use_argus           = false,) {
-  if $install_from_repository == 'nordugrid' {
-    class { 'arc_ce::repositories':
-      use_nordugrid          => true,
-      nordugrid_repo_version => '13.11',
-      enable_trustanchors    => $enable_trustanchors
+  if $manage_repository {
+    if $install_from_repository == 'nordugrid' {
+      class { 'arc_ce::repositories':
+        use_nordugrid          => true,
+        nordugrid_repo_version => '13.11',
+        enable_trustanchors    => $enable_trustanchors
+      }
+    } else {
+      class { 'arc_ce::repositories':
+        use_emi          => true,
+        emi_repo_version => '3',
+        enable_trustanchors    => $enable_trustanchors
+      }
     }
-  } else {
-    class { 'arc_ce::repositories':
-      use_emi          => true,
-      emi_repo_version => '3',
-      enable_trustanchors    => $enable_trustanchors
-    }
+    Class['arc_ce::repositories'] -> Class[Arc_ce::Install]
+    Class['arc_ce::repositories'] -> Package[nordugrid-arc-compute-element]
+    Class['arc_ce::repositories'] -> Yumrepo['EGI-trustanchors']
   }
 
-  class { 'arc_ce::install':
-    require => Class['arc_ce::repositories'],
-  }
+  class { 'arc_ce::install':  }
 
   class { 'arc_ce::config':
     allow_new_jobs      => $allow_new_jobs,
@@ -134,7 +137,6 @@ class arc_ce (
     cpu_scaling_reference_si00 => $cpu_scaling_reference_si00,
     domain_name         => $domain_name,
     debug               => $debug,
-    domain_name         => $domain_name,
     enable_glue1        => $enable_glue1,
     enable_glue2        => $enable_glue2,
     globus_port_range   => $globus_port_range,
