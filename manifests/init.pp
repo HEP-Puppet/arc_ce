@@ -109,9 +109,9 @@ class arc_ce (
         enable_trustanchors    => $enable_trustanchors
       }
     }
-    Class['arc_ce::repositories'] ~> Class[Arc_ce::Install]
-    Class['arc_ce::repositories'] ~> Package[nordugrid-arc-compute-element]
-    Class['arc_ce::repositories'] ~> Yumrepo['EGI-trustanchors']
+    Class['arc_ce::repositories'] -> Class[Arc_ce::Install]
+    Class['arc_ce::repositories'] -> Package[nordugrid-arc-compute-element]
+    Class['arc_ce::repositories'] -> Yumrepo['EGI-trustanchors']
   }
 
   class { 'arc_ce::install':  }
