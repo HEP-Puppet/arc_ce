@@ -166,7 +166,8 @@ sub run_rte0 {
         my ($fh, $fname) = tempfile('condor_XXXXXXXX', DIR => $dir);
         print $fh $script or die "$0: write $fname: $!\n";
         close $fh           or die "$0: close $fname: $!\n";
-        my $output = `@posix_shell@ $fname`;
+        my $output = `/bin/sh $fname`;
+        #my $output = `@posix_shell@ $fname`;
         unlink $fname;
 
         # is output complete?
