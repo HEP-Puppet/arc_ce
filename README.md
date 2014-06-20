@@ -29,6 +29,7 @@
     
 ##Overview
 The arc_ce modules allows you to set up a Nordugrid Advanced Resource Ccollector (ARC) Computing Element (CE) (http://www.nordugrid.org/arc/ce/).
+It depends on several other modules, including puppetlabs/(stdlib|concat|firewall) and CERNOps/fetchcrl. Please check the modulefile for detailed dependencies.
 
 ##Module Description
 
