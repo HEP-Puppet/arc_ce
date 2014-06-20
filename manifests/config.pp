@@ -22,6 +22,7 @@ class arc_ce::config (
     'SPECINT2000 222',
     'SPECFP2000 333',
     'HEPSPEC2006 444'],
+  $benchmark_type      = 'HEPSPEC',
   $cache_dir           = ['/var/cache/arc'],
   $cluster_alias       = 'MINIMAL Computing Element',
   $cluster_comment     = 'This is a minimal out-of-box CE setup',
