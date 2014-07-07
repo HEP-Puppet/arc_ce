@@ -28,11 +28,12 @@
     
     
 ##Overview
-The arc_ce modules allows you to set up a Nordugrid ARC Computing Element (CE) (http://www.nordugrid.org/arc/ce/).
+The arc_ce modules allows you to set up a Nordugrid Advanced Resource Ccollector (ARC) Computing Element (CE) (http://www.nordugrid.org/arc/ce/).
+It depends on several other modules, including puppetlabs/(stdlib|concat|firewall) and CERNOps/fetchcrl. Please check the modulefile for detailed dependencies.
 
 ##Module Description
 
-Write something about ARC CE
+This module allows you to install and configure the ARC CE. The current version
 
 ##Setup
 **What arc_ce affects:**
@@ -40,7 +41,7 @@ Write something about ARC CE
 * configuration files and directories (created and written to)
 * package/service/configuration files for ARC CE
 * lcas, lcmaps package and configuration
-* firewall configuration
+* firewall configuration (optional, enabled by default)
 
 ###Beginning with ARC CE
 To install ARC CE with the default parameters
@@ -55,8 +56,17 @@ To install ARC CE with the default parameters
 ####Class: `arc_ce`
 
 **Parameters within `arc_ce`:**
+#####`allow_new_jobs`
+Sets the `allownew` parameter in the `[gridftpd]` section. Can be 'yes' or 'no'.
 
 #####`apel_testing`
+Sets the URL for APEL reporting. If `true` it will send job reports to
+`http://test-msg02.afroditi.hellasgrid.gr:6163` and queue `/queue/global.accounting.cputest.CENTRAL`.
+If set to `false` (default) it will send reports to
+`http://msg.cro-ngi.hr:6163` and queue `/queue/global.accounting.cpu.central`.
+
+#####`apel_urbatch`
+Number of job reports to be send at once. Default is 1000.
 
 ####Defined Type: `arc_ce::queue`
 
