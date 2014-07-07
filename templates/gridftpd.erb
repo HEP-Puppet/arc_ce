@@ -11,7 +11,7 @@ port="2811"
 allowunknown="yes"
 
 unixmap="* mapfile /etc/grid-security/local-grid-mapfile"
-unixmap="* lcmaps liblcmaps.so /usr/lib64 /usr/etc/lcmaps/lcmaps.db voms"
+unixmap="* lcmaps liblcmaps.so /usr/lib64 /etc/lcmaps/lcmaps.db voms"
 unixmap="nobody:nobody all"
 <% if @gridftp_max_connections -%>
 maxconnections = <%= @gridftp_max_connections -%>
