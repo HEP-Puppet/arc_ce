@@ -3,5 +3,6 @@ class arc_ce::lcmaps::config (
   file { '/etc/lcmaps/lcmaps.db':
     ensure  => present,
     content => template("${module_name}/lcmaps.db.erb"),
+    require => Package[lcmaps],
   }
 }
