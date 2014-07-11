@@ -91,6 +91,7 @@ class arc_ce::config (
   file { $cache_dir: ensure => directory, }
 
   concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'],
+    notify => Service['a-rex'],
   }
 
   concat::fragment { 'arc.conf_common':
