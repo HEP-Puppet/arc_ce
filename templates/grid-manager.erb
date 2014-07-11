@@ -35,7 +35,7 @@ runtimedir="/etc/arc/runtime"
   <%- stomp_conf='topic:/queue/global.accounting.cpu.central,use_ssl:true,Network:PROD' -%>
   <%- broker='APEL:https://mq.cro-ngi.hr:6163'-%>
 <%- end -%>
-<%- if @apel_jurs_publishing -%>
+<%- if @apel_jura_publishing -%>
 jobreport="<%= broker %>"
 jobreport_options="urbatch:<%= @apel_urbatch %>,archiving:<%= @accounting_archives %>,gocdb_name:<%= @domain_name %>,<%= stomp_conf %>,benchmark_type:<%= bench %>,benchmark_value:<%= bench_val %>,benchmark_description:<%= bench_desc %>"
 <% else %>
