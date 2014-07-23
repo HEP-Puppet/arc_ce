@@ -12,6 +12,7 @@ if [ "x$1" = "x0" ]; then
   eval joboption_env_$env_idx="NORDUGRID_ARC_QUEUE=$joboption_queue"
 fi
 export NORDUGRID_CE=true
+export GLOBUS_LOCATION=/usr
 ####################################################
 # grid environment
 ####################################################

@@ -4,6 +4,8 @@ class arc_ce::config (
   $allow_new_jobs      = 'yes',
   $apel_testing        = true,
   $apel_urbatch          = '1000',
+  $apel_jura_publishing     = true,
+  $accounting_archives = '/var/run/arc/urs',
   $apply_fixes         = false,
   $arex_port           = '60000',
   $argus_server        = 'argus.example.com',
@@ -89,6 +91,7 @@ class arc_ce::config (
   file { $cache_dir: ensure => directory, }
 
   concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'],
+    notify => Service['a-rex'],
   }
 
   concat::fragment { 'arc.conf_common':

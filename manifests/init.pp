@@ -16,6 +16,8 @@ class arc_ce (
   $allow_new_jobs      = 'yes',
   $apel_testing        = true,
   $apel_urbatch        = '1000',
+  $apel_jura_publishing     = true, #if set to false, nothing will be pushed into any SSM broker. Allows for local-only installs.
+  $accounting_archives = '/var/run/arc/urs', #this is where JURA stores its temporary CAR accounting records (not temporary in case of local-only install)
   $apply_fixes         = false,
   $arex_port           = '60000',
   $argus_server        = 'argus.example.com',
@@ -121,6 +123,7 @@ class arc_ce (
     allow_new_jobs      => $allow_new_jobs,
     apel_testing        => $apel_testing,
     apel_urbatch        => $apel_urbatch,
+    apel_jura_publishing => $apel_jura_publishing, 
     apply_fixes         => $apply_fixes,
     arex_port           => $arex_port,
     argus_server        => $argus_server,
@@ -138,6 +141,7 @@ class arc_ce (
     cores_per_worker    => $cores_per_worker,
     cpu_scaling_reference_si00 => $cpu_scaling_reference_si00,
     debug               => $debug,
+    domain_name         => $domain_name,
     enable_glue1        => $enable_glue1,
     enable_glue2        => $enable_glue2,
     globus_port_range   => $globus_port_range,
