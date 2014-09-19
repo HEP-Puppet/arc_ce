@@ -10,6 +10,7 @@ if [ "x$1" = "x0" ]; then
      env_var="joboption_env_$env_idx"
   done
   eval joboption_env_$env_idx="NORDUGRID_ARC_QUEUE=$joboption_queue"
+  RUNTIME_ENABLE_MULTICORE_SCRATCH=1
 fi
 export NORDUGRID_CE=true
 export GLOBUS_LOCATION=/usr
