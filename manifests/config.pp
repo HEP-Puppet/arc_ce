@@ -89,6 +89,7 @@ class arc_ce::config (
   file { $cache_dir: ensure => directory, }
 
   concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'],
+    notify => Service['a-rex'],
   }
 
   concat::fragment { 'arc.conf_common':
@@ -138,15 +139,15 @@ class arc_ce::config (
     '/etc/arc/',
     '/etc/arc/runtime/',
     '/etc/arc/runtime/ENV']: ensure => directory, }
-  
+
  # Create empty ATLAS-SITE-LCG  for ATLAS prd jobs
 
   file { [ '/etc/arc/runtime/APPS',
            '/etc/arc/runtime/APPS/HEP',] :
          ensure => directory,
          require => File['/etc/arc/runtime'],
-       } 
-  
+       }
+
   file { '/etc/arc/runtime/APPS/HEP/ATLAS-SITE-LCG':
       ensure  => present,
       source  => "puppet:///modules/${module_name}/RTEs/ATLAS-SITE-LCG",
@@ -154,8 +155,8 @@ class arc_ce::config (
       mode   => 755,
     }
 
-  
- 
+
+
   # plugin to set a default runtime environment
   file { '/usr/local/bin/default_rte_plugin.py':
     ensure => present,
