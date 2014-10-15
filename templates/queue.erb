@@ -11,26 +11,26 @@ condor_requirements="<%= @condor_requirements -%>"
 architecture="adotf"
 
 #For inhomogenious clusters
-nodecpu="<%= cluster_description['CPUModel'] %> @ <%= cluster_description['CPUClockSpeed'] %> MHz"
+nodecpu="<%= @cluster_description['CPUModel'] %> @ <%= @cluster_description['CPUClockSpeed'] %> MHz"
 nodememory="<%= @cluster_description['NodeMemory'] -%>"
 
-opsys="<%= cluster_description['OSName'] %>"
-opsys="<%= cluster_description['OSVersion'] %>"
-opsys="<%= cluster_description['OSVersionName'] %>"
+opsys="<%= @cluster_description['OSName'] %>"
+opsys="<%= @cluster_description['OSVersion'] %>"
+opsys="<%= @cluster_description['OSVersionName'] %>"
 
 #cluster description for infosys
-OSFamily="<%= cluster_description['OSFamily'] %>"
-#OSName="<%= cluster_description['OSName'] %>"
-#OSVersion="<%= cluster_description['OSVersion'] %>"
+OSFamily="<%= @cluster_description['OSFamily'] %>"
+#OSName="<%= @cluster_description['OSName'] %>"
+#OSVersion="<%= @cluster_description['OSVersion'] %>"
 
-CPUVendor="<%= cluster_description['CPUVendor'] %>"
-CPUClockSpeed="<%= cluster_description['CPUClockSpeed'] %>"
-CPUModel="<%= cluster_description['CPUModel'] %>"
+CPUVendor="<%= @cluster_description['CPUVendor'] %>"
+CPUClockSpeed="<%= @cluster_description['CPUClockSpeed'] %>"
+CPUModel="<%= @cluster_description['CPUModel'] %>"
 #benchmark results
 <% @benchmark_results.each do |val| -%>
 benchmark="<%= val %>"
 <% end -%>
 
-cpudistribution=<%= cluster_cpudistribution.join(',') %>
-totalcpus="<%= cluster_description['totalcpus'] %>"
+cpudistribution=<%= @cluster_cpudistribution.join(',') %>
+totalcpus="<%= @cluster_description['totalcpus'] %>"
 

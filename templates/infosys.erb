@@ -12,8 +12,8 @@ slapd_loglevel="0"
 threads="32"
 timelimit="1800"
 infoproviders_timeout="1200"
-registrationlog="<%= log_directory %>/inforegistration.log"
-providerlog="<%= log_directory %>/infoprovider.log"
+registrationlog="<%= @log_directory %>/inforegistration.log"
+providerlog="<%= @log_directory %>/infoprovider.log"
 provider_loglevel="3"
 bdii_delete_delay=0
 <%if @enable_glue2 == true then -%>
@@ -32,22 +32,22 @@ bdii_run_dir="/var/run/arc/bdii"
 <%if @enable_glue1 == true then -%>
 ##TODO: add them to config parameters
 [infosys/glue12]
-resource_location="<%= resource_location %>"
-resource_latitude=<%= resource_latitude %>
-resource_longitude=<%= resource_longitude %>
-cpu_scaling_reference_si00=<%= cpu_scaling_reference_si00 %>
-processor_other_description="Cores=<%= @cores_per_worker %>,Benchmark=<%= hepspec_per_core %>-HEP-SPEC06"
-glue_site_web="<%= glue_site_web %>"
-glue_site_unique_id="<%= domain_name %>"
+resource_location="<%= @resource_location %>"
+resource_latitude=<%= @resource_latitude %>
+resource_longitude=<%= @resource_longitude %>
+cpu_scaling_reference_si00=<%= @cpu_scaling_reference_si00 %>
+processor_other_description="Cores=<%= @cores_per_worker %>,Benchmark=<%= @hepspec_per_core %>-HEP-SPEC06"
+glue_site_web="<%= @glue_site_web %>"
+glue_site_unique_id="<%= @domain_name %>"
 provide_glue_site_info="false"
 
 [infosys/site/sitename]
-unique_id="<%= fqdn %>"
+unique_id="<%= @fqdn %>"
 url="ldap://localhost:2135/mds-vo-name=resource,o=grid"
 <% end -%>
 
 [infosys/admindomain]
-name="<%= domain_name %>"
+name="<%= @domain_name %>"
 
 #cluster registration block
 <% @infosys_registration.keys.sort.each do |key| -%>
