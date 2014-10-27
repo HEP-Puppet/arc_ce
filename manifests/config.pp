@@ -152,7 +152,7 @@ class arc_ce::config (
       ensure  => present,
       source  => "puppet:///modules/${module_name}/RTEs/ATLAS-SITE-LCG",
       require => File['/etc/arc/runtime/APPS/HEP'],
-      mode   => 755,
+      mode   => '0755',
     }
 
 
@@ -161,22 +161,12 @@ class arc_ce::config (
   file { '/usr/local/bin/default_rte_plugin.py':
     ensure => present,
     source => "puppet:///modules/${module_name}/default_rte_plugin.py",
-    mode   => 755,
+    mode   => '0755',
   }
 
   # set up runtime environments
   if $setup_RTEs {
-    file { '/etc/arc/runtime/ENV/GLITE':
-      ensure  => present,
-      source  => "puppet:///modules/${module_name}/RTEs/GLITE",
-      require => File['/etc/arc/runtime/ENV'],
-    }
-
-    file { '/etc/arc/runtime/ENV/PROXY':
-      ensure  => present,
-      source  => "puppet:///modules/${module_name}/RTEs/PROXY",
-      require => File['/etc/arc/runtime/ENV'],
-    }
+    class {'arc_ce::runtime_env':}
   }
 
   # apply manual fixes
