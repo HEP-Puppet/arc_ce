@@ -13,6 +13,7 @@
 class arc_ce (
   $install_from_repository      = 'nordugrid',
   $manage_repository = true, #if set to no, no repository will be setup
+  $accounting_archives = '/var/run/arc/urs',
   $allow_new_jobs      = 'yes',
   $apel_testing        = true,
   $apel_urbatch        = '1000',
@@ -118,6 +119,7 @@ class arc_ce (
 
   class { 'arc_ce::config':
     allow_new_jobs      => $allow_new_jobs,
+    accounting_archives => $accounting_archives,
     apel_testing        => $apel_testing,
     apel_urbatch        => $apel_urbatch,
     apply_fixes         => $apply_fixes,
