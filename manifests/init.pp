@@ -13,6 +13,7 @@
 class arc_ce (
   $install_from_repository      = 'nordugrid',
   $manage_repository = true, #if set to no, no repository will be setup
+  $accounting_archives = '/var/run/arc/urs',
   $allow_new_jobs      = 'yes',
   $apel_testing        = true,
   $apel_urbatch        = '1000',
@@ -58,6 +59,7 @@ class arc_ce (
   $cpu_scaling_reference_si00 = '3100',
   $debug               = true,
   $domain_name         = 'GOCDB-SITENAME',
+  $emi_repo_version    = '3',
   $enable_firewall     = true,
   $enable_glue1        = false,
   $enable_glue2        = true,
@@ -83,6 +85,7 @@ class arc_ce (
   $log_directory       = '/var/log/arc',
   $lrms                = 'fork',
   $mail                = 'gridmaster@hep.lu.se',
+  $nordugrid_repo_version = '13.11',
   $queue_defaults      = {
   }
   ,
@@ -95,18 +98,20 @@ class arc_ce (
   $run_directory       = '/var/run/arc',
   $session_dir         = ['/var/spool/arc/grid00'],
   $setup_RTEs          = true,
-  $use_argus           = false,) {
+  $use_argus           = false,
+  
+  ) {
   if $manage_repository {
     if $install_from_repository == 'nordugrid' {
       class { 'arc_ce::repositories':
         use_nordugrid          => true,
-        nordugrid_repo_version => '13.11',
+        nordugrid_repo_version => $nordugrid_repo_version,
         enable_trustanchors    => $enable_trustanchors
       }
     } else {
       class { 'arc_ce::repositories':
-        use_emi          => true,
-        emi_repo_version => '3',
+        use_emi                => true,
+        emi_repo_version       => $emi_repo_version,
         enable_trustanchors    => $enable_trustanchors
       }
     }
@@ -118,6 +123,7 @@ class arc_ce (
 
   class { 'arc_ce::config':
     allow_new_jobs      => $allow_new_jobs,
+    accounting_archives => $accounting_archives,
     apel_testing        => $apel_testing,
     apel_urbatch        => $apel_urbatch,
     apply_fixes         => $apply_fixes,
