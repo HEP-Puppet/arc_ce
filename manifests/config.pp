@@ -84,7 +84,8 @@ class arc_ce::config (
   $run_directory       = '/var/run/arc',
   $session_dir         = ['/var/spool/arc/grid00'],
   $setup_RTEs          = true,
-  $use_argus           = false,) {
+  $use_argus           = false,
+  $hostname            = $::fqdn,) {
   file { $session_dir: ensure => directory, }
 
   file { $cache_dir: ensure => directory, }
