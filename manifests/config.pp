@@ -136,7 +136,7 @@ class arc_ce::config (
     group   => 'root',
     mode    => '0644',
     content => template("${module_name}/nordugrid-arc-arex.erb"),
-    require => Package['nordugrid-arc-arex'],
+    require => Package['nordugrid-arc-compute-element'],
   }
 
   file { '/etc/logrotate.d/nordugrid-gridftp':
@@ -145,7 +145,7 @@ class arc_ce::config (
     group   => 'root',
     mode    => '0644',
     content => template("${module_name}/nordugrid-arc-gridftpd.erb"),
-    require => Package['nordugrid-arc-gridftp']
+    require => Package['nordugrid-arc-compute-element']
   }
 
   create_resources('arc_ce::queue', $queues, $queue_defaults)
