@@ -130,6 +130,7 @@ class arc_ce::config (
     order   => 06,
   }
 
+  # Added to use the same pid files as configured in /etc/arc.conf
   file { '/etc/logrotate.d/nordugrid-arc-arex':
     ensure  => $ensure,
     owner   => 'root',
