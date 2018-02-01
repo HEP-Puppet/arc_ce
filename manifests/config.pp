@@ -144,7 +144,7 @@ class arc_ce::config (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template("${module_name}/nordugrid-arc-gridftp.erb"),
+    content => template("${module_name}/nordugrid-arc-gridftpd.erb"),
     require => Package['nordugrid-arc-gridftp']
   }
 
