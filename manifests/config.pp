@@ -130,6 +130,24 @@ class arc_ce::config (
     order   => 06,
   }
 
+  file { '/etc/logrotate.d/nordugrid-arc-arex':
+    ensure  => $ensure,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template("${module_name}/nordugrid-arc-arex.erb"),
+    require => Package['nordugrid-arc-arex'],
+  }
+
+  file { '/etc/logrotate.d/nordugrid-gridftp':
+    ensure  => $ensure,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template("${module_name}/nordugrid-arc-gridftp.erb"),
+    require => Package['nordugrid-arc-gridftp']
+  }
+
   create_resources('arc_ce::queue', $queues, $queue_defaults)
 
   class { 'arc_ce::lcmaps::config': argus_server => $argus_server }
