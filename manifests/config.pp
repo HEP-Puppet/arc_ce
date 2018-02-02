@@ -140,7 +140,7 @@ class arc_ce::config (
     require => Package['nordugrid-arc-compute-element'],
   }
 
-  file { '/etc/logrotate.d/nordugrid-gridftp':
+  file { '/etc/logrotate.d/nordugrid-arc-gridftp':
     ensure  => $ensure,
     owner   => 'root',
     group   => 'root',
