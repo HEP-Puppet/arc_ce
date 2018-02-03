@@ -20,17 +20,7 @@ class arc_ce (
   $apply_fixes         = false,
   $arex_port           = '60000',
   $argus_server        = 'argus.example.com',
-  $authorized_vos      = [
-    'alice',
-    'atlas',
-    'cms',
-    'ops',
-    'dteam',
-    'gridpp',
-    'ilc',
-    'lhcb',
-    'vo.landslides.mossaic.org',
-    'vo.southgrid.ac.uk'],
+  $authorized_vos      = [],
   $benchmark_results   = [
     'SPECINT2000 222',
     'SPECFP2000 333',
@@ -86,12 +76,7 @@ class arc_ce (
   $lrms                = 'fork',
   $mail                = 'gridmaster@hep.lu.se',
   $nordugrid_repo_version = '13.11',
-  $queue_defaults      = {
-  }
-  ,
-  $queues              = {
-  }
-  ,
+  $queues              = {},
   $resource_location   = 'Bristol, UK',
   $resource_latitude   = '51.4585',
   $resource_longitude  = '-02.6021',
@@ -153,7 +138,6 @@ class arc_ce (
     log_directory              => $log_directory,
     lrms                       => $lrms,
     mail                       => $mail,
-    queue_defaults             => $queue_defaults,
     queues                     => $queues,
     resource_latitude          => $resource_latitude,
     resource_location          => $resource_location,
@@ -165,13 +149,12 @@ class arc_ce (
     require                    => Class['arc_ce::install'],
     hostname                   => $hostname,
   }
-   if $enable_firewall {
-  class { 'arc_ce::firewall':
-    globus_port_range => $globus_port_range,
+  if $enable_firewall {
+    class { 'arc_ce::firewall':
+      globus_port_range => $globus_port_range,
+    }
   }
- }
   class { 'arc_ce::services':
     require => Class['arc_ce::config'],
   }
-
 }

@@ -72,12 +72,7 @@ class arc_ce::config (
   $log_directory       = '/var/log/arc',
   $lrms                = 'fork',
   $mail                = 'gridmaster@hep.lu.se',
-  $queue_defaults      = {
-  }
-  ,
-  $queues              = {
-  }
-  ,
+  $queues              = {},
   $resource_location   = 'Bristol, UK',
   $resource_latitude   = '51.4585',
   $resource_longitude  = '-02.6021',
@@ -130,6 +125,12 @@ class arc_ce::config (
     order   => 06,
   }
 
+  concat::fragment { 'arc.conf_queues':
+    target  => '/etc/arc.conf',
+    content => template("${module_name}/queues.erb"),
+    order   => 07,
+  }
+
   # Added to use the same pid files as configured in /etc/arc.conf
   file { '/etc/logrotate.d/nordugrid-arc-arex':
     ensure  => $ensure,
@@ -148,8 +149,6 @@ class arc_ce::config (
     content => template("${module_name}/nordugrid-arc-gridftpd.erb"),
     require => Package['nordugrid-arc-compute-element']
   }
-
-  create_resources('arc_ce::queue', $queues, $queue_defaults)
 
   class { 'arc_ce::lcmaps::config': argus_server => $argus_server }
 

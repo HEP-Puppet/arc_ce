@@ -1,0 +1,54 @@
+<% @queues.each_pair do |queue_name, queue_data| %>
+[queue/<%= queue_name -%>]
+name="<%= queue_name -%>"
+<% if queue_data['default_memory'] -%>
+defaultmemory=<%= queue_data['default_memory'] %>
+<% end -%>
+<% if queue_data['comment'] -%>
+comment="<%= queue_data['comment'] -%>"
+<% end -%>
+<% if queue_data['homogeneity'] -%>
+homogeneity="<%= queue_data['homogeneity'] -%>"
+<% end -%>
+<% if queue_data['main_memory_size'] -%>
+MainMemorySize="<%= queue_data['main_memory_size'] -%>"
+<% end -%>
+<% if queue_data['time_limit'] -%>
+timelimit=<%= queue_data['time_limit'] -%>
+<% end -%>
+<% if queue_data['condor_requirements'] -%>
+condor_requirements="<%= queue_data['condor_requirements'] -%>"
+<% end -%>
+<% if queue_data['cpudistribution'] -%>
+cpudistribution=<%= queue_data['cpudistribution'].join(',') %>
+<% end -%>
+<% if queue_data['totalcpus'] -%>
+totalcpus="<%= queue_data['totalcpus'] %>"
+<% end -%>
+<% if queue_data['authorized_vos'] -%>
+<% queue_data['authorized_vos'].each do |val| -%>
+authorizedvo="<%= val %>"
+<% end -%> # END queue_data['authorized_vos'].each
+<% end -%>
+<% end -%> # END queues.each_pair 
+
+#architecture="adotf"
+#For inhomogenious clusters
+#nodecpu="<%= @cluster_description['CPUModel'] %> @ <%= @cluster_description['CPUClockSpeed'] %> MHz"
+#nodememory="<%= @cluster_description['NodeMemory'] -%>"
+
+#opsys="<%= @cluster_description['OSName'] %>"
+#opsys="<%= @cluster_description['OSVersion'] %>"
+#opsys="<%= @cluster_description['OSVersionName'] %>"
+
+#cluster description for infosys
+#OSFamily="<%= @cluster_description['OSFamily'] %>"
+#OSName="<%= @cluster_description['OSName'] %>"
+#OSVersion="<%= @cluster_description['OSVersion'] %>"
+#CPUVendor="<%= @cluster_description['CPUVendor'] %>"
+#CPUClockSpeed="<%= @cluster_description['CPUClockSpeed'] %>"
+#CPUModel="<%= @cluster_description['CPUModel'] %>"
+#benchmark results
+#<% @benchmark_results.each do |val| -%>
+#benchmark="<%= val %>"
+#<% end -%>
