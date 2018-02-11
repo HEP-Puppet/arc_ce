@@ -47,3 +47,4 @@ jobreport_publisher="jura"
 
 # sets a default run time environment (RTE)
 authplugin="PREPARING timeout=60,onfailure=pass,onsuccess=pass /usr/local/bin/default_rte_plugin.py %S %C %I ENV/GLITE"
+authplugin="ACCEPTED timeout=60,onfailure=fail,onsuccess=pass %W/libexec/arc/arc-vomsac-check -L %C/job.%I.local -P %C/job.%I.proxy"

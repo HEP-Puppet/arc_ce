@@ -14,7 +14,7 @@ homogeneity="<%= queue_data['homogeneity'] -%>"
 MainMemorySize="<%= queue_data['main_memory_size'] -%>"
 <% end -%>
 <% if queue_data['time_limit'] -%>
-timelimit=<%= queue_data['time_limit'] -%>
+timelimit=<%= queue_data['time_limit'] %>
 <% end -%>
 <% if queue_data['condor_requirements'] -%>
 condor_requirements="<%= queue_data['condor_requirements'] -%>"
@@ -28,27 +28,9 @@ totalcpus="<%= queue_data['totalcpus'] %>"
 <% if queue_data['authorized_vos'] -%>
 <% queue_data['authorized_vos'].each do |val| -%>
 authorizedvo="<%= val %>"
-<% end -%> # END queue_data['authorized_vos'].each
+<% if queue_data['ac_policy'] == true -%>
+ac_policy="VOMS: <%= val %>"
 <% end -%>
-<% end -%> # END queues.each_pair 
-
-#architecture="adotf"
-#For inhomogenious clusters
-#nodecpu="<%= @cluster_description['CPUModel'] %> @ <%= @cluster_description['CPUClockSpeed'] %> MHz"
-#nodememory="<%= @cluster_description['NodeMemory'] -%>"
-
-#opsys="<%= @cluster_description['OSName'] %>"
-#opsys="<%= @cluster_description['OSVersion'] %>"
-#opsys="<%= @cluster_description['OSVersionName'] %>"
-
-#cluster description for infosys
-#OSFamily="<%= @cluster_description['OSFamily'] %>"
-#OSName="<%= @cluster_description['OSName'] %>"
-#OSVersion="<%= @cluster_description['OSVersion'] %>"
-#CPUVendor="<%= @cluster_description['CPUVendor'] %>"
-#CPUClockSpeed="<%= @cluster_description['CPUClockSpeed'] %>"
-#CPUModel="<%= @cluster_description['CPUModel'] %>"
-#benchmark results
-#<% @benchmark_results.each do |val| -%>
-#benchmark="<%= val %>"
-#<% end -%>
+<% end -%>
+<% end -%>
+<% end -%>
