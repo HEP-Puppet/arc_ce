@@ -13,8 +13,17 @@ homogeneity="<%= queue_data['homogeneity'] -%>"
 <% if queue_data['main_memory_size'] -%>
 MainMemorySize="<%= queue_data['main_memory_size'] -%>"
 <% end -%>
-<% if queue_data['time_limit'] -%>
-timelimit=<%= queue_data['time_limit'] %>
+<% if queue_data['maxcputime'] -%>
+maxcputime=<%= queue_data['maxcputime'] %>
+<% end -%>
+<% if queue_data['defaultcput'] -%>
+defaultcput=<%= queue_data['defaultcput'] %>
+<% end -%>
+<% if queue_data['maxwalltime'] -%>
+maxwalltime=<%= queue_data['maxwalltime'] %>
+<% end -%>
+<% if queue_data['defaultwallt'] -%>
+defaultwallt=<%= queue_data['defaultwallt'] %>
 <% end -%>
 <% if queue_data['condor_requirements'] -%>
 condor_requirements="<%= queue_data['condor_requirements'] -%>"
