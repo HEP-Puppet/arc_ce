@@ -533,7 +533,7 @@ sub queue_extra_info($){
     my $parser = ConfigParser->new($arcconf)
 	or die "Cannot parse $arcconf config file";
     
-    return $parser->get_section("queue/$qname")
+    return $parser->get_section("queue/$qname");
 }
 
 sub jobs_info ($$@) {

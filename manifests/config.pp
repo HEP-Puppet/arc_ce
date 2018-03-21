@@ -5,7 +5,7 @@ class arc_ce::config (
   $accounting_archives = '/var/run/arc/urs',
   $apel_testing        = true,
   $apel_urbatch          = '1000',
-  $apply_fixes         = false,
+  $apply_fixes         = '',
   $arex_port           = '60000',
   $argus_server        = 'argus.example.com',
   $authorized_vos      = [
@@ -170,12 +170,17 @@ class arc_ce::config (
   # for details check fixes.md
   if $apply_fixes {
     file { '/usr/share/arc/submit-condor-job':
-      source => "puppet:///modules/${module_name}/fixes/submit-condor-job.ARC.4.0.0",
+      source => "puppet:///modules/${module_name}/fixes/submit-condor-job.ARC.$apply_fixes",
       backup => true,
     }
 
     file { '/usr/share/arc/Condor.pm':
-      source => "puppet:///modules/${module_name}/fixes/Condor.pm.ARC.4.0.0",
+      source => "puppet:///modules/${module_name}/fixes/Condor.pm.ARC.$apply_fixes",
+      backup => true,
+    }
+
+    file { '/usr/share/arc/glue-generator.pl':
+      source => "puppet:///modules/${module_name}/fixes/glue-generator.pl.ARC.$apply_fixes",
       backup => true,
     }
   }

@@ -17,7 +17,7 @@ class arc_ce (
   $allow_new_jobs      = 'yes',
   $apel_testing        = true,
   $apel_urbatch        = '1000',
-  $apply_fixes         = false,
+  $apply_fixes         = '',
   $arex_port           = '60000',
   $argus_server        = 'argus.example.com',
   $authorized_vos      = [],
