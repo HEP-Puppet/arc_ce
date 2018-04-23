@@ -3,8 +3,9 @@
   compress
   delaycompress
   daily
-  rotate 14
+  rotate 90
   create
+  size 5G
   postrotate
 	kill -HUP `cat <%= @run_directory %>/grid-manager.pid 2> /dev/null` 2> /dev/null || true
   endscript
@@ -15,7 +16,8 @@
   compress
   delaycompress
   daily
-  rotate 14
+  rotate 90
+  size 5G
   postrotate
     kill -HUP `cat <%= @run_directory %>/grid-manager.pid 2> /dev/null` 2> /dev/null || true
   endscript
@@ -36,7 +38,7 @@
   compress
   delaycompress
   daily
-  rotate 14
+  rotate 62
   create
 }
 
