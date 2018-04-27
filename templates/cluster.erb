@@ -21,17 +21,17 @@ nodeaccess="outbound"
 <% @authorized_vos.each do |val| -%>
 authorizedvo="<%= val %>"
 <% end -%>
-cpudistribution=<%= cluster_cpudistribution.join(',') %>
-totalcpus="<%= cluster_description['totalcpus'] %>"
+cpudistribution=<%= @cluster_cpudistribution.join(',') %>
+totalcpus="<%= @cluster_description['totalcpus'] %>"
 <% if @cluster_is_homogenious == true -%>
 #For homogenious clusters
-nodecpu="<%= cluster_description['CPUModel'] %> @ <%= cluster_description['CPUClockSpeed'] %> MHz"
+nodecpu="<%= @cluster_description['CPUModel'] %> @ <%= @cluster_description['CPUClockSpeed'] %> MHz"
 nodememory="<%= @cluster_description['NodeMemory'] -%>"
 #cluster description for infosys
-opsys="<%= cluster_description['OSName'] %>"
-opsys="<%= cluster_description['OSVersion'] %>"
-opsys="<%= cluster_description['OSVersionName'] %>"
-OSFamily="<%= cluster_description['OSFamily'] %>"
+opsys="<%= @cluster_description['OSName'] %>"
+opsys="<%= @cluster_description['OSVersion'] %>"
+opsys="<%= @cluster_description['OSVersionName'] %>"
+OSFamily="<%= @cluster_description['OSFamily'] %>"
 #OSName="<%= cluster_description['OSName'] %>"
 #OSVersion="<%= cluster_description['OSVersion'] %>"
 CPUVendor="<%= cluster_description['CPUVendor'] %>"

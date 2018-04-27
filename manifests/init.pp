@@ -47,7 +47,7 @@ class arc_ce (
   $cluster_owner       = 'Bristol HEP',
   $cores_per_worker    = '16',
   $cpu_scaling_reference_si00 = '3100',
-  $debug               = true,
+  $debug               = false,
   $domain_name         = 'GOCDB-SITENAME',
   $emi_repo_version    = '3',
   $enable_firewall     = true,
