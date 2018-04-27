@@ -6,6 +6,6 @@
   rotate 90
   create
   postrotate
-	kill -HUP `cat <%= @run_directory %>/gridftpd.pid 2> /dev/null` 2> /dev/null || true
+	/bin/systemctl restart gridftpd 2> /dev/null || true
   endscript
 }
