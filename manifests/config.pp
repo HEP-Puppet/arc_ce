@@ -182,6 +182,7 @@ class arc_ce::config (
     file { '/usr/share/arc/glue-generator.pl':
       source => "puppet:///modules/${module_name}/fixes/glue-generator.pl.ARC.$apply_fixes",
       backup => true,
+      mode   => '0755',
       notify  => Exec['create-bdii-config'],
     }
     exec {'create-bdii-config':
