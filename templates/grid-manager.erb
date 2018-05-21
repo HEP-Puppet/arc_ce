@@ -41,6 +41,8 @@ jobreport="<%= broker %>"
 jobreport_options="urbatch:<%= @apel_urbatch %>,archiving:<%= @accounting_archives %>,gocdb_name:<%= @domain_name %>,<%= stomp_conf %>,benchmark_type:<%= bench %>,benchmark_value:<%= bench_val %>,benchmark_description:<%= bench_desc %>"
 jobreport_credentials="/etc/grid-security/hostkey.pem /etc/grid-security/hostcert.pem /etc/grid-security/certificates"
 jobreport_publisher="jura"
+jobreport_period="86400"
+jobreport_logfile="/var/log/arc/accounting-jura.log"
 # web service
 #arex_mount_point="https://<%= @fqdn %>:<%= @arex_port %>/arex"
 #enable_emies_interface=yes
