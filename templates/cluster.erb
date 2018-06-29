@@ -27,6 +27,7 @@ totalcpus="<%= @cluster_description['totalcpus'] %>"
 #For homogenious clusters
 nodecpu="<%= @cluster_description['CPUModel'] %> @ <%= @cluster_description['CPUClockSpeed'] %> MHz"
 nodememory="<%= @cluster_description['NodeMemory'] -%>"
+defaultmemory=<%=@cluster_description['DefaultMemory'] %> 
 #cluster description for infosys
 opsys="<%= @cluster_description['OSName'] %>"
 opsys="<%= @cluster_description['OSVersion'] %>"
