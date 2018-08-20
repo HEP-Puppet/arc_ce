@@ -27,17 +27,17 @@ totalcpus="<%= @cluster_description['totalcpus'] %>"
 #For homogenious clusters
 nodecpu="<%= @cluster_description['CPUModel'] %> @ <%= @cluster_description['CPUClockSpeed'] %> MHz"
 nodememory="<%= @cluster_description['NodeMemory'] -%>"
-defaultmemory=<%=@cluster_description['DefaultMemory'] %> 
+defaultmemory=<%=@cluster_description['DefaultMemory'] %>
 #cluster description for infosys
 opsys="<%= @cluster_description['OSName'] %>"
 opsys="<%= @cluster_description['OSVersion'] %>"
 opsys="<%= @cluster_description['OSVersionName'] %>"
 OSFamily="<%= @cluster_description['OSFamily'] %>"
-#OSName="<%= cluster_description['OSName'] %>"
-#OSVersion="<%= cluster_description['OSVersion'] %>"
-CPUVendor="<%= cluster_description['CPUVendor'] %>"
-CPUClockSpeed="<%= cluster_description['CPUClockSpeed'] %>"
-CPUModel="<%= cluster_description['CPUModel'] %>"
+#OSName="<%= @cluster_description['OSName'] %>"
+#OSVersion="<%= @cluster_description['OSVersion'] %>"
+CPUVendor="<%= @cluster_description['CPUVendor'] %>"
+CPUClockSpeed="<%= @cluster_description['CPUClockSpeed'] %>"
+CPUModel="<%= @cluster_description['CPUModel'] %>"
 #benchmark results
 <% @benchmark_results.each do |val| -%>
 benchmark="<%= val %>"
