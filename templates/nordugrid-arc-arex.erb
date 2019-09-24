@@ -1,28 +1,27 @@
-/var/log/arc/grid-manager.log {
+/var/log/arc/grid-manager.log
+/var/log/arc/ws-interface.log
+/var/log/arc/gm-jobs.log
+{
   missingok
   compress
   delaycompress
   daily
   rotate 90
   create
+  sharedscripts
   postrotate
-    /bin/systemctl restart a-rex 2> /dev/null || true
+    /bin/systemctl restart a-rex 2>/dev/null || true
   endscript
 }
 
-/var/log/arc/ws-interface.log {
-  missingok
-  compress
-  delaycompress
-  daily
-  rotate 90
-  postrotate
-    /bin/systemctl restart a-rex 2> /dev/null || true
-  endscript
-  create
-}
-
-/var/log/arc/cache-clean.log {
+/var/log/arc/cache-clean.log
+/var/log/arc/perfdata/arex.perflog
+/var/log/arc/perfdata/data.perflog
+/var/log/arc/perfdata/system.perflog
+/var/log/arc/perfdata/backends.perflog
+/var/log/arc/perfdata/sysinfo.perflog
+/var/log/arc/perfdata/submission.perflog
+{
   missingok
   compress
   delaycompress
@@ -37,53 +36,5 @@
   delaycompress
   daily
   rotate 62
-  create
-}
-
-/var/log/arc/perfdata/arex.perflog {
-  missingok
-  compress
-  daily
-  rotate 14
-  create
-}
-
-/var/log/arc/perfdata/data.perflog {
-  missingok
-  compress
-  daily
-  rotate 14
-  create
-}
-
-/var/log/arc/perfdata/system.perflog {
-  missingok
-  compress
-  daily
-  rotate 14
-  create
-}
-
-/var/log/arc/perfdata/backends.perflog {
-  missingok
-  compress
-  daily
-  rotate 14
-  create
-}
-
-/var/log/arc/perfdata/sysinfo.perflog {
-  missingok
-  compress
-  daily
-  rotate 14
-  create
-}
-
-/var/log/arc/perfdata/submission.perflog {
-  missingok
-  compress
-  daily
-  rotate 14
   create
 }
