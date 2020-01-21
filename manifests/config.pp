@@ -81,12 +81,18 @@ class arc_ce::config (
   $setup_RTEs          = true,
   $use_argus           = false,
   $hostname            = $::fqdn,) {
-  file { $session_dir: ensure => directory, }
 
-  file { $cache_dir: ensure => directory, }
+  file { $session_dir:
+    ensure => 'directory',
+  }
 
-  concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'],
-    notify => Service['a-rex'],
+  file { $cache_dir:
+    ensure => 'directory',
+  }
+
+  concat { '/etc/arc.conf':
+    require => Package['nordugrid-arc-compute-element'],
+    notify  => Service['a-rex'],
   }
 
   concat::fragment { 'arc.conf_common':
@@ -133,7 +139,7 @@ class arc_ce::config (
 
   # Added to use the same pid files as configured in /etc/arc.conf
   file { '/etc/logrotate.d/nordugrid-arc-arex':
-    ensure  => $ensure,
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -142,7 +148,7 @@ class arc_ce::config (
   }
 
   file { '/etc/logrotate.d/nordugrid-arc-gridftpd':
-    ensure  => $ensure,
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -156,7 +162,7 @@ class arc_ce::config (
 
   # plugin to set a default runtime environment
   file { '/usr/local/bin/default_rte_plugin.py':
-    ensure => present,
+    ensure => 'present',
     source => "puppet:///modules/${module_name}/default_rte_plugin.py",
     mode   => '0755',
   }
