@@ -1,22 +1,79 @@
 {
   "name": "kreczko-arc_ce",
   "version": "0.0.1",
-  "summary": "Puppet module for installation and configuration for an ARC CE",
   "author": "kreczko",
-  "description": "Puppet module for installation and configuration for an ARC CE",
+  "summary": "Puppet module for installation and configuration for an ARC CE",
+  "license": "Apache License, Version 2.0",
+  "source": "git@github.com:HEP-Puppet/puppet-arc_ce.git",
+  "project_page": "https://github.com/HEP-Puppet",
   "dependencies": [
     {
       "name": "puppetlabs/firewall",
-      "version_requirement": "\u003e\u003d0.3.1"
+      "version_requirement": ">=0.3.1"
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": "\u003e\u003d1.0.0"
+      "version_requirement": ">=1.0.0"
     }
   ],
-  "types": [],
-  "checksums": {},
-  "source": "git@github.com:HEP-Puppet/puppet-arc_ce.git",
-  "project_page": "https://github.com/HEP-Puppet",
-  "license": "Apache License, Version 2.0"
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "9"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "18.04"
+      ]
+    },
+    {
+      "operatingsystem": "windows",
+      "operatingsystemrelease": [
+        "2019",
+        "10"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.10.0 < 7.0.0"
+    }
+  ],
+  "description": "Puppet module for installation and configuration for an ARC CE",
+  "types": [
+
+  ],
+  "checksums": {
+  },
+  "pdk-version": "1.18.0",
+  "template-url": "pdk-default#1.18.0",
+  "template-ref": "tags/1.18.0-0-g095317c"
 }
