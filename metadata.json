@@ -1,19 +1,19 @@
 {
-  "name": "kreczko-arc_ce",
-  "version": "0.0.1",
-  "author": "kreczko",
+  "name": "heppuppet-arc_ce",
+  "version": "0.0.2",
+  "author": "heppuppet",
   "summary": "Puppet module for installation and configuration for an ARC CE",
-  "license": "Apache License, Version 2.0",
-  "source": "git@github.com:HEP-Puppet/puppet-arc_ce.git",
+  "license": "Apache-2.0",
+  "source": "https://github.com/HEP-Puppet/arc_ce.git",
   "project_page": "https://github.com/HEP-Puppet",
   "dependencies": [
     {
       "name": "puppetlabs/firewall",
-      "version_requirement": ">=0.3.1"
+      "version_requirement": ">=2.0.0 <5.0.0"
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">=1.0.0"
+      "version_requirement": ">=6.0.0 <9.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -21,43 +21,6 @@
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
         "7"
-      ]
-    },
-    {
-      "operatingsystem": "OracleLinux",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "RedHat",
-      "operatingsystemrelease": [
-        "8"
-      ]
-    },
-    {
-      "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "Debian",
-      "operatingsystemrelease": [
-        "9"
-      ]
-    },
-    {
-      "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [
-        "18.04"
-      ]
-    },
-    {
-      "operatingsystem": "windows",
-      "operatingsystemrelease": [
-        "2019",
-        "10"
       ]
     }
   ],
@@ -68,9 +31,6 @@
     }
   ],
   "description": "Puppet module for installation and configuration for an ARC CE",
-  "types": [
-
-  ],
   "checksums": {
   },
   "pdk-version": "1.18.0",
