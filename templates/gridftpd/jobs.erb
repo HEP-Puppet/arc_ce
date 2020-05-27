@@ -1,0 +1,13 @@
+[gridftpd/jobs]
+allownew = <%= @allownew ? 'yes' : 'no' %>
+<% @allownew_override.each do |ao| -%>
+allownew_override = <%= ao %>
+<% end -%>
+<% @allowaccess.each do |aa| -%>
+allowaccess = <%= aa %>
+<% end -%>
+<% @denyaccess.each do |da| -%>
+denyaccess = <%= da %>
+<% end -%>
+maxjobdesc = <%= @maxjobdesc %>
+

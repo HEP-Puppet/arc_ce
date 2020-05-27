@@ -1,3 +1,5 @@
+# Class arc_ce::install
+# Installs the ARC6 package
 class arc_ce::install(
   Enum['epel', 'nordugrid'] $install_from = 'epel',
 ) {
@@ -5,9 +7,10 @@ class arc_ce::install(
     'epel': {
       $arex_package = 'nordugrid-arc6-arex'
     }
-    'nordugrid' : {
+    'nordugrid': {
       $arex_package = 'nordugrid-arc-arex'
     }
+    default: {}
   }
 
   package { $arex_package:

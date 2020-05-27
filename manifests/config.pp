@@ -1,5 +1,5 @@
-# Class: arc_ce
-# Sets up the configuration file and file dependencies.
+# Class: arc_ce::config
+# Sets up the configuration file
 class arc_ce::config(
 #  $allow_new_jobs      = 'yes',
 #  $accounting_archives = '/var/run/arc/urs',
@@ -81,14 +81,20 @@ class arc_ce::config(
 #  $setup_RTEs          = true,
 #  $use_argus           = false,
 
+  # common block options
   Stdlib::Fqdn $hostname = $facts['networking']['fqdn'],
-  Stdlib::Absolutepath $x509_user_cert = '/etc/grid-security/hostcert.pem',
-  Stdlib::Absolutepath $x509_user_key = '/etc/grid-security/hostkey.pem',
-  Stdlib::Absolutepath $x509_cert_dir = '/etc/grid-security/certificates',
-  Stdlib::Absolutepath $x509_voms_dir = '/etc/grid-security/vomsdir',
+  Stdlib::Unixpath $x509_host_cert = '/etc/grid-security/hostcert.pem',
+  Stdlib::Unixpath $x509_host_key = '/etc/grid-security/hostkey.pem',
+  Stdlib::Unixpath $x509_cert_dir = '/etc/grid-security/certificates',
+  Stdlib::Unixpath $x509_voms_dir = '/etc/grid-security/vomsdir',
   Arc_ce::Vomsprocessing $voms_processing = 'standard',
+  # authgroup block definitions
   Hash[String, Hash] $authgroups = {},
+  # mapping block definitions
   Array[Arc_ce::MappingRule] $mapping_rules = [],
+  # default values for classes that use the same options
+  Array[Stdlib::Port::Unprivileged,2,2] $globus_tcp_port_range = [9000, 9300],
+  Array[Stdlib::Port::Unprivileged,2,2] $globus_udp_port_range = [9000, 9300],
 ) {
 
   concat { '/etc/arc.conf':
@@ -100,32 +106,32 @@ class arc_ce::config(
   concat::fragment { 'arc.conf_common':
     target  => '/etc/arc.conf',
     content => template("${module_name}/common.erb"),
-    order   => 01,
+    order   => 10,
   }
 
-  # authgroup blocks, uses order 02
+  # authgroup blocks, uses order 11
   create_resources('arc_ce::authgroup', $authgroups)
 
   # mapping block
-  concat::fragment { "arc.conf_mapping":
+  concat::fragment { 'arc.conf_mapping':
     target  => '/etc/arc.conf',
     content => template("${module_name}/mapping.erb"),
-    order   => 03,
+    order   => 12,
   }
 
-  # 04 reserverd for authtokens
+  # 13 reserverd for authtokens
 
-  # lrms block, uses order 05 (common options) and 06 (reserved for lrms specific options)
+  # lrms block, uses order 14 (common options) and 15 (reserved for lrms specific options) and 16 (reserved for lrms/ssh block)
   contain 'arc_ce::lrms'
 
-  # arex block
+  # arex block, uses order 17 to 27, leaving 28 and 29 as reserved
+  contain 'arc_ce::arex'
 
-  # arex/ws block
+  # gridftpd block, uses order 30 to 32
+  contain 'arc_ce::gridftpd'
 
-  # arex/ws/jobs block
-  # -allowaccess = zero
-
-  # infosys block
+  # infosys block, uses order 33
+  #contain 'arc_ce::infosys'
 
   # infosys/glue2 block
 
@@ -152,12 +158,6 @@ if false {
     target  => '/etc/arc.conf',
     content => template("${module_name}/group.erb"),
     order   => 03,
-  }
-
-  concat::fragment { 'arc.conf_gridftpd':
-    target  => '/etc/arc.conf',
-    content => template("${module_name}/gridftpd.erb"),
-    order   => 04,
   }
 
   concat::fragment { 'arc.conf_infosys':
