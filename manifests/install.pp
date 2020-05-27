@@ -1,8 +1,19 @@
-class arc_ce::install {
-  package { 'nordugrid-arc-compute-element':
-    ensure  => present,
+class arc_ce::install(
+  Enum['epel', 'nordugrid'] $install_from = 'epel',
+) {
+  case $install_from {
+    'epel': {
+      $arex_package = 'nordugrid-arc6-arex'
+    }
+    'nordugrid' : {
+      $arex_package = 'nordugrid-arc-arex'
+    }
   }
 
-  include arc_ce::lcmaps::install
-  include arc_ce::lcas::install
+  package { $arex_package:
+    ensure  => 'present',
+  }
+
+#  include arc_ce::lcmaps::install
+#  include arc_ce::lcas::install
 }
