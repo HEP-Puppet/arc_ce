@@ -1,104 +1,145 @@
 # Class: arc_ce
 # Sets up the configuration file and file dependencies.
-class arc_ce::config (
-  $allow_new_jobs      = 'yes',
-  $accounting_archives = '/var/run/arc/urs',
-  $apel_testing        = true,
-  $apel_urbatch          = '1000',
-  $apply_fixes         = '',
-  $arex_port           = '60000',
-  $argus_server        = 'argus.example.com',
-  $authorized_vos      = [
-    'alice',
-    'atlas',
-    'cms',
-    'ops',
-    'dteam',
-    'gridpp',
-    'ilc',
-    'lhcb',
-    'vo.landslides.mossaic.org',
-    'vo.southgrid.ac.uk'],
-  $benchmark_results   = [
-    'SPECINT2000 222',
-    'SPECFP2000 333',
-    'HEPSPEC2006 444'],
-  $benchmark_type      = 'HEPSPEC',
-  $cache_dir           = ['/var/cache/arc'],
-  $cluster_alias       = 'MINIMAL Computing Element',
-  $cluster_comment     = 'This is a minimal out-of-box CE setup',
-  $cluster_cpudistribution      = ['16cpu:12'],
-  $cluster_description = {
-    'OSFamily'      => 'linux',
-    'OSName'        => 'ScientificSL',
-    'OSVersion'     => '6.4',
-    'CPUVendor'     => 'AMD',
-    'CPUClockSpeed' => '3100',
-    'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
-    'NodeMemory'    => '1024',
-    'totalcpus'     => '42',
+class arc_ce::config(
+#  $allow_new_jobs      = 'yes',
+#  $accounting_archives = '/var/run/arc/urs',
+#  $apel_testing        = true,
+#  $apel_urbatch          = '1000',
+#  $apply_fixes         = '',
+#  $arex_port           = '60000',
+#  $argus_server        = 'argus.example.com',
+#  $authorized_vos      = [
+#    'alice',
+#    'atlas',
+#    'cms',
+#    'ops',
+#    'dteam',
+#    'gridpp',
+#    'ilc',
+#    'lhcb',
+#    'vo.landslides.mossaic.org',
+#    'vo.southgrid.ac.uk'],
+#  $benchmark_results   = [
+#    'SPECINT2000 222',
+#    'SPECFP2000 333',
+#    'HEPSPEC2006 444'],
+#  $benchmark_type      = 'HEPSPEC',
+#  $cache_dir           = ['/var/cache/arc'],
+#  $cluster_alias       = 'MINIMAL Computing Element',
+#  $cluster_comment     = 'This is a minimal out-of-box CE setup',
+#  $cluster_cpudistribution      = ['16cpu:12'],
+#  $cluster_description = {
+#    'OSFamily'      => 'linux',
+#    'OSName'        => 'ScientificSL',
+#    'OSVersion'     => '6.4',
+#    'CPUVendor'     => 'AMD',
+#    'CPUClockSpeed' => '3100',
+#    'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
+#    'NodeMemory'    => '1024',
+#    'totalcpus'     => '42',
+#  }
+#  ,
+#  $cluster_is_homogenious       = true,
+#  $cluster_nodes_private        = true,
+#  $cluster_owner       = 'Bristol HEP',
+#  $cluster_registration_country = 'UK',
+#  $cluster_registration_name    = 'clustertoukglasgow',
+#  $cluster_registration_target  = 'svr019.gla.scotgrid.ac.uk',
+#  $cores_per_worker    = '16',
+#  $cpu_scaling_reference_si00 = '3100',
+#  $debug               = false,
+#  $domain_name         = 'GOCDB-SITENAME',
+#  $enable_glue1        = false,
+#  $enable_glue2        = true,
+#  $globus_port_range   = [50000, 52000],
+#  $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
+#  $gridftp_max_connections      = '100',
+#  $hepspec_per_core    = '11.17',
+#  $infosys_registration = {
+#    'clustertouk1' => {
+#      targethostname => 'index1.gridpp.rl.ac.uk',
+#      targetport => '2135',
+#      targetsuffix => 'Mds-Vo-Name=UK,o=grid',
+#      regperiod => '120',},
+#
+#    'clustertouk2' => {
+#       targethostname => 'index2.gridpp.rl.ac.uk',
+#       targetport => '2135',
+#       targetsuffix => 'Mds-Vo-Name=UK,o=grid',
+#       regperiod => '120',}
+#   },
+#
+#  $log_directory       = '/var/log/arc',
+#  $lrms                = 'fork',
+#  $mail                = 'gridmaster@hep.lu.se',
+#  $queues              = {},
+#  $resource_location   = 'Bristol, UK',
+#  $resource_latitude   = '51.4585',
+#  $resource_longitude  = '-02.6021',
+#  $run_directory       = '/var/run/arc',
+#  $session_dir         = ['/var/spool/arc/grid00'],
+#  $setup_RTEs          = true,
+#  $use_argus           = false,
+
+  Stdlib::Fqdn $hostname = $facts['networking']['fqdn'],
+  Stdlib::Absolutepath $x509_user_cert = '/etc/grid-security/hostcert.pem',
+  Stdlib::Absolutepath $x509_user_key = '/etc/grid-security/hostkey.pem',
+  Stdlib::Absolutepath $x509_cert_dir = '/etc/grid-security/certificates',
+  Stdlib::Absolutepath $x509_voms_dir = '/etc/grid-security/vomsdir',
+  Arc_ce::Vomsprocessing $voms_processing = 'standard',
+  Hash[String, Hash] $authgroups = {},
+  Array[Arc_ce::MappingRule] $mapping_rules = [],
+) {
+
+  concat { '/etc/arc.conf':
+    require => Package[$::arc_ce::install::arex_package],
+#   notify  => Service['a-rex'],
   }
-  ,
-  $cluster_is_homogenious       = true,
-  $cluster_nodes_private        = true,
-  $cluster_owner       = 'Bristol HEP',
-  $cluster_registration_country = 'UK',
-  $cluster_registration_name    = 'clustertoukglasgow',
-  $cluster_registration_target  = 'svr019.gla.scotgrid.ac.uk',
-  $cores_per_worker    = '16',
-  $cpu_scaling_reference_si00 = '3100',
-  $debug               = false,
-  $domain_name         = 'GOCDB-SITENAME',
-  $enable_glue1        = false,
-  $enable_glue2        = true,
-  $globus_port_range   = [50000, 52000],
-  $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
-  $gridftp_max_connections      = '100',
-  $hepspec_per_core    = '11.17',
-  $infosys_registration = {
-    'clustertouk1' => {
-      targethostname => 'index1.gridpp.rl.ac.uk',
-      targetport => '2135',
-      targetsuffix => 'Mds-Vo-Name=UK,o=grid',
-      regperiod => '120',},
 
-    'clustertouk2' => {
-       targethostname => 'index2.gridpp.rl.ac.uk',
-       targetport => '2135',
-       targetsuffix => 'Mds-Vo-Name=UK,o=grid',
-       regperiod => '120',}
-   },
+  # common block
+  concat::fragment { 'arc.conf_common':
+    target  => '/etc/arc.conf',
+    content => template("${module_name}/common.erb"),
+    order   => 01,
+  }
 
-  $log_directory       = '/var/log/arc',
-  $lrms                = 'fork',
-  $mail                = 'gridmaster@hep.lu.se',
-  $queues              = {},
-  $resource_location   = 'Bristol, UK',
-  $resource_latitude   = '51.4585',
-  $resource_longitude  = '-02.6021',
-  $run_directory       = '/var/run/arc',
-  $session_dir         = ['/var/spool/arc/grid00'],
-  $setup_RTEs          = true,
-  $use_argus           = false,
-  $hostname            = $::fqdn,) {
+  # authgroup blocks, uses order 02
+  create_resources('arc_ce::authgroup', $authgroups)
 
+  # mapping block
+  concat::fragment { "arc.conf_mapping":
+    target  => '/etc/arc.conf',
+    content => template("${module_name}/mapping.erb"),
+    order   => 03,
+  }
+
+  # 04 reserverd for authtokens
+
+  # lrms block, uses order 05 (common options) and 06 (reserved for lrms specific options)
+  contain 'arc_ce::lrms'
+
+  # arex block
+
+  # arex/ws block
+
+  # arex/ws/jobs block
+  # -allowaccess = zero
+
+  # infosys block
+
+  # infosys/glue2 block
+
+  # infosys/cluster block
+
+  # queue blocks
+
+if false {
   file { $session_dir:
     ensure => 'directory',
   }
 
   file { $cache_dir:
     ensure => 'directory',
-  }
-
-  concat { '/etc/arc.conf':
-    require => Package['nordugrid-arc-compute-element'],
-    notify  => Service['a-rex'],
-  }
-
-  concat::fragment { 'arc.conf_common':
-    target  => '/etc/arc.conf',
-    content => template("${module_name}/common.erb"),
-    order   => 01,
   }
 
   concat::fragment { 'arc.conf_gridmanager':
@@ -196,4 +237,6 @@ class arc_ce::config (
       refreshonly => true,
     }
   }
+  }
+
 }
