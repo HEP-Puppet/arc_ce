@@ -131,7 +131,7 @@ class arc_ce::config(
   contain 'arc_ce::gridftpd'
 
   # infosys block, uses order 33
-  #contain 'arc_ce::infosys'
+  contain 'arc_ce::infosys'
 
   # infosys/glue2 block
 

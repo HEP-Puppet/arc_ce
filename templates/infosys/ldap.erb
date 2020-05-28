@@ -1,0 +1,41 @@
+[infosys/ldap]
+hostname = <%= @hostname %>
+<% unless @slapd_hostnamebind.nil? -%>
+slapd_hostnamebind = <%= @slapd_hostnamebind %>
+<% end -%>
+port = <%= @port %>,
+<% unless @user.nil? -%>
+user = <%= user %>
+<% end -%>
+<% unless @slapd.nil? %>
+slapd = <%= @slapd %>
+<% end -%>
+slapd_loglevel = <%= @slapd_loglevel %>
+threads = <%= @threads %>
+timelimit = <%= @timelimit %>
+idletimeout = <%= @idletimeout %>
+infosys_ldap_run_dir = <%= @infosys_ldap_run_dir %>
+<% unless @ldap_schema_dir.nil? %>
+ldap_schema_dir = <%= @ldap_schema_dir %>
+<% end -%>
+bdii_debug_level = <%= @bdii_debug_level %>
+<% unless @bdii_provider_timeout.nil? %>
+bdii_provider_timeout = <%= @bdii_provider_timeout %>
+<% end -%>
+bdii_location = <%= @bdii_location %>
+bdii_run_dir = <%= @bdii_run_dir %>
+bdii_log_dir = <%= @bdii_log_dir %>
+bdii_tmp_dir = <%= @bdii_tmp_dir %>
+bdii_var_dir = <%= @bdii_var_dir %>
+bdii_update_pid_file = <%= @bdii_update_pid_file %>
+bdii_database = <%= @bdii_database %>
+bdii_conf = <%= @bdii_conf %>
+bdii_update_cmd = <%= @bdii_update_cmd %>
+bdii_db_config = <%= @bdii_db_config %>
+bdii_archive_size = <%= @bdii_archive_size %>
+bdii_breathe_time = <%= @bdii_breathe_time %>
+bdii_delete_delay = <%= @bdii_delete_delay %>
+<% unless @bdii_read_timeout.nil? -%>
+bdii_read_timeout = <%= @bdii_read_timeout %>
+<% end -%>
+
