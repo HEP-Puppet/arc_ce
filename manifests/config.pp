@@ -95,6 +95,7 @@ class arc_ce::config(
   # default values for classes that use the same options
   Array[Stdlib::Port::Unprivileged,2,2] $globus_tcp_port_range = [9000, 9300],
   Array[Stdlib::Port::Unprivileged,2,2] $globus_udp_port_range = [9000, 9300],
+  Hash[String, Hash] $queues = {},
 ) {
 
   concat { '/etc/arc.conf':
@@ -130,14 +131,11 @@ class arc_ce::config(
   # gridftpd block, uses order 30 to 32
   contain 'arc_ce::gridftpd'
 
-  # infosys block, uses order 33
+  # infosys block, uses order 33 to 40
   contain 'arc_ce::infosys'
 
-  # infosys/glue2 block
-
-  # infosys/cluster block
-
-  # queue blocks
+  # queue blocks, uses order 41
+  create_resources('arc_ce::queue', $queues)
 
 if false {
   file { $session_dir:

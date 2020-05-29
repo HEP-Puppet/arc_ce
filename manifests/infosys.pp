@@ -26,7 +26,7 @@ class arc_ce::infosys(
     # infosys/glue1 block, order 38 and 39
 
     # infosys/cluster block, uses order 40
-    #contain 'arc_ce::infosys::cluster'
+    contain 'arc_ce::infosys::cluster'
   }
 
 }

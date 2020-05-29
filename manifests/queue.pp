@@ -1,32 +1,40 @@
+# Define arc_ce::queue
+# Configures the queue block in arc.conf
 define arc_ce::queue (
-  $benchmark_results       = [
-    'SPECINT2000 222',
-    'SPECFP2000 333',
-    'HEPSPEC2006 444'],
-  $queue_name              = $title,
-  $homogeneity             = 'True',
-  $comment                 = 'Default queue',
-  $default_memory          = '2048',
-  $node_memory             = '2048',
-  $main_memory_size        = '32768',
-  $time_limit              = '1800',
-  $os_family               = 'linux',
-  $cluster_description     = {
-    'OSFamily'      => 'linux',
-    'OSName'        => 'ScientificSL',
-    'OSVersion'     => '6.4',
-    'OSVersionName' => 'Carbon',
-    'CPUVendor'     => 'AMD',
-    'CPUClockSpeed' => '3100',
-    'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
-    'totalcpu'      => '42',
+  Optional[Boolean] $homogeneity = undef,
+  Optional[String] $comment = undef,
+  Optional[String] $condor_requirements = undef,
+  Optional[Integer] $totalcpus = undef,
+  Optional[String] $nodecpu = undef,
+  Optional[Integer] $nodememory = undef,
+  Optional[Integer] $defaultmemory = undef,
+  Optional[String] $architecture = undef,
+  Array[String] $opsys = [],
+  Optional[String] $osname = undef,
+  Optional[String] $osversion = undef,
+  Optional[String] $osfamily = undef,
+  String $primary_benchmark = 'HEPSPEC',
+  Hash[String,Numeric] $benchmark = {'HEPSPEC' => 1.0 },
+# Array[Tuple[Enum['allow', 'deny'],Variant[String,Array[String]]]] $access = [],
+  Array[Struct[{mode => Enum['allow', 'deny'], groups => Variant[String,Array[String]]}]] $access = [],
+  Array[String] $denyaccess = [],
+  Array[String] $allowaccess = [],
+  Array[String] $advertisedvo = [],
+  Optional[Integer] $maxslotsperjob = undef,
+  Optional[String] $forcedefaultvoms = undef,
+  Optional[Integer] $maxcputime = undef,
+  Optional[Integer] $mincputime = undef,
+  Optional[Integer] $maxwalltime = undef,
+  Optional[Integer] $minwalltime = undef,
+) {
+
+  unless $primary_benchmark in $benchmark {
+    fail("value of primary_benchmark (${primary_benchmark}) not found in benchmark definition of queue ${name}")
   }
-  ,
-  $condor_requirements     = '(Opsys == "linux") && (OpSysAndVer == "SL6")',
-  $cluster_cpudistribution = ['16cpu:12'],) {
-  concat::fragment { "arc_cfg_queue_${title}":
+  concat::fragment { "arc.conf_queue_${name}":
     target  => '/etc/arc.conf',
-    order   => 10,
-    content => template("${module_name}/queue.erb")
+    content => template("${module_name}/queue.erb"),
+    order   => 41,
   }
+
 }
