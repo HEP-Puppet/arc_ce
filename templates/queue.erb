@@ -1,4 +1,4 @@
-[queue/<%= @name %>]
+[queue:<%= @name %>]
 <% unless @homogeneity.nil? -%>
 homogeneity = <%= @homogeneity %>
 <%end -%>
@@ -35,7 +35,7 @@ osversion = <%= @osversion %>
 <% unless @osfamily.nil? -%>
 osfamily = <%= @osfamily %>
 <%end -%>
-benchmark = <%= @benchmark[@primary_benchmark] %>
+benchmark = <%= @primary_benchmark %> <%= @benchmark[@primary_benchmark] %>
 <% @benchmark.keys.sort.each do |bm|
   if bm == @primary_benchmark then next end -%>
 benchmark = <%= bm %> <%= @benchmark[bm] %>

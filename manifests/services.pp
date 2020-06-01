@@ -1,42 +1,37 @@
-class arc_ce::services {
-  service { 'gridftpd':
-    ensure     => running,
-    enable     => true,
+class arc_ce::services(
+  Stdlib::Ensure::Service $arex_ensure = 'running',
+  Boolean $arex_enable = true,
+  Stdlib::Ensure::Service $gridftpd_ensure = 'running',
+  Boolean $gridftpd_enable = true,
+  Stdlib::Ensure::Service $bdii_ensure = 'running',
+  Boolean $bdii_enable = true,
+) {
+
+  service { 'arc-arex':
+    ensure     => $arex_ensure,
+    enable     => $arex_enable,
     hasrestart => true,
     hasstatus  => true,
   }
 
-  service { 'a-rex':
-    ensure     => running,
-    enable     => true,
+  # the following virtual services are realized when the corresponding blocks in arc.conf are enabled and configured
+
+  @service { 'arc-service-gridftpd':
+    name       => 'arc-gridftpd',
+    ensure     => $gridftpd_ensure,
+    enable     => $gridftpd_enable,
     hasrestart => true,
     hasstatus  => true,
+    subscribe  => Concat['/etc/arc.conf'],
   }
 
-  service { 'nordugrid-arc-slapd':
-    ensure     => running,
-    enable     => true,
+  @service { 'arc-service-bdii':
+    name       => 'bdii',
+    ensure     => $bdii_ensure,
+    enable     => $bdii_enable,
     hasrestart => true,
     hasstatus  => true,
+    subscribe  => Concat['/etc/arc.conf'],
   }
 
-  service { 'nordugrid-arc-bdii':
-    ensure     => running,
-    enable     => true,
-    hasrestart => true,
-    hasstatus  => true,
-  }
-
-  service { 'nordugrid-arc-inforeg':
-    ensure     => running,
-    enable     => true,
-    hasrestart => true,
-    hasstatus  => true,
-  }
-
-  # the services should start in a certain order
-  Service['gridftpd'] -> Service['a-rex'] -> Service['nordugrid-arc-slapd'] -> Service['nordugrid-arc-bdii'] -> Service['nordugrid-arc-inforeg'
-    ]
-
-  include fetchcrl
 }

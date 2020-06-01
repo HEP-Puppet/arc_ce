@@ -6,7 +6,7 @@ pidfile = <%= @pidfile %>
 port = <%= @port %>
 allowencryption = <%= @allowencryption ? 'yes' : 'no' %>
 allowactivedata = <%= @allowactivedata ? 'yes' : 'no' %>
-maxconnections = <%= @maxconnections ? 'yes' : 'no' %>
+maxconnections = <%= @maxconnections %>
 defaultbuffer = <%= @defaultbuffer %>
 maxbuffer = <%= @maxbuffer %>
 globus_tcp_port_range = <%= @globus_tcp_port_range.join(',') %>

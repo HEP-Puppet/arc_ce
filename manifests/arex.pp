@@ -53,4 +53,20 @@ class arc_ce::arex(
   # arex/jura block, uses order 25
   contain 'arc_ce::arex::jura'
 
+  $sessiondir.keys.each |Stdlib::Unixpath $sd| {
+    file { $sd:
+      ensure => 'directory',
+      owner  => $user,
+      group  => $user,
+      mode   => '0755',
+    }
+  }
+
+  file { $controldir:
+    ensure => 'directory',
+    owner  => $user,
+    group  => $user,
+    mode   => '0755',
+  }
+
 }

@@ -23,6 +23,9 @@ class arc_ce::gridftpd(
 
   if $enable {
 
+    Package <| tag == 'arc-package-gridftpd' |>
+    Service <| tag == 'arc-service-gridftpd' |>
+
     concat::fragment { 'arc.conf_gridftpd':
       target  => '/etc/arc.conf',
       content => template("${module_name}/gridftpd/common.erb"),

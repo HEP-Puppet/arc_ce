@@ -1,10 +1,24 @@
-class arc_ce::lcmaps::install {
-  package { [
-    'lcmaps',
-    'lcmaps-plugins-basic',
+class arc_ce::lcmaps::install(
+  Optional[String] $ensure = 'present',
+  Array[String] $plugin_packages = [
     'lcmaps-plugins-c-pep',
-    'lcmaps-plugins-voms',
-    'lcmaps-plugins-verify-proxy']:
-    ensure => present,
+    'lcmaps-plugins-verify-proxy',
+  ],
+) {
+
+  if $ensure !~ Undef {
+
+    @package { 'lcmaps':
+      ensure => $ensure,
+      tag    => 'arc-packages-lcmaps',
+    }
+
+    @package { $plugin_packages:
+      ensure => 'present',
+      tag    => 'arc-packages-lcmaps',
+    }
   }
+
+  # 'lcmaps-plugins-basic',
+  # 'lcmaps-plugins-voms',
 }

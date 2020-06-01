@@ -1,7 +1,6 @@
 # Class arc_ce::infosys::cluster
 # Configures the infosys/cluster block in arc.conf
 class arc_ce::infosys::cluster(
-  Boolean $enable = false,
   Optional[String] $alias = undef,
   Stdlib::Fqdn $hostname = $::arc_ce::config::hostname,
   Optional[String] $interactive_contactstring = undef,
@@ -25,13 +24,10 @@ class arc_ce::infosys::cluster(
   Optional[Integer] $minwalltime = undef,
 ) {
 
-  if $enable {
-
-    concat::fragment { 'arc.conf_infosys_cluster':
-      target  => '/etc/arc.conf',
-      content => template("${module_name}/infosys/cluster.erb"),
-      order   => 40,
-    }
-
+  concat::fragment { 'arc.conf_infosys_cluster':
+    target  => '/etc/arc.conf',
+    content => template("${module_name}/infosys/cluster.erb"),
+    order   => 40,
   }
+
 }

@@ -1,8 +1,21 @@
-class arc_ce::lcas::install {
-  package { [
-    'lcas',
+class arc_ce::lcas::install(
+  Optional[String] $ensure = 'present',
+  Array[String] $plugin_packages = [
     'lcas-plugins-basic',
-    'lcas-plugins-voms']:
-    ensure => present,
+  ],
+) {
+
+  if $ensure !~ Undef {
+
+    @package { 'lcas':
+      ensure => 'present',
+      tag    => 'arc-packages-lcas',
+    }
+
+    @package { $plugin_packages:
+      ensure => 'present',
+      tag    => 'arc-packages-lcas',
+    }
+
   }
 }

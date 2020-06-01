@@ -4,8 +4,9 @@ class arc_ce::gridftpd::jobs(
   Boolean $enable = false,
   Boolean $allownew = true,
   Array[String] $allownew_override = [],
-  Array[String] $allowaccess = [],
+  Array[Arc_ce::Access] $access = [],
   Array[String] $denyaccess = [],
+  Array[String] $allowaccess = [],
   Integer $maxjobdesc = 5242880,
 ) {
 

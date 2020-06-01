@@ -21,7 +21,7 @@ class arc_ce::config(
 
   concat { '/etc/arc.conf':
     require => Package[$::arc_ce::install::arex_package],
-#   notify  => Service['a-rex'],
+    notify  => Service['arc-arex'],
   }
 
   # common block
@@ -39,6 +39,13 @@ class arc_ce::config(
     target  => '/etc/arc.conf',
     content => template("${module_name}/mapping.erb"),
     order   => 12,
+  }
+
+  $mapping_rules.each |Arc_ce::MappingRule $mr| {
+    if $mr =~ /^map_with_plugin\s*=.* \/usr\/libexec\/arc\/arc-lcmaps / {
+      Package <| tag == 'arc-packages-lcmaps' |>
+      contain 'arc_ce::lcmaps::config'
+    }
   }
 
   # 13 reserverd for authtokens
@@ -59,66 +66,6 @@ class arc_ce::config(
   create_resources('arc_ce::queue', $queues)
 
 if false {
-  file { $session_dir:
-    ensure => 'directory',
-  }
-
-  file { $cache_dir:
-    ensure => 'directory',
-  }
-
-  concat::fragment { 'arc.conf_gridmanager':
-    target  => '/etc/arc.conf',
-    content => template("${module_name}/grid-manager.erb"),
-    order   => 02,
-  }
-
-  concat::fragment { 'arc.conf_group':
-    target  => '/etc/arc.conf',
-    content => template("${module_name}/group.erb"),
-    order   => 03,
-  }
-
-  concat::fragment { 'arc.conf_infosys':
-    target  => '/etc/arc.conf',
-    content => template("${module_name}/infosys.erb"),
-    order   => 05,
-  }
-
-  concat::fragment { 'arc.conf_cluster':
-    target  => '/etc/arc.conf',
-    content => template("${module_name}/cluster.erb"),
-    order   => 06,
-  }
-
-  concat::fragment { 'arc.conf_queues':
-    target  => '/etc/arc.conf',
-    content => template("${module_name}/queues.erb"),
-    order   => 07,
-  }
-
-  # Added to use the same pid files as configured in /etc/arc.conf
-  file { '/etc/logrotate.d/nordugrid-arc-arex':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template("${module_name}/nordugrid-arc-arex.erb"),
-    require => Package['nordugrid-arc-compute-element'],
-  }
-
-  file { '/etc/logrotate.d/nordugrid-arc-gridftpd':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template("${module_name}/nordugrid-arc-gridftpd.erb"),
-    require => Package['nordugrid-arc-compute-element']
-  }
-
-  class { 'arc_ce::lcmaps::config': argus_server => $argus_server }
-
-  class { 'arc_ce::lcas::config': }
 
   # plugin to set a default runtime environment
   file { '/usr/local/bin/default_rte_plugin.py':

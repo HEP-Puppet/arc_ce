@@ -33,6 +33,9 @@ class arc_ce::infosys::ldap(
 
   if $enable {
 
+    Package <| tag == 'arc-package-infosys-ldap' |>
+    Service <| tag == 'arc-service-bdii' |>
+
     concat::fragment { 'arc.conf_infosys_ldap':
       target  => '/etc/arc.conf',
       content => template("${module_name}/infosys/ldap.erb"),

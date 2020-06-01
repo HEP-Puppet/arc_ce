@@ -15,7 +15,7 @@ define arc_ce::queue (
   Optional[String] $osfamily = undef,
   String $primary_benchmark = 'HEPSPEC',
   Hash[String,Numeric] $benchmark = {'HEPSPEC' => 1.0 },
-  Array[Arc_ce::QueueAccess] $access = [],
+  Array[Arc_ce::Access] $access = [],
   Array[String] $denyaccess = [],
   Array[String] $allowaccess = [],
   Array[String] $advertisedvo = [],
