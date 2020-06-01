@@ -1,86 +1,6 @@
 # Class: arc_ce::config
 # Sets up the configuration file
 class arc_ce::config(
-#  $allow_new_jobs      = 'yes',
-#  $accounting_archives = '/var/run/arc/urs',
-#  $apel_testing        = true,
-#  $apel_urbatch          = '1000',
-#  $apply_fixes         = '',
-#  $arex_port           = '60000',
-#  $argus_server        = 'argus.example.com',
-#  $authorized_vos      = [
-#    'alice',
-#    'atlas',
-#    'cms',
-#    'ops',
-#    'dteam',
-#    'gridpp',
-#    'ilc',
-#    'lhcb',
-#    'vo.landslides.mossaic.org',
-#    'vo.southgrid.ac.uk'],
-#  $benchmark_results   = [
-#    'SPECINT2000 222',
-#    'SPECFP2000 333',
-#    'HEPSPEC2006 444'],
-#  $benchmark_type      = 'HEPSPEC',
-#  $cache_dir           = ['/var/cache/arc'],
-#  $cluster_alias       = 'MINIMAL Computing Element',
-#  $cluster_comment     = 'This is a minimal out-of-box CE setup',
-#  $cluster_cpudistribution      = ['16cpu:12'],
-#  $cluster_description = {
-#    'OSFamily'      => 'linux',
-#    'OSName'        => 'ScientificSL',
-#    'OSVersion'     => '6.4',
-#    'CPUVendor'     => 'AMD',
-#    'CPUClockSpeed' => '3100',
-#    'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
-#    'NodeMemory'    => '1024',
-#    'totalcpus'     => '42',
-#  }
-#  ,
-#  $cluster_is_homogenious       = true,
-#  $cluster_nodes_private        = true,
-#  $cluster_owner       = 'Bristol HEP',
-#  $cluster_registration_country = 'UK',
-#  $cluster_registration_name    = 'clustertoukglasgow',
-#  $cluster_registration_target  = 'svr019.gla.scotgrid.ac.uk',
-#  $cores_per_worker    = '16',
-#  $cpu_scaling_reference_si00 = '3100',
-#  $debug               = false,
-#  $domain_name         = 'GOCDB-SITENAME',
-#  $enable_glue1        = false,
-#  $enable_glue2        = true,
-#  $globus_port_range   = [50000, 52000],
-#  $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
-#  $gridftp_max_connections      = '100',
-#  $hepspec_per_core    = '11.17',
-#  $infosys_registration = {
-#    'clustertouk1' => {
-#      targethostname => 'index1.gridpp.rl.ac.uk',
-#      targetport => '2135',
-#      targetsuffix => 'Mds-Vo-Name=UK,o=grid',
-#      regperiod => '120',},
-#
-#    'clustertouk2' => {
-#       targethostname => 'index2.gridpp.rl.ac.uk',
-#       targetport => '2135',
-#       targetsuffix => 'Mds-Vo-Name=UK,o=grid',
-#       regperiod => '120',}
-#   },
-#
-#  $log_directory       = '/var/log/arc',
-#  $lrms                = 'fork',
-#  $mail                = 'gridmaster@hep.lu.se',
-#  $queues              = {},
-#  $resource_location   = 'Bristol, UK',
-#  $resource_latitude   = '51.4585',
-#  $resource_longitude  = '-02.6021',
-#  $run_directory       = '/var/run/arc',
-#  $session_dir         = ['/var/spool/arc/grid00'],
-#  $setup_RTEs          = true,
-#  $use_argus           = false,
-
   # common block options
   Stdlib::Fqdn $hostname = $facts['networking']['fqdn'],
   Stdlib::Unixpath $x509_host_cert = '/etc/grid-security/hostcert.pem',
@@ -92,10 +12,11 @@ class arc_ce::config(
   Hash[String, Hash] $authgroups = {},
   # mapping block definitions
   Array[Arc_ce::MappingRule] $mapping_rules = [],
+  # queue block definitions
+  Hash[String, Hash] $queues = {},
   # default values for classes that use the same options
   Array[Stdlib::Port::Unprivileged,2,2] $globus_tcp_port_range = [9000, 9300],
   Array[Stdlib::Port::Unprivileged,2,2] $globus_udp_port_range = [9000, 9300],
-  Hash[String, Hash] $queues = {},
 ) {
 
   concat { '/etc/arc.conf':
