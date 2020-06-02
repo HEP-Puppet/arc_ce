@@ -22,7 +22,7 @@ class arc_ce::arex(
   Optional[Stdlib::Unixpath] $scratchdir = undef,
   Optional[Stdlib::Unixpath] $shared_scratch = undef,
   Stdlib::Unixpath $tmpdir = '/tmp',
-  Array[Stdlib::Unixpath] $runtimedir = [],
+  Array[Stdlib::Unixpath] $runtimedir = [ '/etc/arc/runtime' ],
   Array[Integer,5,5] $maxjobs = [-1, -1, -1, -1, -1],
   Integer $maxrerun = 5,
   Array[Arc_ce::StateCallout] $statecallout = [],

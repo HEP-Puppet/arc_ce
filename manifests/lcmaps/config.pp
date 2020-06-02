@@ -1,3 +1,5 @@
+# Class arc_ce::lcmaps::config
+# Configures lcmaps
 class arc_ce::lcmaps::config(
   String $argus_server,
   Stdlib::Unixpath $x509_cert_dir = $::arc_ce::config::x509_cert_dir,

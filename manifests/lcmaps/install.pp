@@ -1,3 +1,5 @@
+# Class arc_ce::lcmaps::install
+# Installs the lcmaps packages
 class arc_ce::lcmaps::install(
   Optional[String] $ensure = 'present',
   Array[String] $plugin_packages = [

@@ -1,3 +1,5 @@
+# Class arc_ce::lcas::install
+# Installs the lcas packages
 class arc_ce::lcas::install(
   Optional[String] $ensure = 'present',
   Array[String] $plugin_packages = [
@@ -18,4 +20,5 @@ class arc_ce::lcas::install(
     }
 
   }
+
 }

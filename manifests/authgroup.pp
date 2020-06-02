@@ -12,8 +12,9 @@ define arc_ce::authgroup(
 
   $rules.each |Arc_ce::AuthgroupRule $agr| {
     if $agr =~ /^plugin\s*=.* \/usr\/libexec\/arc\/arc-lcas / {
-       Package <| tag == 'arc-packages-lcas' |>
-       include 'arc_ce::lcas::config'
+      Package <| tag == 'arc-packages-lcas' |>
+      include 'arc_ce::lcas::config'
     }
   }
+
 }

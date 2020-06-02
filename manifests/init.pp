@@ -10,10 +10,16 @@
 #
 # Sample Usage:
 #
-class arc_ce {
+class arc_ce(
+  Boolean $enable_rte = true,
+) {
 
   contain 'arc_ce::install'
   contain 'arc_ce::config'
   contain 'arc_ce::services'
+
+  if $enable_rte {
+    contain 'arc_ce::runtime_env'
+  }
 
 }

@@ -29,15 +29,15 @@ class arc_ce::install(
 
   if  $gridftpd_ensure !~ Undef {
     @package { 'arc-package-gridftpd':
-      name   => $gridftpd_package,
       ensure => $gridftpd_ensure,
+      name   => $gridftpd_package,
     }
   }
 
   if $infosysldap_ensure !~ Undef {
     @package { 'arc-package-infosys-ldap':
-      name   => $infosysldap_package,
       ensure => $infosysldap_ensure,
+      name   => $infosysldap_package,
     }
   }
 

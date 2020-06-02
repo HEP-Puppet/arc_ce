@@ -1,7 +1,7 @@
 # Class arc_ce::infosys::cluster
 # Configures the infosys/cluster block in arc.conf
 class arc_ce::infosys::cluster(
-  Optional[String] $alias = undef,
+  Optional[String] $cluster_alias = undef,
   Stdlib::Fqdn $hostname = $::arc_ce::config::hostname,
   Optional[String] $interactive_contactstring = undef,
   Optional[String] $comment = undef,
