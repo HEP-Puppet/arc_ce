@@ -1,6 +1,7 @@
 # Class arc_ce::infosys::glue2
 # Configures the infosys::glue2 block in arc.conf
 class arc_ce::infosys::glue2(
+  String $admindomain_name = 'UNDEFINEDVALUE',
   Optional[String] $admindomain_description = undef,
   Optional[Variant[Stdlib::HTTPUrl,Stdlib::HTTPSUrl]] $admindomain_www = undef,
   Boolean $admindomain_distributed = false,
