@@ -6,7 +6,7 @@ admindomain_description = <%= @admindomain_description %>
 <% unless @admindomain_www.nil? -%>
 admindomain_www = <%= @admindomain_www %>
 <% end -%>
-admindomain_distributed = <%= @admindomain_distributed %>
+admindomain_distributed = <%= @admindomain_distributed ? 'yes' : 'no' %>
 <% unless @admindomain_owner.nil? -%>
 admindomain_owner = <%= @admindomain_owner %>
 <% end -%>
@@ -14,3 +14,4 @@ admindomain_owner = <%= @admindomain_owner %>
 admindomain_otherinfo = <%= @admindomain_otherinfo %>
 <% end -%>
 computingservice_qualitylevel = <%= @computingservice_qualitylevel %>
+

@@ -3,7 +3,7 @@ hostname = <%= @hostname %>
 <% unless @slapd_hostnamebind.nil? -%>
 slapd_hostnamebind = <%= @slapd_hostnamebind %>
 <% end -%>
-port = <%= @port %>,
+port = <%= @port %>
 <% unless @user.nil? -%>
 user = <%= user %>
 <% end -%>
@@ -19,9 +19,7 @@ infosys_ldap_run_dir = <%= @infosys_ldap_run_dir %>
 ldap_schema_dir = <%= @ldap_schema_dir %>
 <% end -%>
 bdii_debug_level = <%= @bdii_debug_level %>
-<% unless @bdii_provider_timeout.nil? %>
 bdii_provider_timeout = <%= @bdii_provider_timeout %>
-<% end -%>
 bdii_location = <%= @bdii_location %>
 bdii_run_dir = <%= @bdii_run_dir %>
 bdii_log_dir = <%= @bdii_log_dir %>

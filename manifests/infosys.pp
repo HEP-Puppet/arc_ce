@@ -4,6 +4,7 @@ class arc_ce::infosys(
   Stdlib::Unixpath $logfile = '/var/log/arc/infoprovider.log',
   Arc_ce::LogLevel $infosys_loglevel = 'INFO',
   Integer $validity_ttl = 10800,
+  Boolean $enable_nordugrid = false,
 ) {
 
   concat::fragment { 'arc.conf_infosys':
@@ -15,7 +16,14 @@ class arc_ce::infosys(
   # infosys/ldap block, uses order 34
   contain 'arc_ce::infosys::ldap'
 
-  # infosys/nordugrid block, order 35 reserverd
+  # infosys/nordugrid block, order 35
+  if $enable_nordugrid {
+    concat::fragment { 'arc.conf_infosys_nordugrid':
+      target  => '/etc/arc.conf',
+      content => "[infosys/nordugrid]\n\n",
+      order   => 35,
+    }
+  }
 
   # infosys/glue2 block, uses order 36 and 37
   contain 'arc_ce::infosys::glue2'

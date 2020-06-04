@@ -21,7 +21,6 @@ class arc_ce::config(
 
   concat { '/etc/arc.conf':
     require => Package[$::arc_ce::install::arex_package],
-    notify  => Service['arc-arex'],
   }
 
   # common block

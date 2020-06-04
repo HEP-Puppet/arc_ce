@@ -14,6 +14,7 @@ class arc_ce::services(
     enable     => $arex_enable,
     hasrestart => true,
     hasstatus  => true,
+    subscribe  => Concat['/etc/arc.conf'],
   }
 
   # the following virtual services are realized when the corresponding blocks in arc.conf are enabled and configured
@@ -27,13 +28,21 @@ class arc_ce::services(
     subscribe  => Concat['/etc/arc.conf'],
   }
 
-  @service { 'arc-service-bdii':
+  @service { 'arc-service-infosys-ldap':
     ensure     => $bdii_ensure,
-    name       => 'bdii',
+    name       => 'arc-infosys-ldap',
     enable     => $bdii_enable,
     hasrestart => true,
     hasstatus  => true,
-    subscribe  => Concat['/etc/arc.conf'],
+  }
+
+  @service { 'arc-service-infosys-ldap-slapd':
+    ensure     => $bdii_ensure,
+    name       => 'arc-infosys-ldap-slapd',
+    enable     => $bdii_enable,
+    hasrestart => true,
+    hasstatus  => true,
+    tag        => 'arc-service-infosys-ldap',
   }
 
 }

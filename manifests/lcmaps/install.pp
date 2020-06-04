@@ -10,7 +10,7 @@ class arc_ce::lcmaps::install(
 
   if $ensure !~ Undef {
 
-    @package { 'lcmaps':
+    @package { ['nordugrid-arc6-plugins-lcas-lcmaps', 'lcmaps' ]:
       ensure => $ensure,
       tag    => 'arc-packages-lcmaps',
     }

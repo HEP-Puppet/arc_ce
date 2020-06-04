@@ -14,7 +14,7 @@ class arc_ce::infosys::ldap(
   Stdlib::Unixpath $infosys_ldap_run_dir = '/var/run/arc/infosys',
   Optional[Stdlib::Unixpath] $ldap_schema_dir = undef,
   Arc_ce::LogLevel $bdii_debug_level = 'WARNING',
-  Optional[Integer] $bdii_provider_timeout = undef,
+  Integer $bdii_provider_timeout = 10800,
   Stdlib::Unixpath $bdii_location = '/usr',
   Stdlib::Unixpath $bdii_run_dir = '/var/run/arc/bdii',
   Stdlib::Unixpath $bdii_log_dir = '/var/log/arc/bdii',
@@ -34,7 +34,7 @@ class arc_ce::infosys::ldap(
   if $enable {
 
     Package <| tag == 'arc-package-infosys-ldap' |>
-    Service <| tag == 'arc-service-bdii' |>
+    Service <| tag == 'arc-service-infosys-ldap' |>
 
     concat::fragment { 'arc.conf_infosys_ldap':
       target  => '/etc/arc.conf',
