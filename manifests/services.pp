@@ -34,6 +34,7 @@ class arc_ce::services(
     enable     => $bdii_enable,
     hasrestart => true,
     hasstatus  => true,
+    require    => Service['arc-arex'],
   }
 
   @service { 'arc-service-infosys-ldap-slapd':
@@ -42,6 +43,7 @@ class arc_ce::services(
     enable     => $bdii_enable,
     hasrestart => true,
     hasstatus  => true,
+    require    => Service['arc-service-infosys-ldap'],
     tag        => 'arc-service-infosys-ldap',
   }
 

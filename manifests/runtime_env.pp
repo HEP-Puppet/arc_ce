@@ -31,7 +31,8 @@ class arc_ce::runtime_env(
   $enabled_rte_dirs =
     unique(unique($enable).map |$x| { split(dirname($x), '/').reduce([]) |$m, $x| { $m + join([$m[-1], $x], '/')}}.flatten())
 
-  file { ['/var/spool/arc/jobstatus/rte', '/var/spool/arc/jobstatus/rte/enabled'] + $enabled_rte_dirs.map |$x| { "/var/spool/arc/jobstatus/rte/enabled${x}" }:
+  file { ['/var/spool/arc/jobstatus/rte', '/var/spool/arc/jobstatus/rte/enabled'] +
+      $enabled_rte_dirs.map |$x| { "/var/spool/arc/jobstatus/rte/enabled${x}" }:
     ensure  => 'directory',
     owner   => 'root',
     group   => 'root',
