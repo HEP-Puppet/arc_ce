@@ -10,6 +10,8 @@ class arc_ce::config(
   Arc_ce::Vomsprocessing $voms_processing = 'standard',
   # authgroup block definitions
   Hash[String, Hash] $authgroups = {},
+  Optional[String] $all_authgroup = undef,
+  Integer $all_authgroup_order = 999,
   # mapping block definitions
   Array[Arc_ce::MappingRule] $mapping_rules = [],
   # queue block definitions
@@ -20,7 +22,8 @@ class arc_ce::config(
 ) {
 
   concat { '/etc/arc.conf':
-    require => Package[$::arc_ce::install::arex_package],
+    order   => 'alpha',
+    require => Package['nordugrid-arc-arex'],
   }
 
   # common block
@@ -32,6 +35,14 @@ class arc_ce::config(
 
   # authgroup blocks, uses order 11
   create_resources('arc_ce::authgroup', $authgroups)
+
+  # add an authgroup that covers all other configured authgroups
+  if $all_authgroup !~ Undef {
+    arc_ce::authgroup { $all_authgroup:
+      order => $all_authgroup_order,
+      rules => [(['authgroup ='] + $authgroups.keys()).join(' ')],
+    }
+  }
 
   # mapping block
   concat::fragment { 'arc.conf_mapping':

@@ -20,8 +20,9 @@ class arc_ce::install(
     default: {}
   }
 
-  package { $arex_package:
-    ensure  => $ensure,
+  package { 'nordugrid-arc-arex':
+    ensure => $ensure,
+    name   => $arex_package,
   }
 
   # define virtual resources for non-essential packages
