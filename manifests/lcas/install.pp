@@ -4,6 +4,7 @@ class arc_ce::lcas::install(
   Optional[String] $ensure = 'present',
   Array[String] $plugin_packages = [
     'lcas-plugins-basic',
+    'lcas-plugins-voms',
   ],
 ) {
 
