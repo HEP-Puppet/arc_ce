@@ -42,16 +42,16 @@ localse = <%= co %>
 <% if @cpudistribution.size > 0 -%>
 cpudistribution = <%= @cpudistribution.join(',') %>
 <% end -%>
-<% unless @maxcputime.nil? -%>
-maxcputime = <%= @maxcputime %>
+<% unless @maxcputime_seconds.nil? -%>
+maxcputime = <%= @maxcputime_seconds %>
 <% end -%>
-<% unless @mincputime.nil? -%>
-mincputime = <%= @mincputime %>
+<% unless @mincputime_seconds.nil? -%>
+mincputime = <%= @mincputime_seconds %>
 <% end -%>
-<% unless @maxwalltime.nil? -%>
-maxwalltime = <%= @maxwalltime %>
+<% unless @maxwalltime_seconds.nil? -%>
+maxwalltime = <%= @maxwalltime_seconds %>
 <% end -%>
-<% unless @minwalltime.nil? -%>
-minwalltime = <%= @minwalltime %>
+<% unless @minwalltime_seconds.nil? -%>
+minwalltime = <%= @minwalltime_seconds %>
 <% end -%>
 

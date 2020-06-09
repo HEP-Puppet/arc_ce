@@ -18,11 +18,16 @@ class arc_ce::infosys::cluster(
   Array[Arc_ce::NodeAccess,0,2] $nodeaccess = [],
   Array[String] $localse = [],
   Array[Arc_ce::CpuDistribution] $cpudistribution = [],
-  Optional[Integer] $maxcputime = undef,
-  Optional[Integer] $mincputime = undef,
-  Optional[Integer] $maxwalltime = undef,
-  Optional[Integer] $minwalltime = undef,
+  Optional[Arc_ce::Duration] $maxcputime = undef,
+  Optional[Arc_ce::Duration] $mincputime = undef,
+  Optional[Arc_ce::Duration] $maxwalltime = undef,
+  Optional[Arc_ce::Duration] $minwalltime = undef,
 ) {
+
+  $maxcputime_seconds = arc_ce::duration_to_seconds($maxcputime)
+  $mincputime_seconds = arc_ce::duration_to_seconds($mincputime)
+  $maxwalltime_seconds = arc_ce::duration_to_seconds($maxwalltime)
+  $minwalltime_seconds = arc_ce::duration_to_seconds($minwalltime)
 
   concat::fragment { 'arc.conf_infosys_cluster':
     target  => '/etc/arc.conf',

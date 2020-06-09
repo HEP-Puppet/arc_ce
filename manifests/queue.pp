@@ -25,15 +25,20 @@ define arc_ce::queue (
   Array[String] $advertisedvo = lookup('arc_ce::queue_defaults::advertisedvo', Array[String], undef, []),
   Optional[Integer] $maxslotsperjob = lookup('arc_ce::queue_defaults::maxslotsperjob', Optional[Integer], undef, undef),
   Optional[String] $forcedefaultvoms = lookup('arc_ce::queue_defaults::forcedefaultvoms', Optional[String], undef, undef),
-  Optional[Integer] $maxcputime = lookup('arc_ce::queue_defaults::maxcputime', Optional[Integer], undef, undef),
-  Optional[Integer] $mincputime = lookup('arc_ce::queue_defaults::mincputime', Optional[Integer], undef, undef),
-  Optional[Integer] $maxwalltime = lookup('arc_ce::queue_defaults::maxwalltime', Optional[Integer], undef, undef),
-  Optional[Integer] $minwalltime = lookup('arc_ce::queue_defaults::minwalltime', Optional[Integer], undef, undef),
+  Optional[Arc_ce::Duration] $maxcputime = lookup('arc_ce::queue_defaults::maxcputime', Optional[Arc_ce::Duration], undef, undef),
+  Optional[Arc_ce::Duration] $mincputime = lookup('arc_ce::queue_defaults::mincputime', Optional[Arc_ce::Duration], undef, undef),
+  Optional[Arc_ce::Duration] $maxwalltime = lookup('arc_ce::queue_defaults::maxwalltime', Optional[Arc_ce::Duration], undef, undef),
+  Optional[Arc_ce::Duration] $minwalltime = lookup('arc_ce::queue_defaults::minwalltime', Optional[Arc_ce::Duration], undef, undef),
 ) {
 
   unless $primary_benchmark in $benchmark {
     fail("value of primary_benchmark (${primary_benchmark}) not found in benchmark definition of queue ${name}")
   }
+  $maxcputime_seconds = arc_ce::duration_to_seconds($maxcputime)
+  $mincputime_seconds = arc_ce::duration_to_seconds($mincputime)
+  $maxwalltime_seconds = arc_ce::duration_to_seconds($maxwalltime)
+  $minwalltime_seconds = arc_ce::duration_to_seconds($minwalltime)
+  notify { "converted maxcputime from ${maxcputime} to ${maxcputime_seconds}": }
   concat::fragment { "arc.conf_queue_${name}":
     target  => '/etc/arc.conf',
     content => template("${module_name}/queue.erb"),
