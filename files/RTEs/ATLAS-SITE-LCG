@@ -1,1 +1,2 @@
-#!/bin/bash
+# this is embedded in a bash function and needs at least one valid command
+:
