@@ -38,7 +38,7 @@ define arc_ce::queue (
   $mincputime_seconds = arc_ce::duration_to_seconds($mincputime)
   $maxwalltime_seconds = arc_ce::duration_to_seconds($maxwalltime)
   $minwalltime_seconds = arc_ce::duration_to_seconds($minwalltime)
-  notify { "converted maxcputime from ${maxcputime} to ${maxcputime_seconds}": }
+
   concat::fragment { "arc.conf_queue_${name}":
     target  => '/etc/arc.conf',
     content => template("${module_name}/queue.erb"),
