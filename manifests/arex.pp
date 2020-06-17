@@ -50,7 +50,7 @@ class arc_ce::arex(
   # arex/ws block and sub-blocks, reserved order 20 - 24
   # contain 'arc_ce::arex::ws'
 
-  # arex/jura block, uses order 25
+  # arex/jura block, uses order 25 - 27
   contain 'arc_ce::arex::jura'
 
   $sessiondir.keys.each |Stdlib::Unixpath $sd| {
