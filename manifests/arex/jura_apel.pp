@@ -8,6 +8,7 @@ define arc_ce::arex::jura_apel(
   Array[String] $vofilter = [],
   Integer $urbatchsize = 1000,
   Integer $urdelivery_frequency = 86000,
+  Boolean $legacy_fallback = false,
 ) {
 
   concat::fragment { "arc.conf_arex_jura_apel_${name}":
