@@ -1,0 +1,16 @@
+[arex/jura/apel:<%= @name %>]
+<% unless @targeturl.nil? -%>
+targeturl = <%= @targeturl %>
+<% end -%>
+topic = <%= @topic %>
+<% unless @gocdb_name.nil? -%>
+gocdb_name = <%= @gocdb_name %>
+<% end -%>
+apel_messages = <%= @apel_messages %>
+<% @vofilter.each do |vf| -%>
+vofilter = <%= vf %>
+<% end -%>
+urbatchsize = <%= @urbatchsize %>
+urdelivery_frequency = <%= @urdelivery_frequency %>
+legacy_fallback = <%= @legacy_fallback ? 'yes' : 'no' %>
+

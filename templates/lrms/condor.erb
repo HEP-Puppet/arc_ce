@@ -1,0 +1,10 @@
+# condor lrms specific options
+condor_bin_path = <%= @condor_bin_path %>
+condor_config = <%= @condor_config %>
+<% unless @condor_rank.nil? -%>
+condor_rank = <%= @condor_rank %>
+<% end -%>
+<% unless @condor_requirements.nil? -%>
+condor_requirements = <%= @condor_requirements %>
+<% end -%>
+

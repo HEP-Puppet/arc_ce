@@ -1,0 +1,69 @@
+[infosys/ldap]
+hostname = <%= @hostname %>
+<% unless @slapd_hostnamebind.nil? -%>
+slapd_hostnamebind = <%= @slapd_hostnamebind %>
+<% end -%>
+port = <%= @port %>
+<% unless @user.nil? -%>
+user = <%= user %>
+<% end -%>
+<% unless @slapd.nil? %>
+slapd = <%= @slapd %>
+<% end -%>
+slapd_loglevel = <%= @slapd_loglevel %>
+threads = <%= @threads %>
+timelimit = <%= @timelimit %>
+idletimeout = <%= @idletimeout %>
+infosys_ldap_run_dir = <%= @infosys_ldap_run_dir %>
+<% unless @ldap_schema_dir.nil? %>
+ldap_schema_dir = <%= @ldap_schema_dir %>
+<% end -%>
+<% unless @bdii_debug_level.nil? -%>
+bdii_debug_level = <%= @bdii_debug_level %>
+<% end -%>
+<% unless @bdii_provider_timeout.nil? -%>
+bdii_provider_timeout = <%= @bdii_provider_timeout %>
+<% end -%>
+<% unless @bdii_location.nil? -%>
+bdii_location = <%= @bdii_location %>
+<% end -%>
+<% unless @bdii_run_dir.nil? -%>
+bdii_run_dir = <%= @bdii_run_dir %>
+<% end -%>
+<% unless @bdii_log_dir.nil? -%>
+bdii_log_dir = <%= @bdii_log_dir %>
+<% end -%>
+<% unless @bdii_tmp_dir.nil? -%>
+bdii_tmp_dir = <%= @bdii_tmp_dir %>
+<% end -%>
+<% unless @bdii_var_dir.nil? -%>
+bdii_var_dir = <%= @bdii_var_dir %>
+<% end -%>
+<% unless @bdii_update_pid_file.nil? -%>
+bdii_update_pid_file = <%= @bdii_update_pid_file %>
+<% end -%>
+<% unless @bdii_database.nil? -%>
+bdii_database = <%= @bdii_database %>
+<% end -%>
+<% unless @bdii_conf.nil? -%>
+bdii_conf = <%= @bdii_conf %>
+<% end -%>
+<% unless @bdii_update_cmd.nil? -%>
+bdii_update_cmd = <%= @bdii_update_cmd %>
+<% end -%>
+<% unless @bdii_db_config.nil? -%>
+bdii_db_config = <%= @bdii_db_config %>
+<% end -%>
+<% unless @bdii_archive_size.nil? -%>
+bdii_archive_size = <%= @bdii_archive_size %>
+<% end -%>
+<% unless @bdii_breathe_time.nil? -%>
+bdii_breathe_time = <%= @bdii_breathe_time %>
+<% end -%>
+<% unless @bdii_delete_delay.nil? -%>
+bdii_delete_delay = <%= @bdii_delete_delay %>
+<% end -%>
+<% unless @bdii_read_timeout.nil? -%>
+bdii_read_timeout = <%= @bdii_read_timeout %>
+<% end -%>
+

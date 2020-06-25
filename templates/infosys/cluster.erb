@@ -1,0 +1,57 @@
+[infosys/cluster]
+<% unless @cluster_alias.nil? -%>
+alias = <%= @cluster_alias %>
+<% end -%>
+hostname = <%= @hostname %>
+<% unless @interactive_contactstring.nil? -%>
+interactive_contactstring = <%= @interactive_contactstring %>
+<% end -%>
+<% unless @comment.nil? -%>
+comment = <%= @comment %>
+<% end -%>
+<% unless @cluster_location.nil? -%>
+cluster_location = <%= @cluster_location %>
+<% end -%>
+<% @cluster_owner.each do |co| -%>
+cluster_owner = <%= co %>
+<% end -%>
+<% @advertisedvo.each do |co| -%>
+advertisedvo = <%= co %>
+<% end -%>
+<% @clustersupport.each do |co| -%>
+clustersupport = <%= co %>
+<% end -%>
+homogeneity = <%= @homogeneity %>
+architecture = <%= @architecture %>
+<% @opsys.each do |co| -%>
+opsys = <%= co %>
+<% end -%>
+nodecpu = <%= @nodecpu %>
+<% unless @nodememory.nil? -%>
+nodememory = <%= @nodememory %>
+<% end -%>
+<% @middleware.each do |co| -%>
+middleware = <%= co %>
+<% end -%>
+<% @nodeaccess.each do |co| -%>
+nodeaccess = <%= co %>
+<% end -%>
+<% @localse.each do |co| -%>
+localse = <%= co %>
+<% end -%>
+<% if @cpudistribution.size > 0 -%>
+cpudistribution = <%= @cpudistribution.join(',') %>
+<% end -%>
+<% unless @maxcputime_seconds.nil? -%>
+maxcputime = <%= @maxcputime_seconds %>
+<% end -%>
+<% unless @mincputime_seconds.nil? -%>
+mincputime = <%= @mincputime_seconds %>
+<% end -%>
+<% unless @maxwalltime_seconds.nil? -%>
+maxwalltime = <%= @maxwalltime_seconds %>
+<% end -%>
+<% unless @minwalltime_seconds.nil? -%>
+minwalltime = <%= @minwalltime_seconds %>
+<% end -%>
+

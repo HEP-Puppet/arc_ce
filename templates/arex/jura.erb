@@ -1,0 +1,11 @@
+[arex/jura]
+logfile = <%= @logfile %>
+loglevel = <%= @jura_loglevel %>
+<% unless @vo_group.nil? -%>
+vo_group = <%= @vo_group %>
+<% end -%>
+urdelivery_frequency = <%= @urdelivery_frequency %>
+x509_host_key = <%= @x509_host_key %>
+x509_host_cert = <%= @x509_host_cert %>
+x509_cert_dir = <%= @x509_cert_dir %>
+

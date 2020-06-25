@@ -1,163 +1,110 @@
-# Class: arc_ce
-# Sets up the configuration file and file dependencies.
-class arc_ce::config (
-  $allow_new_jobs      = 'yes',
-  $accounting_archives = '/var/run/arc/urs',
-  $apel_testing        = true,
-  $apel_urbatch          = '1000',
-  $apply_fixes         = false,
-  $arex_port           = '60000',
-  $argus_server        = 'argus.example.com',
-  $authorized_vos      = [
-    'alice',
-    'atlas',
-    'cms',
-    'ops',
-    'dteam',
-    'gridpp',
-    'ilc',
-    'lhcb',
-    'vo.landslides.mossaic.org',
-    'vo.southgrid.ac.uk'],
-  $benchmark_results   = [
-    'SPECINT2000 222',
-    'SPECFP2000 333',
-    'HEPSPEC2006 444'],
-  $benchmark_type      = 'HEPSPEC',
-  $cache_dir           = ['/var/cache/arc'],
-  $cluster_alias       = 'MINIMAL Computing Element',
-  $cluster_comment     = 'This is a minimal out-of-box CE setup',
-  $cluster_cpudistribution      = ['16cpu:12'],
-  $cluster_description = {
-    'OSFamily'      => 'linux',
-    'OSName'        => 'ScientificSL',
-    'OSVersion'     => '6.4',
-    'CPUVendor'     => 'AMD',
-    'CPUClockSpeed' => '3100',
-    'CPUModel'      => 'AMD Opteron(tm) Processor 4386',
-    'NodeMemory'    => '1024',
-    'totalcpus'     => '42',
-  }
-  ,
-  $cluster_is_homogenious       = true,
-  $cluster_nodes_private        = true,
-  $cluster_owner       = 'Bristol HEP',
-  $cluster_registration_country = 'UK',
-  $cluster_registration_name    = 'clustertoukglasgow',
-  $cluster_registration_target  = 'svr019.gla.scotgrid.ac.uk',
-  $cores_per_worker    = '16',
-  $cpu_scaling_reference_si00 = '3100',
-  $debug               = true,
-  $domain_name         = 'GOCDB-SITENAME',
-  $enable_glue1        = false,
-  $enable_glue2        = true,
-  $globus_port_range   = [50000, 52000],
-  $glue_site_web       = 'http://www.bristol.ac.uk/physics/research/particle/',
-  $gridftp_max_connections      = '100',
-  $hepspec_per_core    = '11.17',
-  $infosys_registration = {
-    'clustertouk1' => {
-      targethostname => 'index1.gridpp.rl.ac.uk',
-      targetport => '2135',
-      targetsuffix => 'Mds-Vo-Name=UK,o=grid',
-      regperiod => '120',},
+# Class: arc_ce::config
+# Sets up the configuration file
+class arc_ce::config(
+  # common block options
+  Stdlib::Fqdn $hostname = $facts['networking']['fqdn'],
+  Stdlib::Unixpath $x509_host_cert = '/etc/grid-security/hostcert.pem',
+  Stdlib::Unixpath $x509_host_key = '/etc/grid-security/hostkey.pem',
+  Stdlib::Unixpath $x509_cert_dir = '/etc/grid-security/certificates',
+  Stdlib::Unixpath $x509_voms_dir = '/etc/grid-security/vomsdir',
+  Arc_ce::Vomsprocessing $voms_processing = 'standard',
+  # authgroup block definitions
+  Hash[String, Hash] $authgroups = {},
+  Optional[String] $all_authgroup = undef,
+  Integer $all_authgroup_order = 999,
+  # mapping block definitions
+  Array[Arc_ce::MappingRule] $mapping_rules = [],
+  # queue block definitions
+  Hash[String, Hash] $queues = {},
+  # default values for classes that use the same options
+  Array[Stdlib::Port::Unprivileged,2,2] $globus_tcp_port_range = [9000, 9300],
+  Array[Stdlib::Port::Unprivileged,2,2] $globus_udp_port_range = [9000, 9300],
+) {
 
-    'clustertouk2' => {
-       targethostname => 'index2.gridpp.rl.ac.uk',
-       targetport => '2135',
-       targetsuffix => 'Mds-Vo-Name=UK,o=grid',
-       regperiod => '120',}
-   },
-
-  $log_directory       = '/var/log/arc',
-  $lrms                = 'fork',
-  $mail                = 'gridmaster@hep.lu.se',
-  $queue_defaults      = {
-  }
-  ,
-  $queues              = {
-  }
-  ,
-  $resource_location   = 'Bristol, UK',
-  $resource_latitude   = '51.4585',
-  $resource_longitude  = '-02.6021',
-  $run_directory       = '/var/run/arc',
-  $session_dir         = ['/var/spool/arc/grid00'],
-  $setup_RTEs          = true,
-  $use_argus           = false,) {
-  file { $session_dir: ensure => directory, }
-
-  file { $cache_dir: ensure => directory, }
-
-  concat { '/etc/arc.conf': require => Package['nordugrid-arc-compute-element'],
-    notify => Service['a-rex'],
+  concat { '/etc/arc.conf':
+    order   => 'alpha',
+    require => Package['nordugrid-arc-arex'],
   }
 
+  # common block
   concat::fragment { 'arc.conf_common':
     target  => '/etc/arc.conf',
     content => template("${module_name}/common.erb"),
-    order   => 01,
+    order   => 10,
   }
 
-  concat::fragment { 'arc.conf_gridmanager':
+  # authgroup blocks, uses order 11
+  create_resources('arc_ce::authgroup', $authgroups)
+
+  # add an authgroup that covers all other configured authgroups
+  if $all_authgroup !~ Undef {
+    arc_ce::authgroup { $all_authgroup:
+      order => $all_authgroup_order,
+      rules => [(['authgroup ='] + $authgroups.keys()).join(' ')],
+    }
+  }
+
+  # mapping block
+  concat::fragment { 'arc.conf_mapping':
     target  => '/etc/arc.conf',
-    content => template("${module_name}/grid-manager.erb"),
-    order   => 02,
+    content => template("${module_name}/mapping.erb"),
+    order   => 12,
   }
 
-  concat::fragment { 'arc.conf_group':
-    target  => '/etc/arc.conf',
-    content => template("${module_name}/group.erb"),
-    order   => 03,
+  $mapping_rules.each |Arc_ce::MappingRule $mr| {
+    if $mr =~ /^map_with_plugin\s*=.* \/usr\/libexec\/arc\/arc-lcmaps / {
+      Package <| tag == 'arc-packages-lcmaps' |>
+      contain 'arc_ce::lcmaps::config'
+    }
   }
 
-  concat::fragment { 'arc.conf_gridftpd':
-    target  => '/etc/arc.conf',
-    content => template("${module_name}/gridftpd.erb"),
-    order   => 04,
-  }
+  # 13 reserverd for authtokens
 
-  concat::fragment { 'arc.conf_infosys':
-    target  => '/etc/arc.conf',
-    content => template("${module_name}/infosys.erb"),
-    order   => 05,
-  }
+  # lrms block, uses order 14 (common options) and 15 (reserved for lrms specific options) and 16 (reserved for lrms/ssh block)
+  contain 'arc_ce::lrms'
 
-  concat::fragment { 'arc.conf_cluster':
-    target  => '/etc/arc.conf',
-    content => template("${module_name}/cluster.erb"),
-    order   => 06,
-  }
+  # arex block, uses order 17 to 27, leaving 28 and 29 as reserved
+  contain 'arc_ce::arex'
 
-  create_resources('arc_ce::queue', $queues, $queue_defaults)
+  # gridftpd block, uses order 30 to 32
+  contain 'arc_ce::gridftpd'
 
-  class { 'arc_ce::lcmaps::config': argus_server => $argus_server }
+  # infosys block, uses order 33 to 40
+  contain 'arc_ce::infosys'
 
-  class { 'arc_ce::lcas::config': }
+  # queue blocks, uses order 41
+  create_resources('arc_ce::queue', $queues)
 
-  # plugin to set a default runtime environment
-  file { '/usr/local/bin/default_rte_plugin.py':
-    ensure => present,
-    source => "puppet:///modules/${module_name}/default_rte_plugin.py",
-    mode   => '0755',
-  }
+  if false {
 
-  # set up runtime environments
-  if $setup_RTEs {
+    # set up runtime environments
     class {'arc_ce::runtime_env':}
+
+    # apply manual fixes
+    # for details check fixes.md
+    $apply_fixes = false
+    if $apply_fixes {
+      file { '/usr/share/arc/submit-condor-job':
+        source => "puppet:///modules/${module_name}/fixes/submit-condor-job.ARC.${apply_fixes}",
+        backup => true,
+      }
+
+      file { '/usr/share/arc/Condor.pm':
+        source => "puppet:///modules/${module_name}/fixes/Condor.pm.ARC.${apply_fixes}",
+        backup => true,
+      }
+
+      file { '/usr/share/arc/glue-generator.pl':
+        source => "puppet:///modules/${module_name}/fixes/glue-generator.pl.ARC.${apply_fixes}",
+        backup => true,
+        mode   => '0755',
+        notify => Exec['create-bdii-config'],
+      }
+      exec {'create-bdii-config':
+        command     => '/usr/share/arc/create-bdii-config',
+        refreshonly => true,
+      }
+    }
   }
 
-  # apply manual fixes
-  # for details check fixes.md
-  if $apply_fixes {
-    file { '/usr/share/arc/submit-condor-job':
-      source => "puppet:///modules/${module_name}/fixes/submit-condor-job.ARC.4.0.0",
-      backup => true,
-    }
-
-    file { '/usr/share/arc/Condor.pm':
-      source => "puppet:///modules/${module_name}/fixes/Condor.pm.ARC.4.0.0",
-      backup => true,
-    }
-  }
 }

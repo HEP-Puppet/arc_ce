@@ -1,11 +1,8 @@
 [common]
-hostname="<%= @fqdn %>"
-globus_tcp_port_range="<%= @globus_port_range.join(',') %>"
-globus_udp_port_range="<%= @globus_port_range.join(',') %>"
-
-x509_user_key="/etc/grid-security/hostkey.pem"
-x509_user_cert="/etc/grid-security/hostcert.pem"
-x509_cert_dir="/etc/grid-security/certificates"
-gridmap="/etc/grid-security/local-grid-mapfile"
-lrms="<%= @lrms %>"
+hostname=<%= @hostname %>
+x509_host_cert=<%= @x509_host_cert %>
+x509_host_key=<%= @x509_host_key %>
+x509_cert_dir=<%= @x509_cert_dir %>
+x509_voms_dir=<%= @x509_voms_dir %>
+voms_processing=<%= @voms_processing %>
 

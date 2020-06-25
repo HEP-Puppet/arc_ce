@@ -1,36 +1,79 @@
-[queue/<%= @queue_name -%>]
-name="<%= @queue_name -%>"
-homogeneity="<%= @homogeneity -%>"
-comment="<%= @comment -%>"
-defaultmemory="<%= @default_memory -%>"
-MainMemorySize="<%= @main_memory_size -%>"
-timelimit="<%= @time_limit -%>"
-
-condor_requirements="<%= @condor_requirements -%>"
-
-architecture="adotf"
-
-#For inhomogenious clusters
-nodecpu="<%= @cluster_description['CPUModel'] %> @ <%= @cluster_description['CPUClockSpeed'] %> MHz"
-nodememory="<%= @cluster_description['NodeMemory'] -%>"
-
-opsys="<%= @cluster_description['OSName'] %>"
-opsys="<%= @cluster_description['OSVersion'] %>"
-opsys="<%= @cluster_description['OSVersionName'] %>"
-
-#cluster description for infosys
-OSFamily="<%= @cluster_description['OSFamily'] %>"
-#OSName="<%= @cluster_description['OSName'] %>"
-#OSVersion="<%= @cluster_description['OSVersion'] %>"
-
-CPUVendor="<%= @cluster_description['CPUVendor'] %>"
-CPUClockSpeed="<%= @cluster_description['CPUClockSpeed'] %>"
-CPUModel="<%= @cluster_description['CPUModel'] %>"
-#benchmark results
-<% @benchmark_results.each do |val| -%>
-benchmark="<%= val %>"
+[queue:<%= @name %>]
+<% unless @homogeneity.nil? -%>
+homogeneity = <%= @homogeneity %>
+<%end -%>
+<% unless @comment.nil? -%>
+comment = <%= @comment %>
+<%end -%>
+<% unless @condor_requirements.nil? -%>
+condor_requirements = <%= @condor_requirements %>
+<%end -%>
+<% unless @totalcpus.nil? -%>
+totalcpus = <%= @totalcpus %>
+<%end -%>
+<% unless @nodecpu.nil? -%>
+nodecpu = <%= @nodecpu %>
+<%end -%>
+<% unless @nodememory.nil? -%>
+nodememory = <%= @nodememory %>
+<%end -%>
+<% unless @defaultmemory.nil? -%>
+defaultmemory = <%= @defaultmemory %>
+<%end -%>
+<% unless @architecture.nil? -%>
+architecture = <%= @architecture %>
+<%end -%>
+<% @opsys.each do |os| -%>
+opsys = <%= os %>
 <% end -%>
-
-cpudistribution=<%= @cluster_cpudistribution.join(',') %>
-totalcpus="<%= @cluster_description['totalcpus'] %>"
+<% unless @osname.nil? -%>
+osname = <%= @osname %>
+<%end -%>
+<% unless @osversion.nil? -%>
+osversion = <%= @osversion %>
+<%end -%>
+<% unless @osfamily.nil? -%>
+osfamily = <%= @osfamily %>
+<%end -%>
+benchmark = <%= @primary_benchmark %> <%= @benchmark[@primary_benchmark] %>
+<% @benchmark.keys.sort.each do |bm|
+  if bm == @primary_benchmark then next end -%>
+benchmark = <%= bm %> <%= @benchmark[bm] %>
+<% end -%>
+<% @access.each do |a|
+  if a['groups'].is_a?(Array)
+    a['groups'].each do |g| -%>
+<%= a['mode']%>access = <%= g %>
+<%  end
+  else -%>
+<%= a['mode']%>access = <%= a['groups'] %>
+<% end
+end -%>
+<% @denyaccess.each do |da| -%>
+denyaccess = <%= da %>
+<% end -%>
+<% @allowaccess.each do |aa| -%>
+allowaccess = <%= aa %>
+<% end -%>
+<% @advertisedvo.each do |av| -%>
+advertisedvo = <%= av %>
+<% end -%>
+<% unless @maxslotperjob.nil? -%>
+maxslotperjob = <%= @maxslotperjob %>
+<%end -%>
+<% unless @forcedefaultvoms.nil? -%>
+forcedefaultvoms = <%= @forcedefaultvoms %>
+<%end -%>
+<% unless @maxcputime_seconds.nil? -%>
+maxcputime = <%= @maxcputime_seconds %>
+<%end -%>
+<% unless @mincputime_seconds.nil? -%>
+mincputime = <%= @mincputime_seconds %>
+<%end -%>
+<% unless @maxwalltime_seconds.nil? -%>
+maxwalltime = <%= @maxwalltime_seconds %>
+<%end -%>
+<% unless @minwalltime_seconds.nil? -%>
+minwalltime = <%= @minwalltime_seconds %>
+<%end -%>
 
