@@ -1,6 +1,8 @@
 # Puppet module for ARC CE
 [![Build Status](https://travis-ci.org/HEP-Puppet/arc_ce.png?branch=master)](https://travis-ci.org/HEP-Puppet/arc_ce)
 
+The version in master is for ARC5, which is EOL. A (still undocumented) rewrite can be found in the [arc6 branch](https://github.com/HEP-Puppet/arc_ce/tree/arc6).
+
 ####Table of Contents
 
 1. [Overview - What is the arc_ce module?](#overview)
