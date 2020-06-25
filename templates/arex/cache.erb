@@ -1,0 +1,11 @@
+[arex/cache]
+<% @cachedir.keys.sort.each do |cd| -%>
+<% if @cachedir[cd].nil? -%>
+cachedir = <%= cd %>
+<% else -%>
+cachedir = <%= cd %> <%= @cachedir[cd] %>
+<% end -%>
+<% end -%>
+
+#[arex/cache/cleaner]
+

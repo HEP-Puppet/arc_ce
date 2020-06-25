@@ -1,0 +1,58 @@
+[arex]
+user = <%= @user %>:<%= @group %>
+norootpower = <%= @norootpower ? 'yes' : 'no' %>
+delegationdb = <%= @delegationdb %>
+watchdog = <%= @watchdog ? 'yes' : 'no' %>
+loglevel = <%= @arexloglevel %>
+logfile = <%= @logfile %>
+joblog = <%= @joblog %>
+fixdirectories = <%= @fixdirectories %>
+controldir = <%= @controldir %>
+<% @sessiondir.keys.sort.each do |sd| -%>
+<% if @sessiondir[sd] -%>
+sessiondir = <%= sd %> drain
+<% else -%>
+sessiondir = <%= sd %>
+<% end -%>
+<% end -%>
+defaultttl = <%= @defaultttl %> <%= @defaultttr %>
+shared_filesystem = <%= @shared_filesystem ? 'yes' : 'no' %>
+<% unless @scratchdir.nil? -%>
+scratchdir = <%= @scratchdir %>
+<% end -%>
+<% unless @shared_scratch.nil? -%>
+shared_scratch = <%= @shared_scratch %>
+<% end -%>
+tmpdir = <%= @tmpdir %>
+<% @runtimedir.sort.each do |rd| -%>
+runtimedir = <%= rd %>
+<% end -%>
+maxjobs = <%= @maxjobs.join(' ') %>
+maxrerun = <%= @maxrerun %>
+<%
+@statecallout.sort.each do |sc|
+  opts = []
+  if sc.key?('timeout') then opts.push('timeout=%d' % sc['timeout']) end
+  ['onsuccess', 'onfailure', 'ontimeout'].each do |k|
+    if sc.key?(k) then opts.push('%s=%s' % [k, sc[k]]) end
+  end
+  plugindef = [
+    sc['state'],
+    opts.join(','),
+    sc['plugin']
+  ]
+  if sc.key?('arguments') then plugindef.push(sc['arguments']) end
+-%>
+statecallout = <%= plugindef.join(' ') %>
+<% end -%>
+wakeupperiod = <%= @wakeupperiod %>
+infoproviders_timelimit = <%= @infoproviders_timelimit %>
+pidfile = <%= @pidfile %>
+<% unless @helper.nil? -%>
+helper = <%= @helper %>
+<% end -%>
+helperlog = <%= @helperlog %>
+<% unless @forcedefaultvoms.nil? -%>
+forcedefaultvoms = <%= @forcedefaultvoms %>
+<% end -%>
+

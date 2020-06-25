@@ -25,7 +25,6 @@ case $1 in
   0) :
      ;;
   1) . /etc/profile.d/grid-env.sh
-     . /etc/profile.d/grid-vo-env.sh
      ;;
   2) :
      ;;

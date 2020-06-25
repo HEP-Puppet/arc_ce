@@ -1,0 +1,19 @@
+[lrms]
+# common lrms options
+<% if @lrms_default_queue.nil? -%>
+lrms = <%= @lrms %>
+<% else -%>
+lrms = <%= @lrms %> <%= @lrms_default_queue %>
+<% end -%>
+<% unless @lrmsconfig.nil? -%>
+lrmsconfig = <%= @lrmsconfig %>
+<%end -%>
+<% unless @defaultmemory.nil? -%>
+defaultmemory = <%= @defaultmemory %>
+<%end -%>
+<% unless @nodename.nil? -%>
+nodename = <%= @nodename %>
+<%end -%>
+<% unless @gnu_time.nil? -%>
+gnu_time = <%= @gnu_time %>
+<%end -%>
