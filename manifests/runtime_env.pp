@@ -1,20 +1,16 @@
 # Class arc_ce::runtime_env
 # Manages runtime environments (RTEs)
 class arc_ce::runtime_env(
-  Boolean $add_atlas = true,
   Boolean $add_glite = true,
   Boolean $purge_rte_dirs = true,
   Array[String] $enable = [ 'ENV/PROXY' ],
+  Array[String] $dummy = [ 'APPS/HEP/ATLAS-SITE-LCG' ],
   Array[String] $default = [ 'ENV/PROXY' ],
   Hash[String,Hash] $additional_rtes = {},
 ) {
 
   # create directories for custom runtime environments
   $user_rte_dirs = unique(unique($additional_rtes.keys() +
-    ($add_atlas ? {
-      true    => ['APPS/HEP/ATLAS-SITE-LCG'],
-      default => [],
-    }) +
     ($add_glite ? {
       true    => ['ENV/GLITE'],
       default => [],
@@ -22,18 +18,21 @@ class arc_ce::runtime_env(
   ).map |$x| { split(dirname($x), '/').reduce([]) |$m, $x| { $m + join([$m[-1], $x], '/')}}.flatten())
 
   file { [ '/etc/arc/', '/etc/arc/runtime/' ] + $user_rte_dirs.map |$x| { "/etc/arc/runtime${x}" }:
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    purge   => $purge_rte_dirs,
+    recurse => true,
+    force   => true,
   }
 
   # RTEs have to be enabled to be set as default
   $default_real = intersection($default, $enable)
 
-  # create directories for enabled runtime environments
+  # create directories for enabled and dummy runtime environments
   $enabled_rte_dirs =
-    unique(unique($enable).map |$x| { split(dirname($x), '/').reduce([]) |$m, $x| { $m + join([$m[-1], $x], '/')}}.flatten())
+    unique(unique($enable + $dummy).map |$x| { split(dirname($x), '/').reduce([]) |$m, $x| { $m + join([$m[-1], $x], '/')}}.flatten())
 
   # create directories for default runtime environments
   $default_rte_dirs =
@@ -50,16 +49,6 @@ class arc_ce::runtime_env(
     recurse => true,
     force   => true,
     require => Package['nordugrid-arc-arex'],
-  }
-
-  # add atlas RTE
-  if $add_atlas {
-    # create empty ATLAS-SITE-LCG for ATLAS prd jobs
-    arc_ce::rte { 'APPS/HEP/ATLAS-SITE-LCG':
-      enable  => 'APPS/HEP/ATLAS-SITE-LCG' in $enable,
-      default => 'APPS/HEP/ATLAS-SITE-LCG' in $default_real,
-      source  => "puppet:///modules/${module_name}/RTEs/ATLAS-SITE-LCG",
-    }
   }
 
   # add glite RTE
@@ -87,6 +76,14 @@ class arc_ce::runtime_env(
         default => undef,
       },
     }
+  }
+
+  # configure dummy RTEs
+  $dummy.each |String $rte| {
+      arc_ce::rte { $rte:
+        enable => true,
+        dummy  => true,
+      }
   }
 
   # configure system RTEs
