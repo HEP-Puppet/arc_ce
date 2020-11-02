@@ -8,6 +8,9 @@ lrms = <%= @lrms %> <%= @defaultqueue %>
 <% unless @lrmsconfig.nil? -%>
 lrmsconfig = <%= @lrmsconfig %>
 <%end -%>
+<% @benchmark.keys.sort.each do |bm| -%>
+benchmark = <%= bm %>:<%= @benchmark[bm] %>
+<% end -%>
 <% unless @defaultmemory.nil? -%>
 defaultmemory = <%= @defaultmemory %>
 <%end -%>
