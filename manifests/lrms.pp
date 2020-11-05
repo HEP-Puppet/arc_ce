@@ -4,6 +4,7 @@ class arc_ce::lrms(
   Arc_ce::Lrms $lrms = 'fork',
   Optional[String] $defaultqueue = undef,
   Optional[String] $lrmsconfig = undef,
+  Hash[String,Numeric,0,1] $benchmark = {},
   Optional[Integer] $defaultmemory = undef,
   Optional[Stdlib::Fqdn] $nodename = undef,
   Stdlib::Unixpath $gnu_time = '/usr/bin/time',
