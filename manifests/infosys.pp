@@ -5,6 +5,7 @@ class arc_ce::infosys(
   Arc_ce::LogLevel $infosys_loglevel = 'INFO',
   Integer $validity_ttl = 10800,
   Boolean $enable_nordugrid = false,
+  Boolean $enable_glue1 = false,
 ) {
 
   concat::fragment { 'arc.conf_infosys':
@@ -29,6 +30,9 @@ class arc_ce::infosys(
   contain 'arc_ce::infosys::glue2'
 
   # infosys/glue1 block, order 38 and 39
+  if $enable_glue1 {
+    contain 'arc_ce::infosys::glue1'
+  }
 
   # infosys/cluster block, uses order 40
   contain 'arc_ce::infosys::cluster'
