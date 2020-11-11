@@ -35,6 +35,7 @@ class arc_ce::services(
     hasrestart => true,
     hasstatus  => true,
     require    => Service['arc-arex'],
+    subscribe  => Concat['/etc/arc.conf'],
   }
 
   @service { 'arc-service-infosys-ldap-slapd':
