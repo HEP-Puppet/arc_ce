@@ -2,6 +2,7 @@
 # Manages runtime environments (RTEs)
 class arc_ce::runtime_env(
   Boolean $add_glite = true,
+  Boolean $add_mcore_scratch = true,
   Boolean $purge_rte_dirs = true,
   Array[String] $enable = [ 'ENV/PROXY' ],
   Array[String] $dummy = [ 'APPS/HEP/ATLAS-SITE-LCG' ],
@@ -13,6 +14,10 @@ class arc_ce::runtime_env(
   $user_rte_dirs = unique(unique($additional_rtes.keys() +
     ($add_glite ? {
       true    => ['ENV/GLITE'],
+      default => [],
+    }) +
+    ($add_mcore_scratch ? {
+      true    => ['ENV/MCORE-SCRATCH'],
       default => [],
     })
   ).map |$x| { split(dirname($x), '/').reduce([]) |$m, $x| { $m + join([$m[-1], $x], '/')}}.flatten())
@@ -58,6 +63,16 @@ class arc_ce::runtime_env(
       enable  => 'ENV/GLITE' in $enable,
       default => 'ENV/GLITE' in $default_real,
       source  => "puppet:///modules/${module_name}/RTEs/GLITE",
+    }
+  }
+
+  # add mcore-scratch RTE
+  if $add_mcore_scratch {
+    # add mcore-scratch env
+    arc_ce::rte { 'ENV/MCORE-SCRATCH':
+      enable  => 'ENV/MCORE-SCRATCH' in $enable,
+      default => 'ENV/MCORE-SCRATCH' in $default_real,
+      source  => "puppet:///modules/${module_name}/RTEs/MCORE-SCRATCH",
     }
   }
 

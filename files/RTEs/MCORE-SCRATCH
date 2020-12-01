@@ -1,0 +1,4 @@
+# enable local scratch directory on WN for multicore jobs
+if [ "x$1" = "x0" ]; then
+	export RUNTIME_ENABLE_MULTICORE_SCRATCH=1
+fi
