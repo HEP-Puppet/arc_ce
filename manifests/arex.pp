@@ -47,8 +47,8 @@ class arc_ce::arex(
   # arex/data-staging block, uses order 19
   contain 'arc_ce::arex::datastaging'
 
-  # arex/ws block and sub-blocks, reserved order 20 - 24
-  # contain 'arc_ce::arex::ws'
+  # arex/ws block and sub-blocks, reserved order 20 - 24, 28
+  contain 'arc_ce::arex::ws'
 
   # arex/jura block, uses order 25 - 27
   contain 'arc_ce::arex::jura'

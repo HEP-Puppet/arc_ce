@@ -63,7 +63,7 @@ class arc_ce::config(
   # lrms block, uses order 14 (common options) and 15 (reserved for lrms specific options) and 16 (reserved for lrms/ssh block)
   contain 'arc_ce::lrms'
 
-  # arex block, uses order 17 to 27, leaving 28 and 29 as reserved
+  # arex block, uses order 17 to 28, leaving 29 as reserved
   contain 'arc_ce::arex'
 
   # gridftpd block, uses order 30 to 32
