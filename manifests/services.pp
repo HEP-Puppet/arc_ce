@@ -7,6 +7,8 @@ class arc_ce::services(
   Boolean $gridftpd_enable = true,
   Stdlib::Ensure::Service $bdii_ensure = 'running',
   Boolean $bdii_enable = true,
+  Stdlib::Ensure::Service $arex_ws_ensure = 'running',
+  Boolean $arex_ws_enable = true,
 ) {
 
   service { 'arc-arex':
@@ -18,6 +20,14 @@ class arc_ce::services(
   }
 
   # the following virtual services are realized when the corresponding blocks in arc.conf are enabled and configured
+
+  @service { 'arc-arex-ws':
+    ensure     => $arex_ws_ensure,
+    enable     => $arex_ws_enable,
+    hasrestart => true,
+    hasstatus  => true,
+    subscribe  => Concat['/etc/arc.conf'],
+  }
 
   @service { 'arc-service-gridftpd':
     ensure     => $gridftpd_ensure,

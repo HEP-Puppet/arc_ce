@@ -1,0 +1,22 @@
+[arex/ws/jobs]
+allownew = <%= @allownew ? 'yes' : 'no' %>
+<% @allownew_override.each do |ao| -%>
+allownew_override = <%= ao %>
+<% end -%>
+<% @access.each do |a|
+  if a['groups'].is_a?(Array)
+    a['groups'].each do |g| -%>
+<%= a['mode']%>access = <%= g %>
+<%  end
+  else -%>
+<%= a['mode']%>access = <%= a['groups'] %>
+<% end
+end -%>
+<% @denyaccess.each do |da| -%>
+denyaccess = <%= da %>
+<% end -%>
+<% @allowaccess.each do |aa| -%>
+allowaccess = <%= aa %>
+<% end -%>
+maxjobdesc = <%= @maxjobdesc %>
+

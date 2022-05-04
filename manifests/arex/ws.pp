@@ -1,3 +1,5 @@
+# Class arc_ce::arex::ws
+# Configures the arex/ws blocks in arc.conf
 class arc_ce::arex::ws(
   Boolean $enable = false,
   Stdlib::HTTPSUrl $wsurl = "https://${facts['networking']['fqdn']}:443/arex",
@@ -5,39 +7,32 @@ class arc_ce::arex::ws(
   Integer $max_job_control_requests = 100,
   Integer $max_infosys_requests = 1,
   Integer $max_data_transfer_requests = 100,
-  String $allownew = 'yes',
-  Array[String] $allownew_override = [],
-  Array[String] $allowaccess = [],
-  Array[String] $denyaccess = [],
-  Optional[Integer] $maxjobdesc = undef,
 ) {
 
   if $enable {
 
+    Service <| tag == 'arc-arex-ws' |>
+
     concat::fragment { 'arc.conf_ws':
       target  => '/etc/arc.conf',
-      content => template("${module_name}/ws/common.erb"),
+      content => template("${module_name}/arex/ws.erb"),
       order   => 20,
     }
 
-    # ws/jobs block, uses order 21
-    concat::fragment { 'arc.conf_ws_jobs':
-      target  => '/etc/arc.conf',
-      content => template("${module_name}/ws/jobs.erb"),
-      order   => 21,
-    }
+    # arex/ws/jobs block, uses order 21
+    contain 'arc_ce::arex::ws::jobs'
 
-    # ws/cache block, uses order 22
-    #contain 'arc_ce::ws::cache
+    # arex/ws/cache block, uses order 22
+    #contain 'arc_ce::arex::ws::cache
 
-    # ws/candypond block, uses order 23
-    #contain 'arc_ce::ws::candypond'
+    # arex/ws/candypond block, uses order 23
+    #contain 'arc_ce::arex::ws::candypond'
 
-    # ws/argus block, uses order 24
-    #contain 'arc_ce::ws::argus'
+    # arex/ws/argus block, uses order 24
+    contain 'arc_ce::arex::ws::argus'
 
-    # ws/publicinfo block, uses order 28
-    #contain 'arc_ce::ws::publicinfo'
+    # arex/ws/publicinfo block, uses order 28
+    contain 'arc_ce::arex::ws::publicinfo'
 
   }
 
