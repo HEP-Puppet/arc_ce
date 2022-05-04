@@ -5,6 +5,11 @@ class arc_ce::arex::ws(
   Integer $max_job_control_requests = 100,
   Integer $max_infosys_requests = 1,
   Integer $max_data_transfer_requests = 100,
+  String $allownew = 'yes',
+  Array[String] $allownew_override = [],
+  Array[String] $allowaccess = [],
+  Array[String] $denyaccess = [],
+  Optional[Integer] $maxjobdesc = undef,
 ) {
 
   if $enable {
@@ -16,7 +21,11 @@ class arc_ce::arex::ws(
     }
 
     # ws/jobs block, uses order 21
-    #contain 'arc_ce::ws::jobs'
+    concat::fragment { 'arc.conf_ws_jobs':
+      target  => '/etc/arc.conf',
+      content => template("${module_name}/ws/jobs.erb"),
+      order   => 21,
+    }
 
     # ws/cache block, uses order 22
     #contain 'arc_ce::ws::cache
