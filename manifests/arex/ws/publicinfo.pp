@@ -2,6 +2,7 @@
 # Configures the arex/ws/publicinfo block in arc.conf
 class arc_ce::arex::ws::publicinfo(
   Boolean $enable = false,
+  Array[Arc_ce::Access] $access = [],
   Array[String] $allowaccess = [],
   Array[String] $denyaccess = [],
 ) {
