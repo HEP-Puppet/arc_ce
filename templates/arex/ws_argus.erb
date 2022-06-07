@@ -1,0 +1,12 @@
+[arex/ws/argus]
+<% unless @arguspep_endpoint.nil? -%>
+arguspep_endpoint = <%= @arguspep_endpoint %>
+<% end -%>
+arguspep_profile = <%= @arguspep_profile %>
+arguspep_usermap = <%= @arguspep_usermap ? 'yes' : 'no' %>
+<% unless @arguspdp_endpoint.nil? -%>
+arguspdp_endpoint = <%= @arguspdp_endpoint %>
+<% end -%>
+arguspdp_profile = <%= @arguspdp_profile %>
+arguspdp_acceptnotapplicable = <%= @arguspdp_acceptnotapplicable ? 'yes' : 'no' %>
+

@@ -40,21 +40,7 @@ benchmark = <%= @primary_benchmark %> <%= @benchmark[@primary_benchmark] %>
   if bm == @primary_benchmark then next end -%>
 benchmark = <%= bm %> <%= @benchmark[bm] %>
 <% end -%>
-<% @access.each do |a|
-  if a['groups'].is_a?(Array)
-    a['groups'].each do |g| -%>
-<%= a['mode']%>access = <%= g %>
-<%  end
-  else -%>
-<%= a['mode']%>access = <%= a['groups'] %>
-<% end
-end -%>
-<% @denyaccess.each do |da| -%>
-denyaccess = <%= da %>
-<% end -%>
-<% @allowaccess.each do |aa| -%>
-allowaccess = <%= aa %>
-<% end -%>
+<%= scope.call_function('template', ["arc_ce/access_rules.erb"]) -%>
 <% @advertisedvo.each do |av| -%>
 advertisedvo = <%= av %>
 <% end -%>
