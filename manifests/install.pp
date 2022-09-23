@@ -11,11 +11,13 @@ class arc_ce::install(
       $arex_package = 'nordugrid-arc6-arex'
       $gridftpd_package = 'nordugrid-arc6-gridftpd'
       $infosysldap_package = 'nordugrid-arc6-infosys-ldap'
+      $lcmaps_plugin_package = 'nordugrid-arc6-plugins-lcas-lcmaps'
     }
     'nordugrid': {
       $arex_package = 'nordugrid-arc-arex'
       $gridftpd_package = 'nordugrid-arc-gridftpd'
       $infosysldap_package = 'nordugrid-arc-infosys-ldap'
+      $lcmaps_plugin_package = 'nordugrid-arc-plugins-lcas-lcmaps'
     }
     default: {}
   }
