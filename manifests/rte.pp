@@ -1,13 +1,12 @@
 # Define arc_ce::rte
 # Manages a single runtime environment (RTE)
-define arc_ce::rte(
+define arc_ce::rte (
   Boolean $enable = false,
   Boolean $default = false,
   Boolean $dummy = false,
   Optional[Stdlib::Filesource] $source = undef,
   Optional[String] $content = undef,
 ) {
-
   $rte_path = dirname($name)
 
   if $content !~ Undef and $source !~ Undef {
@@ -40,26 +39,25 @@ define arc_ce::rte(
 
   file { "/var/spool/arc/jobstatus/rte/enabled/${name}":
     ensure  => ($enable ? {
-      true    => 'link',
-      default => 'absent',
+        true    => 'link',
+        default => 'absent',
     }),
     target  => $sourcefile,
     require => ($enable ? {
-      true    => [File["/var/spool/arc/jobstatus/rte/enabled/${rte_path}"]] + $require,
-      default => undef,
+        true    => [File["/var/spool/arc/jobstatus/rte/enabled/${rte_path}"]] + $require,
+        default => undef,
     }),
   }
 
   file { "/var/spool/arc/jobstatus/rte/default/${name}":
     ensure  => (($default and $enable) ? {
-      true    => 'link',
-      default => 'absent',
+        true    => 'link',
+        default => 'absent',
     }),
     target  => $sourcefile,
     require => (($default and $enable) ? {
-      true    => [File["/var/spool/arc/jobstatus/rte/default/${rte_path}"]] + $require,
-      default => undef,
+        true    => [File["/var/spool/arc/jobstatus/rte/default/${rte_path}"]] + $require,
+        default => undef,
     }),
   }
-
 }

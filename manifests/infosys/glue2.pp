@@ -1,6 +1,6 @@
 # Class arc_ce::infosys::glue2
 # Configures the infosys::glue2 block in arc.conf
-class arc_ce::infosys::glue2(
+class arc_ce::infosys::glue2 (
   Boolean $enable = false,
   String $admindomain_name = 'UNDEFINEDVALUE',
   Optional[String] $admindomain_description = undef,
@@ -29,5 +29,4 @@ class arc_ce::infosys::glue2(
       }
     }
   }
-
 }

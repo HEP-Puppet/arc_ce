@@ -1,14 +1,13 @@
 # Define: arc_ce::authgroup
 # Configures the authgroup blocks in arc.conf
-define arc_ce::authgroup(
+define arc_ce::authgroup (
   Array[Arc_ce::AuthgroupRule] $rules = [],
   Integer $order = 1,
 ) {
-
   concat::fragment { "arc.conf_authgroup_${name}":
     target  => '/etc/arc.conf',
     content => template("${module_name}/authgroup.erb"),
-    order   => "11-${order}",
+    order   => "12-${order}",
   }
 
   $rules.each |Arc_ce::AuthgroupRule $agr| {
@@ -17,5 +16,4 @@ define arc_ce::authgroup(
       include 'arc_ce::lcas::config'
     }
   }
-
 }

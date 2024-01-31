@@ -1,6 +1,6 @@
 # Class arc_ce::arex::ws
 # Configures the arex/ws blocks in arc.conf
-class arc_ce::arex::ws(
+class arc_ce::arex::ws (
   Boolean $enable = false,
   Stdlib::HTTPSUrl $wsurl = "https://${facts['networking']['fqdn']}:443/arex",
   Stdlib::Unixpath $logfile = '/var/log/arc/ws-interface.log',
@@ -8,9 +8,7 @@ class arc_ce::arex::ws(
   Integer $max_infosys_requests = 1,
   Integer $max_data_transfer_requests = 100,
 ) {
-
   if $enable {
-
     Service <| tag == 'arc-arex-ws' |>
 
     concat::fragment { 'arc.conf_ws':
@@ -33,7 +31,5 @@ class arc_ce::arex::ws(
 
     # arex/ws/publicinfo block, uses order 28
     contain 'arc_ce::arex::ws::publicinfo'
-
   }
-
 }

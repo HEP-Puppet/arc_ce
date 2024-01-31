@@ -1,13 +1,12 @@
 # Class arc_ce::infosys
 # Configures the infosys block in arc.conf
-class arc_ce::infosys(
+class arc_ce::infosys (
   Stdlib::Unixpath $logfile = '/var/log/arc/infoprovider.log',
   Arc_ce::LogLevel $infosys_loglevel = 'INFO',
   Integer $validity_ttl = 10800,
   Boolean $enable_nordugrid = false,
   Boolean $enable_glue1 = false,
 ) {
-
   concat::fragment { 'arc.conf_infosys':
     target  => '/etc/arc.conf',
     content => template("${module_name}/infosys/common.erb"),
@@ -36,5 +35,4 @@ class arc_ce::infosys(
 
   # infosys/cluster block, uses order 40
   contain 'arc_ce::infosys::cluster'
-
 }

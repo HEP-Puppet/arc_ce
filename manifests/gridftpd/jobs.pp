@@ -1,6 +1,6 @@
 # Class arc_ce::gridftpd::jobs
 # Configures the gridftp/jobs block in arc.conf
-class arc_ce::gridftpd::jobs(
+class arc_ce::gridftpd::jobs (
   Boolean $enable = false,
   Boolean $allownew = true,
   Array[String] $allownew_override = [],
@@ -9,7 +9,6 @@ class arc_ce::gridftpd::jobs(
   Array[String] $allowaccess = [],
   Integer $maxjobdesc = 5242880,
 ) {
-
   if $enable {
     concat::fragment { 'arc.conf_gridftpd_jobs':
       target  => '/etc/arc.conf',
@@ -17,5 +16,4 @@ class arc_ce::gridftpd::jobs(
       order   => 31,
     }
   }
-
 }

@@ -1,6 +1,6 @@
 # Class arc_ce::install
 # Installs the ARC6 package
-class arc_ce::install(
+class arc_ce::install (
   Enum['epel', 'nordugrid'] $install_from = 'epel',
   String $ensure = 'present',
   Optional[String] $gridftpd_ensure = 'present',
@@ -46,5 +46,4 @@ class arc_ce::install(
 
   include arc_ce::lcmaps::install
   include arc_ce::lcas::install
-
 }

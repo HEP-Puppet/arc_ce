@@ -30,7 +30,6 @@ define arc_ce::queue (
   Optional[Arc_ce::Duration] $maxwalltime = lookup('arc_ce::queue_defaults::maxwalltime', Optional[Arc_ce::Duration], undef, undef),
   Optional[Arc_ce::Duration] $minwalltime = lookup('arc_ce::queue_defaults::minwalltime', Optional[Arc_ce::Duration], undef, undef),
 ) {
-
   unless $primary_benchmark in $benchmark {
     fail("value of primary_benchmark (${primary_benchmark}) not found in benchmark definition of queue ${name}")
   }
@@ -44,5 +43,4 @@ define arc_ce::queue (
     content => template("${module_name}/queue.erb"),
     order   => 41,
   }
-
 }

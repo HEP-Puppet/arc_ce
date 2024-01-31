@@ -1,4 +1,6 @@
-class arc_ce::infosys::glue1(
+# Class arc_ce::infosys::glue1
+# Configures the infosys::glue1 block in arc.conf
+class arc_ce::infosys::glue1 (
   String $resource_location,
   Float $resource_latitude,
   Float $resource_longitude,
@@ -7,11 +9,9 @@ class arc_ce::infosys::glue1(
   String $glue_site_web,
   String $glue_site_unique_id,
 ) {
-
   concat::fragment { 'arc.conf_infosys_glue1':
-    target   => '/etc/arc.conf',
+    target  => '/etc/arc.conf',
     content => template("${module_name}/infosys/glue1.erb"),
-    order    => 38,
+    order   => 38,
   }
-
 }

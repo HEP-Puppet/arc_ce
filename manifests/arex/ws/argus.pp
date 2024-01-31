@@ -1,6 +1,6 @@
 # Class arc_ce::arex::ws::argus
 # Configures the arex/ws/argus block in arc.conf
-class arc_ce::arex::ws::argus(
+class arc_ce::arex::ws::argus (
   Boolean $enable = false,
   Optional[String] $arguspep_endpoint = undef,
   Arc_ce::ArgusPepProfile $arguspep_profile = 'emi',
@@ -9,7 +9,6 @@ class arc_ce::arex::ws::argus(
   Arc_ce::ArgusPdpProfile $arguspdp_profile = 'emi',
   Boolean $arguspdp_acceptnotapplicable = false,
 ) {
-
   if $enable {
     concat::fragment { 'arc.conf_arex_ws_argus':
       target  => '/etc/arc.conf',
@@ -17,5 +16,4 @@ class arc_ce::arex::ws::argus(
       order   => 24,
     }
   }
-
 }
