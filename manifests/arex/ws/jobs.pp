@@ -1,6 +1,6 @@
 # Class arc_ce::arex::ws::jobs
 # Configures the arex/ws/jobs block in arc.conf
-class arc_ce::arex::ws::jobs(
+class arc_ce::arex::ws::jobs (
   Boolean $enable = false,
   Boolean $allownew = true,
   Array[String] $allownew_override = [],
@@ -9,7 +9,6 @@ class arc_ce::arex::ws::jobs(
   Array[String] $allowaccess = [],
   Integer $maxjobdesc = 5242880,
 ) {
-
   if $enable {
     concat::fragment { 'arc.conf_arex_ws_jobs':
       target  => '/etc/arc.conf',
@@ -17,5 +16,4 @@ class arc_ce::arex::ws::jobs(
       order   => 21,
     }
   }
-
 }

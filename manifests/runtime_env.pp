@@ -1,28 +1,27 @@
 # Class arc_ce::runtime_env
 # Manages runtime environments (RTEs)
-class arc_ce::runtime_env(
+class arc_ce::runtime_env (
   Boolean $add_glite = true,
   Boolean $add_mcore_scratch = true,
   Boolean $purge_rte_dirs = true,
-  Array[String] $enable = [ 'ENV/PROXY' ],
-  Array[String] $dummy = [ 'APPS/HEP/ATLAS-SITE-LCG' ],
-  Array[String] $default = [ 'ENV/PROXY' ],
+  Array[String] $enable = ['ENV/PROXY'],
+  Array[String] $dummy = ['APPS/HEP/ATLAS-SITE-LCG'],
+  Array[String] $default = ['ENV/PROXY'],
   Hash[String,Hash] $additional_rtes = {},
 ) {
-
   # create directories for custom runtime environments
   $user_rte_dirs = unique(unique($additional_rtes.keys() +
-    ($add_glite ? {
-      true    => ['ENV/GLITE'],
-      default => [],
-    }) +
-    ($add_mcore_scratch ? {
-      true    => ['ENV/MCORE-SCRATCH'],
-      default => [],
-    })
-  ).map |$x| { split(dirname($x), '/').reduce([]) |$m, $x| { $m + join([$m[-1], $x], '/')}}.flatten())
+      ($add_glite ? {
+          true    => ['ENV/GLITE'],
+          default => [],
+      }) +
+      ($add_mcore_scratch ? {
+          true    => ['ENV/MCORE-SCRATCH'],
+          default => [],
+      })
+  ).map |$x| { split(dirname($x), '/').reduce([]) |$m, $x| { $m + join([$m[-1], $x], '/') } }.flatten())
 
-  file { [ '/etc/arc/', '/etc/arc/runtime/' ] + $user_rte_dirs.map |$x| { "/etc/arc/runtime${x}" }:
+  file { ['/etc/arc/', '/etc/arc/runtime/'] + $user_rte_dirs.map |$x| { "/etc/arc/runtime${x}" }:
     ensure  => 'directory',
     owner   => 'root',
     group   => 'root',
@@ -37,23 +36,23 @@ class arc_ce::runtime_env(
 
   # create directories for enabled and dummy runtime environments
   $enabled_rte_dirs =
-    unique(unique($enable + $dummy).map |$x| { split(dirname($x), '/').reduce([]) |$m, $x| { $m + join([$m[-1], $x], '/')}}.flatten())
+    unique(unique($enable + $dummy).map |$x| { split(dirname($x), '/').reduce([]) |$m, $x| { $m + join([$m[-1], $x], '/') } }.flatten())
 
   # create directories for default runtime environments
   $default_rte_dirs =
-    unique($default_real.map |$x| { split(dirname($x), '/').reduce([]) |$m, $x| { $m + join([$m[-1], $x], '/')}}.flatten())
+    unique($default_real.map |$x| { split(dirname($x), '/').reduce([]) |$m, $x| { $m + join([$m[-1], $x], '/') } }.flatten())
 
-  file { ['/var/spool/arc/jobstatus/rte', '/var/spool/arc/jobstatus/rte/enabled', '/var/spool/arc/jobstatus/rte/default', ] +
-      $enabled_rte_dirs.map |$x| { "/var/spool/arc/jobstatus/rte/enabled${x}" } +
-      $default_rte_dirs.map |$x| { "/var/spool/arc/jobstatus/rte/default${x}" }:
-    ensure  => 'directory',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    purge   => $purge_rte_dirs,
-    recurse => true,
-    force   => true,
-    require => Package['nordugrid-arc-arex'],
+  file { ['/var/spool/arc/jobstatus/rte', '/var/spool/arc/jobstatus/rte/enabled', '/var/spool/arc/jobstatus/rte/default',] +
+    $enabled_rte_dirs.map |$x| { "/var/spool/arc/jobstatus/rte/enabled${x}" } +
+    $default_rte_dirs.map |$x| { "/var/spool/arc/jobstatus/rte/default${x}" }:
+      ensure  => 'directory',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      purge   => $purge_rte_dirs,
+      recurse => true,
+      force   => true,
+      require => Package['nordugrid-arc-arex'],
   }
 
   # add glite RTE
@@ -95,18 +94,17 @@ class arc_ce::runtime_env(
 
   # configure dummy RTEs
   $dummy.each |String $rte| {
-      arc_ce::rte { $rte:
-        enable => true,
-        dummy  => true,
-      }
+    arc_ce::rte { $rte:
+      enable => true,
+      dummy  => true,
+    }
   }
 
   # configure system RTEs
-  [ 'ENV/CANDYPOND', 'ENV/CONDOR/DOCKER', 'ENV/LRMS-SCRATCH', 'ENV/PROXY', 'ENV/RTE', 'ENV/SINGULARITY' ].each |String $rte| {
+  ['ENV/CANDYPOND', 'ENV/CONDOR/DOCKER', 'ENV/LRMS-SCRATCH', 'ENV/PROXY', 'ENV/RTE', 'ENV/SINGULARITY'].each |String $rte| {
     arc_ce::rte { $rte:
       enable  => $rte in $enable,
       default => $rte in $default_real,
     }
   }
-
 }

@@ -1,8 +1,8 @@
 # Class arc_ce::infosys::ldap
 # Configures the infosys/ldap block in arc.conf
-class arc_ce::infosys::ldap(
+class arc_ce::infosys::ldap (
   Boolean $enable = false,
-  Stdlib::Fqdn $hostname = $::arc_ce::config::hostname,
+  Stdlib::Fqdn $hostname = $arc_ce::config::hostname,
   Optional[String] $slapd_hostnamebind = undef,
   Stdlib::Port::Unprivileged $port = 2135,
   Optional[String] $user = undef,
@@ -30,9 +30,7 @@ class arc_ce::infosys::ldap(
   Optional[Integer] $bdii_delete_delay = undef,
   Optional[Integer] $bdii_read_timeout = undef,
 ) {
-
   if $enable {
-
     Package <| tag == 'arc-package-infosys-ldap' |>
     Service <| tag == 'arc-service-infosys-ldap' |>
 
@@ -41,7 +39,5 @@ class arc_ce::infosys::ldap(
       content => template("${module_name}/infosys/ldap.erb"),
       order   => 34,
     }
-
   }
-
 }

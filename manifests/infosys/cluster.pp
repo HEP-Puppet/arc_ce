@@ -1,8 +1,8 @@
 # Class arc_ce::infosys::cluster
 # Configures the infosys/cluster block in arc.conf
-class arc_ce::infosys::cluster(
+class arc_ce::infosys::cluster (
   Optional[String] $cluster_alias = undef,
-  Stdlib::Fqdn $hostname = $::arc_ce::config::hostname,
+  Stdlib::Fqdn $hostname = $arc_ce::config::hostname,
   Optional[String] $interactive_contactstring = undef,
   Optional[String] $comment = undef,
   Optional[String] $cluster_location = undef,
@@ -23,7 +23,6 @@ class arc_ce::infosys::cluster(
   Optional[Arc_ce::Duration] $maxwalltime = undef,
   Optional[Arc_ce::Duration] $minwalltime = undef,
 ) {
-
   $maxcputime_seconds = arc_ce::duration_to_seconds($maxcputime)
   $mincputime_seconds = arc_ce::duration_to_seconds($mincputime)
   $maxwalltime_seconds = arc_ce::duration_to_seconds($maxwalltime)
@@ -34,5 +33,4 @@ class arc_ce::infosys::cluster(
     content => template("${module_name}/infosys/cluster.erb"),
     order   => 40,
   }
-
 }

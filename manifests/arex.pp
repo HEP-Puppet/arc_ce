@@ -4,7 +4,7 @@
 # Notes
 # had to call the loglevel arexloglevel because puppet appears to ignore the datatype definition and
 # uses its own definition if the variable is called loglevel, needs further investigation
-class arc_ce::arex(
+class arc_ce::arex (
   String $user = 'root',
   String $group = 'root',
   Boolean $norootpower = false,
@@ -15,14 +15,14 @@ class arc_ce::arex(
   Stdlib::Unixpath $joblog = '/var/log/arc/arex-jobs.log',
   Arc_ce::FixDirectories $fixdirectories = 'yes',
   Stdlib::Unixpath $controldir = '/var/spool/arc/jobstatus',
-  Hash[Arc_ce::SessionDir, Optional[Boolean]] $sessiondir = {'/var/spool/arc/sessiondir' => false,},
+  Hash[Arc_ce::SessionDir, Optional[Boolean]] $sessiondir = { '/var/spool/arc/sessiondir' => false, },
   Integer $defaultttl = 604800,
   Integer $defaultttr = 2592000,
   Boolean $shared_filesystem = true,
   Optional[Stdlib::Unixpath] $scratchdir = undef,
   Optional[Stdlib::Unixpath] $shared_scratch = undef,
   Stdlib::Unixpath $tmpdir = '/tmp',
-  Array[Stdlib::Unixpath] $runtimedir = [ '/etc/arc/runtime' ],
+  Array[Stdlib::Unixpath] $runtimedir = ['/etc/arc/runtime'],
   Array[Integer,5,5] $maxjobs = [-1, -1, -1, -1, -1],
   Integer $maxrerun = 5,
   Array[Arc_ce::StateCallout] $statecallout = [],
@@ -33,7 +33,6 @@ class arc_ce::arex(
   Stdlib::Unixpath $helperlog = '/var/log/arc/job.helper.errors',
   Optional[String] $forcedefaultvoms = undef,
 ) {
-
   # arex block
   concat::fragment { 'arc.conf_arex':
     target  => '/etc/arc.conf',
@@ -68,5 +67,4 @@ class arc_ce::arex(
     group  => $user,
     mode   => '0755',
   }
-
 }

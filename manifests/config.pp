@@ -1,6 +1,6 @@
 # Class: arc_ce::config
 # Sets up the configuration file
-class arc_ce::config(
+class arc_ce::config (
   # common block options
   Stdlib::Fqdn $hostname = $facts['networking']['fqdn'],
   Stdlib::Unixpath $x509_host_cert = '/etc/grid-security/hostcert.pem',
@@ -20,7 +20,6 @@ class arc_ce::config(
   Array[Stdlib::Port::Unprivileged,2,2] $globus_tcp_port_range = [9000, 9300],
   Array[Stdlib::Port::Unprivileged,2,2] $globus_udp_port_range = [9000, 9300],
 ) {
-
   concat { '/etc/arc.conf':
     order   => 'alpha',
     require => Package['nordugrid-arc-arex'],
@@ -33,7 +32,10 @@ class arc_ce::config(
     order   => 10,
   }
 
-  # authgroup blocks, uses order 11
+  # authtokens block, uses order 11
+  contain 'arc_ce::authtokens'
+
+  # authgroup blocks, uses order 12
   create_resources('arc_ce::authgroup', $authgroups)
 
   # add an authgroup that covers all other configured authgroups
@@ -48,7 +50,7 @@ class arc_ce::config(
   concat::fragment { 'arc.conf_mapping':
     target  => '/etc/arc.conf',
     content => template("${module_name}/mapping.erb"),
-    order   => 12,
+    order   => 13,
   }
 
   $mapping_rules.each |Arc_ce::MappingRule $mr| {
@@ -57,8 +59,6 @@ class arc_ce::config(
       contain 'arc_ce::lcmaps::config'
     }
   }
-
-  # 13 reserverd for authtokens
 
   # lrms block, uses order 14 (common options) and 15 (reserved for lrms specific options) and 16 (reserved for lrms/ssh block)
   contain 'arc_ce::lrms'
@@ -76,9 +76,8 @@ class arc_ce::config(
   create_resources('arc_ce::queue', $queues)
 
   if false {
-
     # set up runtime environments
-    class {'arc_ce::runtime_env':}
+    class { 'arc_ce::runtime_env': }
 
     # apply manual fixes
     # for details check fixes.md
@@ -100,11 +99,10 @@ class arc_ce::config(
         mode   => '0755',
         notify => Exec['create-bdii-config'],
       }
-      exec {'create-bdii-config':
+      exec { 'create-bdii-config':
         command     => '/usr/share/arc/create-bdii-config',
         refreshonly => true,
       }
     }
   }
-
 }

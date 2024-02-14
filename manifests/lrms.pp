@@ -1,6 +1,6 @@
 # Class arc_ce::lrms
 # Configures the common options in the lrms block in arc.conf
-class arc_ce::lrms(
+class arc_ce::lrms (
   Arc_ce::Lrms $lrms = 'fork',
   Optional[String] $defaultqueue = undef,
   Optional[String] $lrmsconfig = undef,
@@ -9,7 +9,6 @@ class arc_ce::lrms(
   Optional[Stdlib::Fqdn] $nodename = undef,
   Stdlib::Unixpath $gnu_time = '/usr/bin/time',
 ) {
-
   concat::fragment { 'arc.conf_lrms':
     target  => '/etc/arc.conf',
     content => template("${module_name}/lrms/common.erb"),

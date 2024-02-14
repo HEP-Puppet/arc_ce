@@ -1,6 +1,6 @@
 # Class arc_ce::services
 # Manages the ARC services
-class arc_ce::services(
+class arc_ce::services (
   Stdlib::Ensure::Service $arex_ensure = 'running',
   Boolean $arex_enable = true,
   Stdlib::Ensure::Service $gridftpd_ensure = 'running',
@@ -10,7 +10,6 @@ class arc_ce::services(
   Stdlib::Ensure::Service $arex_ws_ensure = 'running',
   Boolean $arex_ws_enable = true,
 ) {
-
   service { 'arc-arex':
     ensure     => $arex_ensure,
     enable     => $arex_enable,
@@ -57,5 +56,4 @@ class arc_ce::services(
     require    => Service['arc-service-infosys-ldap'],
     tag        => 'arc-service-infosys-ldap',
   }
-
 }

@@ -1,6 +1,6 @@
 # Define arc_ce::arex::jura_apel
 # Configures a jura apel target block in arc.conf
-define arc_ce::arex::jura_apel(
+define arc_ce::arex::jura_apel (
   Optional[Stdlib::HTTPSUrl] $targeturl = undef,
   String $topic = '/queue/global.accounting.cpu.central',
   Optional[String] $gocdb_name = undef,
@@ -10,11 +10,9 @@ define arc_ce::arex::jura_apel(
   Integer $urdelivery_frequency = 86000,
   Boolean $legacy_fallback = false,
 ) {
-
   concat::fragment { "arc.conf_arex_jura_apel_${name}":
     target  => '/etc/arc.conf',
     content => template("${module_name}/arex/jura_apel.erb"),
     order   => 27,
   }
-
 }
