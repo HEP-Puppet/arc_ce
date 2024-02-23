@@ -3,6 +3,8 @@
 Facter.add(:arc_version) do
   # https://puppet.com/docs/puppet/latest/fact_overview.html
   setcode do
-    Facter::Util::Resolution::exec('/usr/sbin/arched --version').split(' ')[2]
+    if File.executable?('/usr/sbin/arched')
+      Facter::Util::Resolution::exec('/usr/sbin/arched --version').split(' ')[2]
+    end
   end
 end
